@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres
+    restart: always
+    env_file:
+      - db_env_file
+    ports:
+      - "5432:5432"
+    volumes:
+      - database:/var/lib/postgresql
+  # api:
+  #   build: ./api
+  #   command: python manage.py runserver 0.0.0.0:${API_PORT}
+  #   env_file:
+  #     - api_env_file
+  #   volumes:
+  #     - ./api:/src
+  #   networks:
+  #     - db_nw
+  #     - proxy
+  #   depends_on:
+  #     - db
+  client:
+    build:
+      context: ./client
+      args:
+        port: ${CLIENT_PORT}
+    env_file:
+      - client_env_file
+    command: npm start
+    volumes:
+      - ./client:/app/src
+      - "/app/src/node_modules"
+  
+
+volumes:
+  database:
