@@ -2,3 +2,10 @@ node_modules
 client_env_file
 api_env_file
 db_env_file
+# Django #
+*.log
+*.pot
+*.pyc
+__pycache__
+db.sqlite3
+media
