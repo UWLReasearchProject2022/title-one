@@ -21,18 +21,8 @@ services:
       - "4000:4000"
     depends_on:
       - db
-  client:
-    build:
-      context: ./client
-    env_file:
-      - client_env_file
-    command: npm start
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./client:/app
-      - "/app/node_modules"
-  
 
+  
 volumes:
   database:
+
