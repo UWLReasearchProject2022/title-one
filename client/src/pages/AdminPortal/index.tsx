@@ -1,6 +1,13 @@
 import React from "react";
-import { Paper } from "@mui/material";
+import { PageTemplate, Placeholder } from "components";
+import { Typography } from "@mui/material";
 
 export const AdminPortal: React.FunctionComponent = () => {
-  return <Paper>AdminPortal</Paper>;
+  return (
+    <PageTemplate>
+      <Placeholder>
+        <Typography color={"primary"}>Admin portal</Typography>
+      </Placeholder>
+    </PageTemplate>
+  );
 };

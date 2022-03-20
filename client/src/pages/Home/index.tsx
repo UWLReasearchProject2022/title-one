@@ -1,6 +1,10 @@
 import React from "react";
-import { Paper } from "@mui/material";
+import { PageTemplate, Placeholder } from "components";
 
 export const Home: React.FunctionComponent = () => {
-  return <Paper>Home</Paper>;
+  return (
+    <PageTemplate>
+      <Placeholder>Home</Placeholder>
+    </PageTemplate>
+  );
 };
