@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { darkTheme } from "utils/theme";
+import { ThemeProvider } from "@mui/material/styles";
+import { routes, AppRoute } from "pages/routes";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-function App() {
+const App: React.FunctionComponent = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={darkTheme}>
+      <Router>
+        <Routes>
+          {routes.map((route: AppRoute) => (
+            <Route
+              key={route.name}
+              path={route.path}
+              element={<route.element />}
+            />
+          ))}
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
