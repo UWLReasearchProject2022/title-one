@@ -1,0 +1,15 @@
+[
+    {
+        "id": "1",
+        "name" : "A Game",
+        "short_description" : "A short description",
+        "developer" : "A developer",
+        "price" : 100,
+        "image" : "https://cdn.discordapp.com/attachments/717098180981209856/717098180981209858/unknown.png",
+        "platform" : "PC",
+        "platform_image": "https://example.com/pc.png",
+        "age_rating" : "18+",
+        "age_rating_image": "https://example.com/18+.png",
+        "release_date" : "2020-01-01"
+    }
+]
