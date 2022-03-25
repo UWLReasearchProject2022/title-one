@@ -1,7 +1,6 @@
-import React from "react";
 import { PageTemplate, ProductGrid } from "components";
 
-export const Search: React.FunctionComponent = () => {
+export const Search = () => {
   return (
     <PageTemplate>
       <ProductGrid />
