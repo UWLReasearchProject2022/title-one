@@ -1,5 +1,7 @@
 # Title One
 
+
+## Setup
 This repo requires docker and docker compose to be installed. WSL2 is recommended if running on Windows.
 
 This application uses a docker-compose.yml file to orchestrate three separate containers:
@@ -40,3 +42,18 @@ python manage.py createsuperuser
 
 Run through the script and enter details for the super user. You can use `admin` for both the username and password for local testing purposes. 
 
+## Frontend Development
+
+While the API is still in development there is a need for a mock API to develop the frontend components. We are using JSON Server which uses a single JSON file to spin up a local REST API. 
+
+Install this server globally with:
+```bash
+npm install -g json-server
+```
+
+To start the API open a console and navigate to the `mock api` folder. Then run:
+```bash
+json-server --watch db.json --port 4000 --routes routes.json
+```
+
+To add some artificial delay to the api to test loading state etc, add: `--delay 400` for 400ms of delay
