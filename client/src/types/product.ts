@@ -6,9 +6,7 @@ export type Product = {
   developer: string;
   price: number;
   image: string;
-  platform: string;
-  platform_image: string;
-  age_rating: string;
-  age_rating_image: string;
+  platform: "PC" | "playstation" | "xbox" | "switch";
+  age_rating: "3+" | "7+" | "12+" | "16+" | "18+";
   release_date: string;
 };

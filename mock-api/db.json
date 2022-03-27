@@ -8,9 +8,7 @@
             "price" : 52.50,
             "image" : "https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png",
             "platform" : "PC",
-            "platform_image": "https://example.com/pc.png",
             "age_rating" : "18+",
-            "age_rating_image": "https://example.com/18+.png",
             "release_date" : "2020-01-01"
         },
         {
@@ -20,10 +18,8 @@
             "developer" : "Ubisoft",
             "price" : 31.99,
             "image" : "https://m.media-amazon.com/images/I/91aI00z5SrL._AC_SL1500_.jpg",
-            "platform" : "PS4",
-            "platform_image": "https://example.com/pc.png",
-            "age_rating" : "18+",
-            "age_rating_image": "https://example.com/18+.png",
+            "platform" : "playstation",
+            "age_rating" : "12+",
             "release_date" : "2020-01-01"
         }
     ]

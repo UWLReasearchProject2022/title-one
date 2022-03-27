@@ -6,6 +6,8 @@ export const Container = styled(Card)({
   padding: "1rem",
   margin: "0.5rem",
   color: "#CCCCCC",
+  backgroundColor: "#101010",
+  backgroundImage: "none",
 });
 
 export const Title = styled(Typography)({
@@ -19,7 +21,6 @@ export const Header = styled("div")({
 export const Price = styled(Typography)({
   fontSize: "1rem",
   marginLeft: "auto",
-  marginRight: "0.5rem",
 });
 
 export const Developer = styled(Typography)({
@@ -32,11 +33,31 @@ export const Body = styled("div")({
 });
 
 export const Image = styled("img")({
-  height: "14rem",
+  width: "40%",
+});
+
+export const Details = styled("div")({
+  display: "flex",
+  flexWrap: "wrap",
 });
 
 export const Description = styled(Typography)({
   fontSize: "0.9rem",
-  width: "12rem",
-  marginLeft: "1rem",
+  width: "60%",
+  margin: "0rem 1rem",
+});
+
+export const IconStack = styled("div")({
+  width: "2rem",
+  marginLeft: "auto",
+});
+
+export const Icon = styled("img")({
+  width: "2rem",
+  marginBottom: "0.4rem",
+});
+
+export const Actions = styled("div")({
+  marginTop: "auto",
+  marginLeft: "auto",
 });
