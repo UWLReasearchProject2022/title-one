@@ -1,4 +1,3 @@
-// import { Typography } from "@mui/material";
 import { Product } from "types";
 import {
   Container,
@@ -12,7 +11,6 @@ import {
   IconStack,
   Icon,
   Actions,
-  Details,
 } from "./ProductCard.styles";
 import { Button } from "@mui/material";
 import { LikeButton } from "components";
@@ -22,7 +20,7 @@ type Props = {
   product: Product;
 };
 
-export const ProductCard = ({ product }: Props) => {
+export const ProductCard: React.FunctionComponent<Props> = ({ product }) => {
   return (
     <Container>
       <Header>
@@ -37,19 +35,17 @@ export const ProductCard = ({ product }: Props) => {
       <Developer>{product.developer}</Developer>
       <Body>
         <Image src={product.image} />
-        <Details>
-          <Description>{product.short_description}</Description>
-          <IconStack>
-            <Icon src={platformIcons[product.platform]} />
-            <Icon src={pegiIcons[product.age_rating]} />
-          </IconStack>
-          <Actions>
-            <LikeButton />
-            <Button variant="contained" color="secondary">
-              View
-            </Button>
-          </Actions>
-        </Details>
+        <Description>{product.short_description}</Description>
+        <IconStack>
+          <Icon src={platformIcons[product.platform]} />
+          <Icon src={pegiIcons[product.age_rating]} />
+        </IconStack>
+        <Actions>
+          <LikeButton />
+          <Button variant="contained" color="secondary">
+            View
+          </Button>
+        </Actions>
       </Body>
     </Container>
   );

@@ -8,7 +8,9 @@ export const Banner = styled("div")({
   position: "relative",
   left: "calc(-50vw + 50%)",
   marginBottom: "1rem",
-  padding: "0.75em 0",
+  height: "4rem",
+  display: "flex",
+  alignItem: "center",
 });
 
 export const Container = styled("div")({
@@ -25,5 +27,6 @@ export const BackIcon = styled(KeyboardBackspaceIcon)({
 });
 
 export const SearchField = styled(TextField)({
-  width: "20em",
+  width: "20vw",
+  maxWidth: "20rem",
 });

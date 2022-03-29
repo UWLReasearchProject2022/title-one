@@ -2,7 +2,6 @@ import { styled } from "@mui/system";
 import { Card, Typography } from "@mui/material";
 
 export const Container = styled(Card)({
-  width: "50%",
   padding: "1rem",
   margin: "0.5rem",
   color: "#CCCCCC",
@@ -28,26 +27,27 @@ export const Developer = styled(Typography)({
 });
 
 export const Body = styled("div")({
+  position: "relative",
   display: "flex",
   marginTop: "0.3rem",
 });
 
 export const Image = styled("img")({
-  width: "40%",
-});
-
-export const Details = styled("div")({
-  display: "flex",
-  flexWrap: "wrap",
+  height: "11rem",
+  objectFit: "contain",
+  objectPosition: "top",
 });
 
 export const Description = styled(Typography)({
   fontSize: "0.9rem",
-  width: "60%",
+  width: "calc(100% - 16rem)",
   margin: "0rem 1rem",
 });
 
 export const IconStack = styled("div")({
+  position: "absolute",
+  right: 0,
+  top: 0,
   width: "2rem",
   marginLeft: "auto",
 });
@@ -58,6 +58,7 @@ export const Icon = styled("img")({
 });
 
 export const Actions = styled("div")({
-  marginTop: "auto",
-  marginLeft: "auto",
+  position: "absolute",
+  right: 0,
+  bottom: 0,
 });

@@ -13,7 +13,10 @@ type Props = {
 };
 
 // this component will either be passed the filtering props or get it from context
-export const ProductGrid = ({ query, sortBy }: Props) => {
+export const ProductGrid: React.FunctionComponent<Props> = ({
+  query,
+  sortBy,
+}) => {
   const { products, isLoading, error } = useProducts();
 
   const options = {

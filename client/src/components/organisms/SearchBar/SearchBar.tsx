@@ -1,22 +1,30 @@
-import { Banner, Container, SearchField } from "./SearchBar.style";
+import { Banner, Container, SearchField } from "./SearchBar.styles";
 import { InputAdornment } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { SortBy } from "components";
+import { SortBy, StepBack } from "components";
 import { SortBy as SortByType } from "types";
 
 type Props = {
   query: string;
   sortBy: SortByType;
-  // eslint-disable-next-line no-unused-vars
-  setSortBy: (sortBy: SortByType) => void;
-  // eslint-disable-next-line no-unused-vars
-  setQuery: (query: string) => void;
+  setSortBy: (_: SortByType) => void;
+  setQuery: (_: string) => void;
+  backTo: string;
+  backPage: string;
 };
 
-export const SearchBar = ({ sortBy, setSortBy, query, setQuery }: Props) => {
+export const SearchBar: React.FunctionComponent<Props> = ({
+  sortBy,
+  setSortBy,
+  query,
+  setQuery,
+  backTo,
+  backPage,
+}) => {
   return (
     <Banner>
       <Container>
+        <StepBack to={backTo} page={backPage} />
         <SearchField
           placeholder="Have something in mind?"
           size="small"
@@ -25,9 +33,13 @@ export const SearchBar = ({ sortBy, setSortBy, query, setQuery }: Props) => {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <SearchIcon />
+                <SearchIcon color="primary" fontSize="small" />
               </InputAdornment>
             ),
+            style: {
+              height: "2rem",
+              fontSize: "14px",
+            },
           }}
         />
         <SortBy sortBy={sortBy} setSortBy={setSortBy} />

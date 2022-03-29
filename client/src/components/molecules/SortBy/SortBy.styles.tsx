@@ -1,5 +1,5 @@
 import { styled } from "@mui/system";
-import { Typography } from "@mui/material";
+import { Typography, TextField, MenuItem } from "@mui/material";
 
 export const Container = styled("div")({
   display: "flex",
@@ -7,5 +7,13 @@ export const Container = styled("div")({
 });
 
 export const Label = styled(Typography)({
-  marginRight: "1em",
+  marginRight: "1rem",
+});
+
+export const Dropdown = styled(TextField)({
+  width: "11rem",
+});
+
+export const DropdownItem = styled(MenuItem)({
+  fontSize: "14px",
 });

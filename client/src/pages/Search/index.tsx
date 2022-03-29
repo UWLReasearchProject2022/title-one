@@ -12,6 +12,8 @@ export const Search: React.FunctionComponent = () => {
         setSortBy={setSortBy}
         query={query}
         setQuery={setQuery}
+        backTo="/"
+        backPage="home"
       />
       <ProductGrid query={query} sortBy={sortBy} />
     </PageTemplate>

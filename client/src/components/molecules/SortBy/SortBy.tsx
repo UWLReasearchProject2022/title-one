@@ -1,26 +1,34 @@
-import { MenuItem, TextField } from "@mui/material";
-import { Container, Label } from "./SortBy.styles";
+import { Container, Label, Dropdown, DropdownItem } from "./SortBy.styles";
 import { SortBy as SortByType } from "types";
+
 type Props = {
-  // eslint-disable-next-line no-unused-vars
-  setSortBy: (sortBy: SortByType) => void;
+  setSortBy: (_: SortByType) => void;
   sortBy: SortByType;
 };
 
-export const SortBy = ({ sortBy, setSortBy }: Props) => {
+export const SortBy: React.FunctionComponent<Props> = ({
+  sortBy,
+  setSortBy,
+}) => {
   return (
     <Container>
       <Label color="primary">Sort by</Label>
-      <TextField
+      <Dropdown
         select
         value={sortBy}
         onChange={(e) => setSortBy(e.target.value as SortByType)}
         size="small"
+        InputProps={{
+          style: {
+            height: "2rem",
+            fontSize: "14px",
+          },
+        }}
       >
-        <MenuItem value="price-asc">Price (Low to High)</MenuItem>
-        <MenuItem value="price-desc">Price (High to Low)</MenuItem>
-        <MenuItem value="name-asc">Name</MenuItem>
-      </TextField>
+        <DropdownItem value="price-asc">Price (Low to High)</DropdownItem>
+        <DropdownItem value="price-desc">Price (High to Low)</DropdownItem>
+        <DropdownItem value="name-asc">Name (A to Z)</DropdownItem>
+      </Dropdown>
     </Container>
   );
 };
