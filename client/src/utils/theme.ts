@@ -8,7 +8,13 @@ export const darkTheme = createTheme({
     },
     secondary: {
       main: "#555555",
-      contrastText: "#CCCCCC",
     },
+    text: {
+      primary: "#CCCCCC",
+      secondary: "#555555",
+    },
+  },
+  shape: {
+    borderRadius: "0.5rem",
   },
 });
