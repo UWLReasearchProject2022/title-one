@@ -24,7 +24,7 @@ export const Header: React.FunctionComponent = () => {
       </Link>
       <LargeSpacer />
       {["Xbox", "PlayStation", "Nintendo", "PC Gaming"].map((text) => (
-        <ConsoleButton>{text}</ConsoleButton>
+        <ConsoleButton key={text}>{text}</ConsoleButton>
       ))}
       <RightContainer>
         <Link to="/account">
