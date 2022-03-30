@@ -9,4 +9,4 @@ COPY requirements.txt /src/
 RUN pip install -r requirements.txt
 ENV GUNICORN_CMD_ARGS="--bind 0.0.0.0:8000 --workers=2"
 EXPOSE 8000
-CMD ["gunicorn","defracampus.wsgi:application"]
+CMD ["gunicorn","titleone.wsgi:application"]
