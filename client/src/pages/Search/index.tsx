@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { PageTemplate, ProductGrid, SearchBar } from "components";
+import { PageTemplate, ProductGrid, SearchBar, Filters } from "components";
 import { SortBy } from "types";
+import { MainContent } from "./Search.styles";
 
 export const Search: React.FunctionComponent = () => {
   const [sortBy, setSortBy] = useState<SortBy>("price-asc");
@@ -15,7 +16,10 @@ export const Search: React.FunctionComponent = () => {
         backTo="/"
         backPage="home"
       />
-      <ProductGrid query={query} sortBy={sortBy} />
+      <MainContent>
+        <Filters />
+        <ProductGrid query={query} sortBy={sortBy} />
+      </MainContent>
     </PageTemplate>
   );
 };

@@ -9,4 +9,5 @@ export const Container = styled("div")({
   display: "grid",
   flexDirection: "row",
   gridTemplateColumns: `repeat(auto-fit, minmax(clamp(100%/ (${columns} + 1) + 0.1%, ${columnWidth}px, 100%), 1fr))`,
+  height: "100%",
 });

@@ -21,6 +21,17 @@
             "platform" : "playstation",
             "age_rating" : "12+",
             "release_date" : "2020-01-01"
+        },
+        {
+            "id": 3,
+            "name" : "The Crew 2",
+            "short_description" : "Motoring, open world, racing game with multiplayer",
+            "developer" : "Ubisoft",
+            "price" : 31.99,
+            "image" : "https://m.media-amazon.com/images/I/91aI00z5SrL._AC_SL1500_.jpg",
+            "platform" : "playstation",
+            "age_rating" : "12+",
+            "release_date" : "2020-01-01"
         }
     ]
 }
