@@ -5,17 +5,20 @@ import { useProducts } from "queries";
 import { ProductCard } from "components";
 import Fuse from "fuse.js";
 import { sortAlgorithms } from "utils/sortAlgorithms";
-import { SortBy } from "types";
+import { filterProducts } from "utils/filter";
+import { SortBy, Filter } from "types";
 
 type Props = {
   query: string;
   sortBy: SortBy;
+  filter: Filter;
 };
 
 // this component will either be passed the filtering props or get it from context
 export const ProductGrid: React.FunctionComponent<Props> = ({
   query,
   sortBy,
+  filter,
 }) => {
   const { products, isLoading, error } = useProducts();
 
@@ -26,8 +29,9 @@ export const ProductGrid: React.FunctionComponent<Props> = ({
   const fuse = products && new Fuse(products, options);
 
   const searchSort = () => {
+    const filteredProducts = products && filterProducts(products, filter);
     if (query === "" || !fuse) {
-      return products?.sort(sortAlgorithms[sortBy]);
+      return filteredProducts?.sort(sortAlgorithms[sortBy]);
     }
     return fuse.search(query).map((result) => result.item);
   };

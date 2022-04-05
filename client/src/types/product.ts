@@ -1,3 +1,5 @@
+import { Platform } from "./filters";
+
 export type Product = {
   id: number;
   name: string;
@@ -6,7 +8,7 @@ export type Product = {
   developer: string;
   price: number;
   image: string;
-  platform: "PC" | "playstation" | "xbox" | "switch";
+  platform: Platform;
   age_rating: "3+" | "7+" | "12+" | "16+" | "18+";
   release_date: string;
 };
