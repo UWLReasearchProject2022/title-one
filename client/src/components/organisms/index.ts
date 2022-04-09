@@ -1,1 +1,3 @@
 export * from "./Header";
+export * from "./ProductGrid";
+export * from "./SearchBar";

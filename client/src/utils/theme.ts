@@ -6,5 +6,15 @@ export const darkTheme = createTheme({
     primary: {
       main: "#CCCCCC",
     },
+    secondary: {
+      main: "#555555",
+    },
+    text: {
+      primary: "#CCCCCC",
+      secondary: "#555555",
+    },
+  },
+  shape: {
+    borderRadius: "0.5rem",
   },
 });

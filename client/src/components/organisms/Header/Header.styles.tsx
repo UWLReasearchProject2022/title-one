@@ -23,7 +23,7 @@ export const ConsoleButton = styled(Button)({
   fontFamily: "Roboto",
   fontStyle: "normal",
   fontWeight: "400",
-  fontSize: "14px",
+  fontSize: "16px",
   lineHeight: "19px",
   marginLeft: "4%",
 });
