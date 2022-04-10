@@ -1,10 +1,10 @@
 import React from "react";
-import { PageTemplate, Placeholder } from "components";
+import { PageTemplate, SearchBar } from "components";
 
 export const Item: React.FunctionComponent = () => {
   return (
     <PageTemplate>
-      <Placeholder>Item</Placeholder>
+      <SearchBar backTo="/search" backPage="search" />
     </PageTemplate>
   );
 };
