@@ -4,23 +4,43 @@
       "id": 1,
       "name": "Grand Theft Auto 5",
       "short_description": "Action-adventure game with a story mode and a multiplayer mode",
+      "description": "Experience Rockstar Games' critically acclaimed open world game, Grand Theft Auto V.\n\nWhen a young street hustler, a retired bank robber and a terrifying psychopath find themselves entangled with some of the most frightening and deranged elements of the criminal underworld, the U.S. government and the entertainment industry, they must pull off a series of dangerous heists to survive in a ruthless city in which they can trust nobody, least of all each other.\nExplore the stunning world of Los Santos and Blaine County in the ultimate Grand Theft Auto V experience, featuring a range of technical upgrades and enhancements for new and returning players. In addition to increased draw distances and higher resolution, players can expect a range of additions and improvements including:\n\n• New weapons, vehicles and activities\n• Additional wildlife\n• Denser traffic\n• New foliage system\n• Enhanced damage and weather effects, and much more\n\nGrand Theft Auto V also comes with Grand Theft Auto Online, the dynamic and ever-evolving online universe for up to 30 players, and includes all existing gameplay upgrades and content released since the launch of Grand Theft Auto Online. Rise through the ranks to become a CEO of your own criminal empire by trading contraband or form a Motorcycle Club and rule the streets. Pull off daring co-operative Heists, enter adrenaline-fuelled Stunt Races, compete in unique Adversary Modes or create your own content to play and share with the entire GTA community.",
       "developer": "Rockstar Games",
       "price": 52.5,
       "image": "https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png",
       "platform": "PC",
       "age_rating": "18+",
-      "release_date": "2020-01-01"
+      "release_date": "2020-01-01",
+      "rating": 3.2
     },
     {
       "id": 2,
       "name": "The Crew 2",
       "short_description": "Motoring, open world, racing game with multiplayer",
+      "description": "Ready to show your talent across multiple motorsports? Rise to the occasion and discover America in a whole new way. Choose how you discover this exhilarating open world where you must put your skills to the test in each types of transport!\n\nEnjoy the freedom of exploring where you want, when you want and how you want. You can seamlessly switch between a variety of cars, bikes, boats and planes so you can soar through the sky of San Francisco and then race high-speed through Los Angeles!",
       "developer": "Ubisoft",
       "price": 31.99,
       "image": "https://m.media-amazon.com/images/I/91aI00z5SrL._AC_SL1500_.jpg",
       "platform": "playstation",
       "age_rating": "12+",
-      "release_date": "2020-01-01"
+      "release_date": "2020-01-01",
+      "rating": 4.5
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "product_id": 1,
+      "name": "Ed Fisk",
+      "rating": 5,
+      "comments": "Great game!"
+    },
+    {
+      "id": 2,
+      "product_id": 1,
+      "name": "John Smith",
+      "rating": 4,
+      "comments": "Fun to play, but runs too slow on my computer"
     }
   ]
 }

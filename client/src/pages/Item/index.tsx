@@ -25,7 +25,7 @@ export const Item: React.FunctionComponent = () => {
         <Loading />
       ) : product && Object.keys(product).length !== 0 && !error ? (
         <Container>
-          <LargeProductCard />
+          <LargeProductCard product={product} />
           <AddToBasket />
         </Container>
       ) : (
