@@ -19,7 +19,9 @@ export const HeaderText = styled(Typography)({
   fontSize: "18px",
 });
 
-export const ProductRating = styled(Rating)({});
+export const ProductRating = styled(Rating)({
+  paddingRight: "0.5rem",
+});
 
 export const Body = styled("div")({
   padding: "1rem",
@@ -29,10 +31,15 @@ export const Body = styled("div")({
 
 export const Image = styled("img")({
   height: "40vh",
+  paddingRight: "1rem",
 });
 
 export const Description = styled(Typography)({
-  paddingLeft: "1rem",
   whiteSpace: "pre-line",
   fontSize: "14px",
+});
+
+export const RatingContainer = styled("div")({
+  display: "flex",
+  alignItems: "center",
 });

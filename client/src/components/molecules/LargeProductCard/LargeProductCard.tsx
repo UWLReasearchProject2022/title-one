@@ -7,6 +7,7 @@ import {
   Image,
   Description,
   ProductRating,
+  RatingContainer,
 } from "./LargeProductCard.styles";
 import { Product } from "types";
 
@@ -20,8 +21,16 @@ export const LargeProductCard: React.FunctionComponent<Props> = ({
   return (
     <Container>
       <Header>
-        <HeaderText color="primary">{product.name}</HeaderText>
-        <ProductRating readOnly precision={0.5} value={product.rating} />
+        <HeaderText color="primary">{`${
+          product.name
+        } - ${product.price.toLocaleString("en-GB", {
+          style: "currency",
+          currency: "GBP",
+        })}`}</HeaderText>
+        <RatingContainer>
+          <ProductRating readOnly precision={0.5} value={product.rating} />
+          <Description>{`(${product.review_count})`}</Description>
+        </RatingContainer>
       </Header>
       <Body>
         <Image src={product.image} />

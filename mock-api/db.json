@@ -11,7 +11,8 @@
       "platform": "PC",
       "age_rating": "18+",
       "release_date": "2020-01-01",
-      "rating": 3.2
+      "rating": 3.2,
+      "review_count": 936
     },
     {
       "id": 2,
@@ -24,7 +25,8 @@
       "platform": "playstation",
       "age_rating": "12+",
       "release_date": "2020-01-01",
-      "rating": 4.5
+      "rating": 4.5,
+      "review_count": 1298
     }
   ],
   "reviews": [
