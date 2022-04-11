@@ -7,7 +7,7 @@ export const Banner = styled("div")({
   backgroundColor: "#101010",
   position: "relative",
   left: "calc(-50vw + 50%)",
-  marginBottom: "1rem",
+  marginBottom: "1.5rem",
   height: "4rem",
   display: "flex",
   alignItem: "center",
