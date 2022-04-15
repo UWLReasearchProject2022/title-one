@@ -40,7 +40,14 @@ Next you will need to create a superuser which acts as the admin login. Again yo
 python manage.py createsuperuser
 ```
 
+
 Run through the script and enter details for the super user. You can use `admin` for both the username and password for local testing purposes. 
+
+### Documentation
+
+Documentation for the backend api can be accessed in swagger format at http://localhost:4000/swagger/.
+
+Exact structure of the endpoints is tbc.
 
 ## Frontend Development
 
