@@ -30,3 +30,7 @@ export const StyledTab = styled(Tab)({
     right: "0.5rem",
   },
 });
+
+export const TabContainer = styled("div")({
+  padding: "1rem",
+});
