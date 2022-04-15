@@ -7,10 +7,30 @@ import {
   LargeProductCard,
   AddToBasket,
   DetailTabs,
+  ProductInformation,
 } from "components";
 import { useParams } from "react-router-dom";
 import { useProduct } from "queries/useProduct";
 import { Container } from "./Item.styles";
+import { Tab } from "types";
+
+const detailsTabs: Tab[] = [
+  {
+    name: "Product information",
+    key: "product-information",
+    component: ProductInformation,
+  },
+  {
+    name: "Customer reviews",
+    key: "customer-reviews",
+    component: ProductInformation,
+  },
+  {
+    name: "Delivery & Returns",
+    key: "deliver-and-returns",
+    component: ProductInformation,
+  },
+];
 
 export const Item: React.FunctionComponent = () => {
   const params = useParams();
@@ -30,7 +50,7 @@ export const Item: React.FunctionComponent = () => {
             <LargeProductCard product={product} />
             <AddToBasket />
           </Container>
-          <DetailTabs />
+          <DetailTabs product={product} tabs={detailsTabs} />
         </>
       ) : (
         <Error message="Item not found" />
