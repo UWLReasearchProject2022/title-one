@@ -6,6 +6,7 @@ import {
   Error,
   LargeProductCard,
   AddToBasket,
+  DetailTabs,
 } from "components";
 import { useParams } from "react-router-dom";
 import { useProduct } from "queries/useProduct";
@@ -24,10 +25,13 @@ export const Item: React.FunctionComponent = () => {
       {isLoading ? (
         <Loading />
       ) : product && Object.keys(product).length !== 0 && !error ? (
-        <Container>
-          <LargeProductCard product={product} />
-          <AddToBasket />
-        </Container>
+        <>
+          <Container>
+            <LargeProductCard product={product} />
+            <AddToBasket />
+          </Container>
+          <DetailTabs />
+        </>
       ) : (
         <Error message="Item not found" />
       )}
