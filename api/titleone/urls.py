@@ -25,36 +25,34 @@ from drf_yasg import openapi
 
 
 schema_view = get_schema_view(
-   openapi.Info(
-      title="TitleOne API",
-        default_version='v1',
-     
-      license=openapi.License(name="BSD License"),
-   ),
-   public=True,
-   permission_classes=[permissions.AllowAny],
+    openapi.Info(
+        title="TitleOne API",
+        default_version="v1",
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=[permissions.AllowAny],
 )
 
 
-
-
 router = DefaultRouter()
-router.register(r'product', views.ProductViewset ,basename="product")
-router.register(r'developer', views.DeveloperViewset ,basename="developer")
-router.register(r'platform', views.PlatformViewset ,basename="platform")
-router.register(r'genre', views.GenreViewset ,basename="genre")
-router.register(r'order', views.OrderViewset ,basename="order")
-router.register(r'stock', views.StockViewset ,basename="stock")
-router.register(r'order_detail', views.OrderDetailsViewset ,basename="order_detail")
-router.register(r'product_platform', views.ProductPlatformViewset ,basename="product_platform")
-router.register(r'product_genre', views.ProductGenreViewset ,basename="product_genre")
-router.register(r'customer', views.CustomerViewset ,basename="customer")
+router.register(r"product", views.ProductViewset, basename="product")
+router.register(r"developer", views.DeveloperViewset, basename="developer")
+router.register(r"platform", views.PlatformViewset, basename="platform")
+router.register(r"genre", views.GenreViewset, basename="genre")
+router.register(r"order", views.OrderViewset, basename="order")
+router.register(r"stock", views.StockViewset, basename="stock")
+router.register(r"order_detail", views.OrderDetailsViewset, basename="order_detail")
+router.register(
+    r"product_platform", views.ProductPlatformViewset, basename="product_platform"
+)
+router.register(r"product_genre", views.ProductGenreViewset, basename="product_genre")
+router.register(r"customer", views.CustomerViewset, basename="customer")
 
 
 urlpatterns = [
-    path('', include(router.urls)),
-    path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='swagger'),
-
+    path("", include(router.urls)),
+    path("admin/", admin.site.urls),
+    path("api-auth/", include("rest_framework.urls")),
+    path("swagger/", schema_view.with_ui("swagger", cache_timeout=0), name="swagger"),
 ]
