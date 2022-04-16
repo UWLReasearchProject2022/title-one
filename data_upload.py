@@ -143,8 +143,8 @@ def upload_order_detail():
         requests.post(BASE_URL + url, json={"order_id": random.choice(order_ids), "stock_id": random.choice(stock_ids)} )
    
 if __name__ == "__main__":
-    # if not check_db_empty():
-    #     raise ValueError("Database is not empty you absolute moron.")
+    if not check_db_empty():
+        raise ValueError("Database is not empty you absolute moron.")
         
         
     upload_developer()
