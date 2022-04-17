@@ -33,7 +33,7 @@ export const DetailText = styled(Typography)({
 });
 
 export const DetailIcon = styled("img")({
-  height: "3rem",
+  height: "2.75rem",
   marginBottom: "0.5rem",
   borderRadius: "0.5rem",
 });

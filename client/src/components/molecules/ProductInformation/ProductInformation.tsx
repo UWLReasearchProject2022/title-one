@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { TabComponentProps } from "types";
 import {
   HeaderText,
@@ -11,15 +11,15 @@ import {
   CollapseButton,
   CollapseButtonContainer,
 } from "./ProductInformation.styles";
-import { Divider } from "@mui/material";
 import { pegiIcons, developerIcons, platformIcons } from "utils/icons";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
 export const ProductInformation: React.FunctionComponent<TabComponentProps> = ({
   product,
+  textExpanded,
+  setTextExpanded,
 }) => {
-  const [textExpanded, setTextExpanded] = useState<boolean>(false);
   return (
     <>
       <HeaderText>{`Release (${product.release_date})`}</HeaderText>
@@ -35,7 +35,6 @@ export const ProductInformation: React.FunctionComponent<TabComponentProps> = ({
           {textExpanded ? "Collapse" : "Expand"}
         </CollapseButton>
       </CollapseButtonContainer>
-      <Divider />
       <DetailsContainer>
         <DetailContainer>
           <DetailIcon src={pegiIcons[product.age_rating]} />

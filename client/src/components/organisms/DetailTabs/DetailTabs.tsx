@@ -19,6 +19,7 @@ export const DetailTabs: React.FunctionComponent<Props> = ({
 }) => {
   const initialValue = tabs[0].key;
   const [value, setValue] = useState<string>(initialValue);
+  const [textExpanded, setTextExpanded] = useState<boolean>(false);
 
   const handleChange = (_: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -38,7 +39,13 @@ export const DetailTabs: React.FunctionComponent<Props> = ({
           hidden={value !== tab.key}
           id={`tabpanel-${tab.key}`}
         >
-          {value === tab.key && <tab.component product={product} />}
+          {value === tab.key && (
+            <tab.component
+              product={product}
+              textExpanded={textExpanded}
+              setTextExpanded={setTextExpanded}
+            />
+          )}
         </TabContainer>
       ))}
     </Container>

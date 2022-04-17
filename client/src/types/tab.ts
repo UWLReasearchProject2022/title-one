@@ -1,8 +1,10 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { Product } from "./product";
 
 export type TabComponentProps = {
   product: Product;
+  textExpanded: boolean;
+  setTextExpanded: Dispatch<SetStateAction<boolean>>;
 };
 
 export type Tab = {

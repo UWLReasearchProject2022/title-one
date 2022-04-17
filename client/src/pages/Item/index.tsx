@@ -8,6 +8,8 @@ import {
   AddToBasket,
   DetailTabs,
   ProductInformation,
+  CustomerReviews,
+  DeliveryAndReturns,
 } from "components";
 import { useParams } from "react-router-dom";
 import { useProduct } from "queries/useProduct";
@@ -23,12 +25,12 @@ const detailsTabs: Tab[] = [
   {
     name: "Customer reviews",
     key: "customer-reviews",
-    component: ProductInformation,
+    component: CustomerReviews,
   },
   {
     name: "Delivery & Returns",
     key: "deliver-and-returns",
-    component: ProductInformation,
+    component: DeliveryAndReturns,
   },
 ];
 
