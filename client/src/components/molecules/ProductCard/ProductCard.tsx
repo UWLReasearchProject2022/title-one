@@ -15,7 +15,7 @@ import {
 import { Button } from "@mui/material";
 import { LikeButton } from "components";
 import { pegiIcons, platformIcons } from "utils/icons";
-
+import { addToBasket } from "utils/lib/addToBasket";
 type Props = {
   product: Product;
 };
@@ -44,6 +44,13 @@ export const ProductCard: React.FunctionComponent<Props> = ({ product }) => {
           <LikeButton />
           <Button variant="contained" color="secondary">
             View
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => addToBasket(product)}
+          >
+            Buy
           </Button>
         </Actions>
       </Body>
