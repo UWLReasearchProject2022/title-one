@@ -1,7 +1,12 @@
-import { Divider, styled, Typography, TextField } from "@mui/material";
+import { Divider, styled, Typography } from "@mui/material";
 import { Rating } from "@mui/material";
 
-export const Container = styled("div")({});
+export const Container = styled("div")({
+  maxHeight: "calc(100vh - 10rem)",
+  overflowY: "auto",
+  width: "calc(100% - 1rem)",
+  paddingRight: "1rem",
+});
 
 export const ReviewsContainer = styled("div")({
   width: "100%",
@@ -48,7 +53,7 @@ export const UserDetails = styled("div")({
 });
 
 export const UserText = styled(Typography)({
-  paddingLeft: "1rem",
+  paddingLeft: "0.5rem",
 });
 
 export const RatingContainer = styled("div")({
@@ -84,7 +89,3 @@ export const Header = styled("div")({
 });
 
 export const Text = styled(Typography)({ fontSize: "14px" });
-
-export const Input = styled(TextField)({
-  width: "8rem",
-});

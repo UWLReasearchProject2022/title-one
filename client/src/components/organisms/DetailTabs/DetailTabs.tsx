@@ -7,6 +7,7 @@ import {
 } from "./DetailTabs.styles";
 import { Divider } from "@mui/material";
 import { Product, Tab } from "types";
+import { reviewSort } from "utils/sorting";
 
 type Props = {
   tabs: Tab[];
@@ -19,6 +20,7 @@ export const DetailTabs: React.FunctionComponent<Props> = ({
 }) => {
   const initialValue = tabs[0].key;
   const [value, setValue] = useState<string>(initialValue);
+  const [reviewsSortBy, reviewsSetSortBy] = useState<string>(reviewSort[0].key);
   const [textExpanded, setTextExpanded] = useState<boolean>(false);
 
   const handleChange = (_: React.SyntheticEvent, newValue: string) => {
@@ -42,6 +44,8 @@ export const DetailTabs: React.FunctionComponent<Props> = ({
           {value === tab.key && (
             <tab.component
               product={product}
+              reviewsSortBy={reviewsSortBy}
+              reviewsSetSortBy={reviewsSetSortBy}
               textExpanded={textExpanded}
               setTextExpanded={setTextExpanded}
             />

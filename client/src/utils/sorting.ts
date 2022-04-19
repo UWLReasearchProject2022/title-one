@@ -1,4 +1,5 @@
 import { Product, Review, Sort } from "types";
+import { parseDate } from "utils/helpers";
 
 export const getSortAlgorithm = (sorts: Sort[], key: string) => {
   for (let i = 0; i < sorts.length; i++) {
@@ -40,12 +41,12 @@ export const reviewSort: Sort[] = [
     key: "date-asc",
     name: "Date (Old to New)",
     algorithm: (a: Review, b: Review) =>
-      new Date(a.date).getTime() - new Date(b.date).getTime(),
+      parseDate(a.date).getTime() - parseDate(b.date).getTime(),
   },
   {
     key: "date-desc",
     name: "Date (New to Old)",
     algorithm: (a: Review, b: Review) =>
-      new Date(b.date).getTime() - new Date(a.date).getTime(),
+      parseDate(b.date).getTime() - parseDate(a.date).getTime(),
   },
 ];

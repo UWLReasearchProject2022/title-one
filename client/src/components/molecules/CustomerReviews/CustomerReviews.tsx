@@ -1,7 +1,7 @@
 import React from "react";
-import { TabComponentProps } from "types";
+import { TabComponentProps, ReviewSortAlgorithm } from "types";
 import { useReviews } from "queries";
-import { Loading, Error, RatingBreakdown } from "components";
+import { Loading, Error, RatingBreakdown, SortBy } from "components";
 import {
   Container,
   ReviewsContainer,
@@ -18,23 +18,26 @@ import {
   RatingContainer,
   DatesContainer,
   DateText,
-  // Input,
   Header,
   Text,
 } from "./CustomerReviews.styles";
 import AccountIcon from "@mui/icons-material/AccountCircleSharp";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { reviewSort, getSortAlgorithm } from "utils/sorting";
 
 export const CustomerReviews: React.FunctionComponent<TabComponentProps> = ({
   product,
+  reviewsSortBy,
+  reviewsSetSortBy,
 }) => {
   const { reviews, isLoading, error } = useReviews(product.id);
-  // const [sortBy, setSortBy] = useState<ReviewSortByType>("date-asc");
 
-  // const sortReviews = () => {
-  //   return reviews?.sort(reviewSortAlgorithms[sortBy]);
-  // };
+  const sortReviews = () => {
+    return reviews?.sort(
+      getSortAlgorithm(reviewSort, reviewsSortBy) as ReviewSortAlgorithm,
+    );
+  };
 
   return (
     <>
@@ -47,9 +50,13 @@ export const CustomerReviews: React.FunctionComponent<TabComponentProps> = ({
               After purchasing a game, please add a review via your order
               history
             </Text>
+            <SortBy
+              sorts={reviewSort}
+              sortBy={reviewsSortBy}
+              setSortBy={reviewsSetSortBy}
+            />
           </Header>
-          {/* {sortReviews()?.map((review) => ( */}
-          {reviews.map((review) => (
+          {sortReviews()?.map((review) => (
             <>
               <StyledDivider color="primary" />
               <ReviewsContainer key={review.id}>
