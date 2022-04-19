@@ -14,7 +14,7 @@ export const RatingBreakdown: React.FunctionComponent<Props> = ({
       {(Object.keys(ratings) as (keyof Ratings)[]).map(
         (key) =>
           key !== "overall" && (
-            <>
+            <div key={key}>
               <Text>{`${key.charAt(0).toUpperCase() + key.slice(1)} - ${ratings[
                 key
               ].toFixed(1)}`}</Text>
@@ -22,7 +22,7 @@ export const RatingBreakdown: React.FunctionComponent<Props> = ({
                 variant="determinate"
                 value={(ratings[key] / 10) * 100}
               />
-            </>
+            </div>
           ),
       )}
     </Container>

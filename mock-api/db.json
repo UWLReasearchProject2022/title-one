@@ -50,7 +50,7 @@
       }
     },
     {
-      "id": 1,
+      "id": 2,
       "product_id": 1,
       "name": "Ed Fisk",
       "date": "07/01/2011",
@@ -67,7 +67,7 @@
       }
     },
     {
-      "id": 1,
+      "id": 3,
       "product_id": 1,
       "name": "Joe Bloggs",
       "date": "03/01/2011",
@@ -84,7 +84,7 @@
       }
     },
     {
-      "id": 1,
+      "id": 4,
       "product_id": 1,
       "name": "Lucy Baker",
       "date": "10/02/2011",
@@ -101,7 +101,7 @@
       }
     },
     {
-      "id": 1,
+      "id": 5,
       "product_id": 1,
       "name": "Jess Smith",
       "date": "04/07/2010",
@@ -118,7 +118,7 @@
       }
     },
     {
-      "id": 2,
+      "id": 6,
       "product_id": 2,
       "name": "Ed Fisk",
       "date": "10/02/2011",

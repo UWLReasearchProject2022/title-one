@@ -1,5 +1,11 @@
 import React from "react";
-import { Container, Section, Input, Text } from "./AddToBasket.styles";
+import {
+  Container,
+  Section,
+  Input,
+  DropdownItem,
+  Text,
+} from "./AddToBasket.styles";
 import { Divider } from "@mui/material";
 
 export const AddToBasket: React.FunctionComponent = () => {
@@ -16,7 +22,9 @@ export const AddToBasket: React.FunctionComponent = () => {
               fontSize: "14px",
             },
           }}
-        ></Input>
+        >
+          <DropdownItem>PS4</DropdownItem>
+        </Input>
       </Section>
       <Divider color="primary" />
       <Section>
@@ -30,7 +38,9 @@ export const AddToBasket: React.FunctionComponent = () => {
               fontSize: "14px",
             },
           }}
-        ></Input>
+        >
+          <DropdownItem>Standard</DropdownItem>
+        </Input>
       </Section>
       <Divider color="primary" />
       <Section>

@@ -57,7 +57,7 @@ export const CustomerReviews: React.FunctionComponent<TabComponentProps> = ({
             />
           </Header>
           {sortReviews()?.map((review) => (
-            <>
+            <div key={review.id}>
               <StyledDivider color="primary" />
               <ReviewsContainer key={review.id}>
                 <OverviewContainer>
@@ -94,7 +94,7 @@ export const CustomerReviews: React.FunctionComponent<TabComponentProps> = ({
                   <DateText>{`Date of purchase: ${review.date}`}</DateText>
                 </DatesContainer>
               </ReviewsContainer>
-            </>
+            </div>
           ))}
         </Container>
       ) : (

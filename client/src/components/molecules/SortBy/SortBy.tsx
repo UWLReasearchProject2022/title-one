@@ -29,7 +29,11 @@ export const SortBy: React.FunctionComponent<Props> = ({
         }}
       >
         {sorts.map((sort) => {
-          return <DropdownItem value={sort.key}>{sort.name}</DropdownItem>;
+          return (
+            <DropdownItem key={sort.key} value={sort.key}>
+              {sort.name}
+            </DropdownItem>
+          );
         })}
       </Dropdown>
     </Container>

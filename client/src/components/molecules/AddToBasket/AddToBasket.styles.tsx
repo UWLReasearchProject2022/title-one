@@ -1,5 +1,5 @@
 import { styled } from "@mui/system";
-import { Paper, TextField, Typography } from "@mui/material";
+import { Paper, TextField, Typography, MenuItem } from "@mui/material";
 
 export const Container = styled(Paper)({
   width: "27.5%",
@@ -16,4 +16,8 @@ export const Text = styled(Typography)({ fontSize: "16px" });
 
 export const Input = styled(TextField)({
   width: "100px",
+});
+
+export const DropdownItem = styled(MenuItem)({
+  fontSize: "14px",
 });
