@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { TabComponentProps } from "types";
 import { useReviews } from "queries";
 import { Loading, Error, RatingBreakdown } from "components";
@@ -18,6 +18,9 @@ import {
   RatingContainer,
   DatesContainer,
   DateText,
+  // Input,
+  Header,
+  Text,
 } from "./CustomerReviews.styles";
 import AccountIcon from "@mui/icons-material/AccountCircleSharp";
 import AddIcon from "@mui/icons-material/Add";
@@ -27,7 +30,11 @@ export const CustomerReviews: React.FunctionComponent<TabComponentProps> = ({
   product,
 }) => {
   const { reviews, isLoading, error } = useReviews(product.id);
-  const [sort];
+  // const [sortBy, setSortBy] = useState<ReviewSortByType>("date-asc");
+
+  // const sortReviews = () => {
+  //   return reviews?.sort(reviewSortAlgorithms[sortBy]);
+  // };
 
   return (
     <>
@@ -35,8 +42,16 @@ export const CustomerReviews: React.FunctionComponent<TabComponentProps> = ({
         <Loading />
       ) : reviews && !error && reviews?.length !== 0 ? (
         <Container>
+          <Header>
+            <Text>
+              After purchasing a game, please add a review via your order
+              history
+            </Text>
+          </Header>
+          {/* {sortReviews()?.map((review) => ( */}
           {reviews.map((review) => (
             <>
+              <StyledDivider color="primary" />
               <ReviewsContainer key={review.id}>
                 <OverviewContainer>
                   <UserDetails>
@@ -72,7 +87,6 @@ export const CustomerReviews: React.FunctionComponent<TabComponentProps> = ({
                   <DateText>{`Date of purchase: ${review.date}`}</DateText>
                 </DatesContainer>
               </ReviewsContainer>
-              <StyledDivider color="primary" />
             </>
           ))}
         </Container>

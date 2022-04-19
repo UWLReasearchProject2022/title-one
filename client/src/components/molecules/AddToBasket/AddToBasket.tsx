@@ -16,7 +16,7 @@ export const AddToBasket: React.FunctionComponent = () => {
               fontSize: "14px",
             },
           }}
-        />
+        ></Input>
       </Section>
       <Divider color="primary" />
       <Section>
@@ -30,7 +30,7 @@ export const AddToBasket: React.FunctionComponent = () => {
               fontSize: "14px",
             },
           }}
-        />
+        ></Input>
       </Section>
       <Divider color="primary" />
       <Section>

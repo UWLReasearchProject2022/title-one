@@ -1,4 +1,4 @@
-import { Divider, styled, Typography } from "@mui/material";
+import { Divider, styled, Typography, TextField } from "@mui/material";
 import { Rating } from "@mui/material";
 
 export const Container = styled("div")({});
@@ -74,4 +74,17 @@ export const CommentsText = styled(Typography)({
 
 export const StyledDivider = styled(Divider)({
   marginBottom: "2rem",
+});
+
+export const Header = styled("div")({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  paddingBottom: "2rem",
+});
+
+export const Text = styled(Typography)({ fontSize: "14px" });
+
+export const Input = styled(TextField)({
+  width: "8rem",
 });

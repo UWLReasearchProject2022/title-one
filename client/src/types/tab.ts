@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { Product, Review } from "types";
+import { Product } from "types";
 
 export type TabComponentProps = {
   product: Product;

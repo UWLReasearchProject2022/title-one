@@ -1,12 +1,15 @@
+import React, { Dispatch, SetStateAction } from "react";
 import { Container, Label, Dropdown, DropdownItem } from "./SortBy.styles";
-import { SortBy as SortByType } from "types";
+import { Sort } from "types";
 
 type Props = {
-  setSortBy: (_: SortByType) => void;
-  sortBy: SortByType;
+  sorts: Sort[];
+  sortBy: string;
+  setSortBy: Dispatch<SetStateAction<string>>;
 };
 
 export const SortBy: React.FunctionComponent<Props> = ({
+  sorts,
   sortBy,
   setSortBy,
 }) => {
@@ -16,7 +19,7 @@ export const SortBy: React.FunctionComponent<Props> = ({
       <Dropdown
         select
         value={sortBy}
-        onChange={(e) => setSortBy(e.target.value as SortByType)}
+        onChange={(event) => setSortBy(event.target.value)}
         size="small"
         InputProps={{
           style: {
@@ -25,9 +28,9 @@ export const SortBy: React.FunctionComponent<Props> = ({
           },
         }}
       >
-        <DropdownItem value="price-asc">Price (Low to High)</DropdownItem>
-        <DropdownItem value="price-desc">Price (High to Low)</DropdownItem>
-        <DropdownItem value="name-asc">Name (A to Z)</DropdownItem>
+        {sorts.map((sort) => {
+          return <DropdownItem value={sort.key}>{sort.name}</DropdownItem>;
+        })}
       </Dropdown>
     </Container>
   );
