@@ -3,6 +3,7 @@ import { Paper, Tabs, Tab } from "@mui/material";
 
 export const Container = styled(Paper)({
   marginTop: "1rem",
+  marginBottom: "2rem",
 });
 
 export const StyledTabs = styled(Tabs)({

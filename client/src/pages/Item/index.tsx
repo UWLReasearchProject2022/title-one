@@ -12,7 +12,7 @@ import {
   DeliveryAndReturns,
 } from "components";
 import { useParams } from "react-router-dom";
-import { useProduct } from "queries/useProduct";
+import { useProduct } from "queries";
 import { Container } from "./Item.styles";
 import { Tab } from "types";
 

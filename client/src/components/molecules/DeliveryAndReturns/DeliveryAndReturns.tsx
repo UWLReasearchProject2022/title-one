@@ -4,5 +4,9 @@ import { TabComponentProps } from "types";
 export const DeliveryAndReturns: React.FunctionComponent<TabComponentProps> = ({
   product,
 }) => {
-  return <div>{product.description}</div>;
+  return (
+    <>
+      <div>{product.name}</div>
+    </>
+  );
 };

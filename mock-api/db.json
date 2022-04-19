@@ -36,15 +36,69 @@
       "id": 1,
       "product_id": 1,
       "name": "Ed Fisk",
-      "rating": 5,
-      "comments": "Great game!"
+      "date": "10/02/2011",
+      "ratings": {
+        "gameplay": 9,
+        "social": 3,
+        "graphics": 8,
+        "value": 5,
+        "overall": 7
+      },
+      "comments": {
+        "positive": "Great game!",
+        "negative": "It takes a while to download"
+      }
+    },
+    {
+      "id": 1,
+      "product_id": 1,
+      "name": "Ed Fisk",
+      "date": "10/02/2011",
+      "ratings": {
+        "gameplay": 9,
+        "social": 3,
+        "graphics": 8,
+        "value": 5,
+        "overall": 7
+      },
+      "comments": {
+        "positive": "Great game!",
+        "negative": "It takes a while to download"
+      }
+    },
+    {
+      "id": 1,
+      "product_id": 1,
+      "name": "Ed Fisk",
+      "date": "10/02/2011",
+      "ratings": {
+        "gameplay": 9,
+        "social": 3,
+        "graphics": 8,
+        "value": 5,
+        "overall": 7
+      },
+      "comments": {
+        "positive": "Great game!",
+        "negative": "It takes a while to download"
+      }
     },
     {
       "id": 2,
-      "product_id": 1,
-      "name": "John Smith",
-      "rating": 4,
-      "comments": "Fun to play, but runs too slow on my computer"
+      "product_id": 2,
+      "name": "Ed Fisk",
+      "date": "10/02/2011",
+      "ratings": {
+        "gameplay": 9,
+        "social": 3,
+        "graphics": 8,
+        "value": 5,
+        "overall": 7
+      },
+      "comments": {
+        "positive": "Great game!",
+        "negative": "It takes a while to download"
+      }
     }
   ]
 }

@@ -1,8 +1,7 @@
 import React from "react";
-import { Typography } from "@mui/material";
 import { Container } from "./ProductGrid.styles";
 import { useProducts } from "queries";
-import { ProductCard, Loading } from "components";
+import { ProductCard, Loading, Error } from "components";
 import Fuse from "fuse.js";
 import { sortAlgorithms } from "utils/sortAlgorithms";
 import { SortBy } from "types";
@@ -35,7 +34,7 @@ export const ProductGrid: React.FunctionComponent<Props> = ({
   return (
     <Container>
       {isLoading && <Loading />}
-      {error && <Typography>Error!</Typography>}
+      {error && <Error />}
       {products &&
         searchSort()?.map((product) => (
           <ProductCard key={product.id} product={product} />
