@@ -3,6 +3,7 @@
     "cSpell.words": [
         "pegi"
     ],
-    "cSpell.enabled": true
+    "cSpell.enabled": true,
+    "python.formatting.provider": "yapf"
 }
 
