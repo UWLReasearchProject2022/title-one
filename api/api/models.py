@@ -1,4 +1,5 @@
 from sys import platform
+from time import timezone
 from django.db import models
 
 # Create your models here.
@@ -62,6 +63,7 @@ class Order(models.Model):
     date_shipped = models.DateTimeField(auto_now_add=True)
     date_delivered = models.DateTimeField(auto_now_add=True)
     customer_id = models.ForeignKey("Customer", on_delete=models.CASCADE)
+    
 
 
 class Customer(models.Model):
@@ -72,6 +74,12 @@ class Customer(models.Model):
     phone_number = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
+class Review(models.Model):
+    review_id = models.AutoField(primary_key=True)
+    date_reviewed = models.DateTimeField(auto_now_add=True)
+    review_text = models.CharField(max_length=255)
+    order_id = models.ForeignKey("Order", on_delete=models.CASCADE)
+    customer_id = models.ForeignKey("Customer", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

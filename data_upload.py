@@ -12,13 +12,14 @@ def upload_developer():
     url = "/developer/"
 
     for name in DEV_NAMES:
-        requests.post(
-            BASE_URL + url, json={"name": name, "description": "A great company"}
-        )
+        requests.post(BASE_URL + url,
+                      json={
+                          "name": name,
+                          "description": "A great company"
+                      })
 
 
 PLATFORMS = ["PC", "PS4", "XBOX ONE", "SWITCH"]
-
 
 PRODS = [
     "Far Cry Primal",
@@ -58,7 +59,7 @@ def upload_product():
     developer_ids = requests.get(BASE_URL + "/developer/").json()
     developer_ids = [x["developer_id"] for x in developer_ids]
 
-    print(developer_ids)
+    # print(developer_ids)
     if not developer_ids:
         raise ValueError("No developers in the database")
     for name in PRODS:
@@ -73,6 +74,7 @@ def upload_product():
             },
         )
         r.raise_for_status()
+        print(r.status_code)
 
 
 def upload_platform():
@@ -86,9 +88,11 @@ def upload_platform():
 def upload_genre():
     url = "/genre/"
     for name in GENRES:
-        r = requests.post(
-            BASE_URL + url, json={"name": name, "description": "A great genre"}
-        )
+        r = requests.post(BASE_URL + url,
+                          json={
+                              "name": name,
+                              "description": "A great genre"
+                          })
         r.raise_for_status()
 
 
@@ -131,9 +135,11 @@ def upload_product_genre():
         random.shuffle(GENRES)
         for i in range(random.randint(1, len(GENRES))):
 
-            requests.post(
-                BASE_URL + url, json={"product_id": prod, "genre_id": GENRES[i]}
-            )
+            requests.post(BASE_URL + url,
+                          json={
+                              "product_id": prod,
+                              "genre_id": GENRES[i]
+                          })
 
 
 def upload_stock():
@@ -212,12 +218,12 @@ def upload_order_detail():
 
 
 if __name__ == "__main__":
-    if not check_db_empty():
-        raise ValueError("Database is not empty you absolute moron.")
+    # if not check_db_empty():
+    #     raise ValueError("Database is not empty you absolute moron.")
 
-    upload_developer()
-    upload_platform()
-    upload_genre()
+    # upload_developer()
+    # upload_platform()
+    # upload_genre()
     upload_product()
     upload_product_platform()
     upload_product_genre()

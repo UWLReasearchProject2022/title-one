@@ -1,34 +1,22 @@
-from itertools import product
-from django.shortcuts import render
+from itertools import product, chain
+from pyexpat import model
+from urllib import response
+from django.shortcuts import render, get_object_or_404
 from rest_framework.response import Response
+
 from rest_framework.decorators import api_view
 from rest_framework.request import Request
 from rest_framework.renderers import JSONRenderer
 from django.http import HttpResponse, JsonResponse
-from .models import (
-    Product,
-    Developer,
-    Platform,
-    ProductPlatform,
-    Genre,
-    ProductGenre,
-    Stock,
-    OrderDetails,
-    Order,
-    Customer,
-)
-from .serializers import (
-    ProductSerializer,
-    DeveloperSerializer,
-    PlatformSerializer,
-    ProductPlatformSerializer,
-    GenreSerializer,
-    ProductGenreSerializer,
-    StockSerializer,
-    OrderDetailsSerializer,
-    OrderSerializer,
-    CustomerSerializer,
-)
+from .models import (Product, Developer, Platform, ProductPlatform, Genre,
+                     ProductGenre, Review, Stock, OrderDetails, Order,
+                     Customer, Review)
+from .serializers import (ProductSerializer, DeveloperSerializer,
+                          PlatformSerializer, ProductPlatformSerializer,
+                          GenreSerializer, ProductGenreSerializer,
+                          ReviewSerializer, StockSerializer,
+                          OrderDetailsSerializer, OrderSerializer,
+                          CustomerSerializer, ReviewSerializer)
 from rest_framework.viewsets import ModelViewSet
 
 # Create your views here.
@@ -47,6 +35,24 @@ from rest_framework.viewsets import ModelViewSet
 class ProductViewset(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+    #allows for new product to be added into database, while still keeping a the nested JSON with developer table
+
+    def create(self, request):
+        product_data = request.data
+
+        new_product = Product.objects.create(
+            name=product_data["name"],
+            short_description=product_data["short_description"],
+            long_description=product_data["long_description"],
+            image_url=product_data["image_url"],
+            developer_id=Developer.objects.get(
+                developer_id=product_data["developer_id"]))
+
+        new_product.save()
+
+        serializer = ProductSerializer(new_product)
+        return Response(serializer.data)
 
 
 class DeveloperViewset(ModelViewSet):
@@ -92,3 +98,8 @@ class OrderViewset(ModelViewSet):
 class CustomerViewset(ModelViewSet):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
+
+
+class ReviewViewset(ModelViewSet):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
