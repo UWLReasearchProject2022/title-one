@@ -10,7 +10,7 @@ export const Container = styled("div")({
 });
 
 export const StyledDivider = styled(Divider)({
-  marginTop: "4rem",
+  marginTop: "2rem",
 });
 
 export const LogoContainer = styled("div")({
