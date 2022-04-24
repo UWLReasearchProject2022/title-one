@@ -1,19 +1,22 @@
 export default [
   {
-    imageName: "playstation_large.jpg",
+    name: "PlayStation",
+    imageName: "playstation_controller.svg",
     redirectLink: "/search?platform=playstation",
   },
   {
-    imageName: "xbox_large.jpg",
+    name: "Xbox",
+    imageName: "xbox_controller.svg",
     redirectLink: "/search?platform=xbox",
   },
   {
-    imageName: "nintendo_large.jpg",
+    name: "Nintendo",
+    imageName: "nintendo_controller.svg",
     redirectLink: "/search?platform=nintendo",
   },
   {
-    imageName: "PC_large.jpg",
+    name: "PC",
+    imageName: "computer_monitor.svg",
     redirectLink: "/search?platform=PC",
-    border: true,
   },
 ];
