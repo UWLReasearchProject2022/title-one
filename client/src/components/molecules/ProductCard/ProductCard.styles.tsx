@@ -7,6 +7,7 @@ export const Container = styled(Card)({
   color: "#CCCCCC",
   backgroundColor: "#101010",
   backgroundImage: "none",
+  borderRadius: "0.5rem",
 });
 
 export const Title = styled(Typography)({
