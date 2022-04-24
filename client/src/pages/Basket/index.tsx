@@ -7,7 +7,7 @@ export const Basket: React.FunctionComponent = () => {
   console.log(basket);
   return (
     <PageTemplate>
-      <BasketTable basket={basket} />
+      <BasketTable />
     </PageTemplate>
   );
 };

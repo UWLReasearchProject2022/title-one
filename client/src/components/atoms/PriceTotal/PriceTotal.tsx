@@ -1,16 +1,10 @@
 import { Container, Total } from "./PriceTotal.styles";
-import { BasketItem } from "types";
 
 type Props = {
-  basket: BasketItem[];
+  total: number;
 };
 
-export const PriceTotal: React.FunctionComponent<Props> = ({ basket }) => {
-  const total = basket.reduce(
-    (acc, item) => acc + item.product.price * item.quantity,
-    0,
-  );
-
+export const PriceTotal: React.FunctionComponent<Props> = ({ total }) => {
   return (
     <>
       <Container>
