@@ -56,10 +56,10 @@ export const CustomerReviews: React.FunctionComponent<TabComponentProps> = ({
               setSortBy={reviewsSetSortBy}
             />
           </Header>
-          {sortReviews()?.map((review) => (
-            <div key={review.id}>
+          {sortReviews()?.map((review, index) => (
+            <div key={index}>
               <StyledDivider color="primary" />
-              <ReviewsContainer key={review.id}>
+              <ReviewsContainer key={index}>
                 <OverviewContainer>
                   <UserDetails>
                     <AccountIcon fontSize="large" />
