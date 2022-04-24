@@ -14,3 +14,8 @@ export const platformIcons = {
   xbox: `${BASE_URL}/assets/platform/xbox.png`,
   switch: `${BASE_URL}/assets/platform/switch.png`,
 };
+
+export const developerIcons = {
+  "Rockstar Games": `${BASE_URL}/assets/developers/rockstar.jpg`,
+  Ubisoft: `${BASE_URL}/assets/developers/ubisoft.jpg`,
+};

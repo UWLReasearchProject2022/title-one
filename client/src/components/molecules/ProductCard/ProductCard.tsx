@@ -11,6 +11,7 @@ import {
   IconStack,
   Icon,
   Actions,
+  ButtonLink,
 } from "./ProductCard.styles";
 import { Button } from "@mui/material";
 import { LikeButton } from "components";
@@ -42,9 +43,6 @@ export const ProductCard: React.FunctionComponent<Props> = ({ product }) => {
         </IconStack>
         <Actions>
           <LikeButton />
-          <Button variant="contained" color="secondary">
-            View
-          </Button>
           <Button
             variant="contained"
             color="secondary"
@@ -52,6 +50,11 @@ export const ProductCard: React.FunctionComponent<Props> = ({ product }) => {
           >
             Buy
           </Button>
+          <ButtonLink to={`/search/${product.id}`}>
+            <Button variant="contained" color="secondary">
+              View
+            </Button>
+          </ButtonLink>
         </Actions>
       </Body>
     </Container>
