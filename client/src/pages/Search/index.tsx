@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { PageTemplate, ProductGrid, SearchBar, Filters } from "components";
-import type { SortBy, Filter } from "types";
+import type { Filter } from "types";
 import { MainContent } from "./Search.styles";
 import { productSort } from "utils/sorting";
 
