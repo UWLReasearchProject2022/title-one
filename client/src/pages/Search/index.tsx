@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+
 import { PageTemplate, ProductGrid, SearchBar, Filters } from "components";
 import type { SortBy, Filter } from "types";
 import { MainContent } from "./Search.styles";
+import { productSort } from "utils/sorting";
 
 export const Search: React.FunctionComponent = () => {
-  const [sortBy, setSortBy] = useState<SortBy>("price-asc");
+  const [sortBy, setSortBy] = useState<string>(productSort[0].key);
   const [query, setQuery] = useState<string>("");
   const [filter, setFilter] = useState<Filter>({
     active: false,

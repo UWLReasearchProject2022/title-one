@@ -4,3 +4,5 @@ export * from "./StepBack";
 export * from "./ClearFilters";
 export * from "./PriceField";
 export * from "./CollapseButton";
+export * from "./Loading";
+export * from "./Error";
