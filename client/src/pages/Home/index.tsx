@@ -1,5 +1,5 @@
 import React from "react";
-import { PageTemplate, Platforms } from "components";
+import { PageTemplate, Platforms, Categories } from "components";
 import {
   CoverContainer,
   CoverImage,
@@ -22,7 +22,7 @@ export const Home: React.FunctionComponent = () => {
   return (
     <PageTemplate>
       <CoverContainer>
-        <CoverImage src={`${BASE_URL}/assets/images/gt7-cover.png`} />
+        <CoverImage src={`${BASE_URL}/assets/images/gt7_cover.png`} />
         <CoverSearchContainer onSubmit={onSubmit}>
           <CoverText color="primary">Find your next game.</CoverText>
           <CoverSearch
@@ -45,6 +45,7 @@ export const Home: React.FunctionComponent = () => {
         </CoverSearchContainer>
       </CoverContainer>
       <Platforms />
+      <Categories />
     </PageTemplate>
   );
 };
