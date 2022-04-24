@@ -1,19 +1,17 @@
 import React from "react";
-import { Typography } from "@mui/material";
 import { Container } from "./ProductGrid.styles";
 import { useProducts } from "queries";
-import { ProductCard } from "components";
+import { ProductCard, Loading, Error } from "components";
 import Fuse from "fuse.js";
-import { sortAlgorithms } from "utils/sortAlgorithms";
+import { productSort, getSortAlgorithm } from "utils/sorting";
+import { ProductSortAlgorithm, Filter } from "types";
 import { filterProducts } from "utils/filter";
-import { SortBy, Filter } from "types";
 
 type Props = {
   query: string;
-  sortBy: SortBy;
+  sortBy: string;
   filter: Filter;
 };
-
 // this component will either be passed the filtering props or get it from context
 export const ProductGrid: React.FunctionComponent<Props> = ({
   query,
@@ -31,15 +29,17 @@ export const ProductGrid: React.FunctionComponent<Props> = ({
   const searchSort = () => {
     const filteredProducts = products && filterProducts(products, filter);
     if (query === "" || !fuse) {
-      return filteredProducts?.sort(sortAlgorithms[sortBy]);
+      return filteredProducts?.sort(
+        getSortAlgorithm(productSort, sortBy) as ProductSortAlgorithm,
+      );
     }
     return fuse.search(query).map((result) => result.item);
   };
 
   return (
     <Container>
-      {isLoading && <Typography>Loading...</Typography>}
-      {error && <Typography>Error!</Typography>}
+      {isLoading && <Loading />}
+      {error && <Error />}
       {products &&
         searchSort()?.map((product) => (
           <ProductCard key={product.id} product={product} />

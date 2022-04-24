@@ -26,7 +26,7 @@ export const routes: AppRoute[] = [
   },
   {
     name: "Item",
-    path: "/search/:item",
+    path: "/search/:product_id",
     element: Item,
   },
   {
