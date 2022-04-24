@@ -43,10 +43,6 @@ export const ProductCard: React.FunctionComponent<Props> = ({ product }) => {
         </IconStack>
         <Actions>
           <LikeButton />
-<<<<<<< HEAD
-          <Button variant="contained" color="secondary">
-            View
-          </Button>
           <Button
             variant="contained"
             color="secondary"
@@ -54,13 +50,11 @@ export const ProductCard: React.FunctionComponent<Props> = ({ product }) => {
           >
             Buy
           </Button>
-=======
           <ButtonLink to={`/search/${product.id}`}>
             <Button variant="contained" color="secondary">
               View
             </Button>
           </ButtonLink>
->>>>>>> feature/filter-by
         </Actions>
       </Body>
     </Container>
