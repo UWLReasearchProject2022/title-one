@@ -4,10 +4,12 @@ import { PageTemplate, ProductGrid, SearchBar, Filters } from "components";
 import type { Filter } from "types";
 import { MainContent } from "./Search.styles";
 import { productSort } from "utils/sorting";
+import { useSearchParams } from "react-router-dom";
 
 export const Search: React.FunctionComponent = () => {
+  const [searchParams] = useSearchParams();
   const [sortBy, setSortBy] = useState<string>(productSort[0].key);
-  const [query, setQuery] = useState<string>("");
+  const [query, setQuery] = useState<string>(searchParams.get("query") || "");
   const [filter, setFilter] = useState<Filter>({
     active: false,
     platform: [],

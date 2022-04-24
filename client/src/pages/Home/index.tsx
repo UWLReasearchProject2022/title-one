@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { PageTemplate } from "components";
 import {
   CoverContainer,
@@ -13,10 +13,11 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 
 export const Home: React.FunctionComponent = () => {
+  const [query, setQuery] = useState("");
   const navigate = useNavigate();
   const onSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    navigate("/search");
+    navigate(`/search?query=${query}`);
   };
 
   return (
@@ -41,6 +42,8 @@ export const Home: React.FunctionComponent = () => {
                 backgroundColor: "#CCCCCC",
               },
             }}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
           />
         </CoverSearchContainer>
       </CoverContainer>
