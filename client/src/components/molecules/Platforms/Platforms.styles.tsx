@@ -26,5 +26,8 @@ export const PlatformImage = styled("img")({
   borderStyle: "solid",
   objectFit: "cover",
   objectPosition: "center",
-  pointerEvents: "none",
+  filter: "brightness(95%)",
+  "&:hover": {
+    filter: "brightness(100%)",
+  },
 });
