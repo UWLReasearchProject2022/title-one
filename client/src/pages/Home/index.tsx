@@ -1,5 +1,5 @@
 import React from "react";
-import { PageTemplate } from "components";
+import { PageTemplate, Platforms } from "components";
 import {
   CoverContainer,
   CoverImage,
@@ -44,6 +44,7 @@ export const Home: React.FunctionComponent = () => {
           />
         </CoverSearchContainer>
       </CoverContainer>
+      <Platforms />
     </PageTemplate>
   );
 };

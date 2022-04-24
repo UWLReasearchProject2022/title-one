@@ -5,3 +5,4 @@ export * from "./ProductInformation";
 export * from "./CustomerReviews";
 export * from "./DeliveryAndReturns";
 export * from "./RatingBreakdown";
+export * from "./Platforms";
