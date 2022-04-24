@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PageTemplate, Platforms, Categories } from "components";
+import { PageTemplate, Platforms, Categories, FeaturedGames } from "components";
 import {
   CoverContainer,
   CoverImage,
@@ -56,6 +56,7 @@ export const Home: React.FunctionComponent = () => {
       </CoverContainer>
       <Platforms />
       <Categories />
+      <FeaturedGames />
     </PageTemplate>
   );
 };

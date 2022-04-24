@@ -7,3 +7,4 @@ export * from "./DeliveryAndReturns";
 export * from "./RatingBreakdown";
 export * from "./Platforms";
 export * from "./Categories";
+export * from "./SmallProductCard";
