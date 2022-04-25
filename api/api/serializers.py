@@ -4,19 +4,25 @@ from .models import (Product, Developer, Platform, ProductPlatform, Genre,
                      Review)
 
 
-class ProductSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Product
-        fields = "__all__"
-        depth = 1
-
-
 class DeveloperSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Developer
         fields = "__all__"
+
+
+class ProductSerializer(serializers.ModelSerializer):
+    developer = DeveloperSerializer(read_only=True)
+
+    #Developer = serializers.PickledObjectField(source='developer_id')
+
+    class Meta:
+        model = Product
+        fields = [
+            "product_id", "name", "short_description", "long_description",
+            "image_url", "developer"
+        ]
+        depth = 1
 
 
 class PlatformSerializer(serializers.ModelSerializer):
@@ -31,6 +37,7 @@ class ProductPlatformSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductPlatform
         fields = "__all__"
+        depth = 1
 
 
 class GenreSerializer(serializers.ModelSerializer):
@@ -80,3 +87,4 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = "__all__"
+        depth = 1
