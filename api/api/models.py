@@ -10,7 +10,9 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     short_description = models.CharField(max_length=255)
     long_description = models.CharField(max_length=255)
-    developer_id = models.ForeignKey("Developer", on_delete=models.CASCADE)
+    developer = models.ForeignKey("Developer",
+                                  related_name="developer",
+                                  on_delete=models.CASCADE)
     image_url = models.CharField(max_length=2083)
 
     def __str__(self):
@@ -48,7 +50,8 @@ class ProductGenre(models.Model):
 
 class Stock(models.Model):
     stock_id = models.AutoField(primary_key=True)
-    product_platform_id = models.ForeignKey("ProductPlatform", on_delete=models.CASCADE)
+    product_platform_id = models.ForeignKey("ProductPlatform",
+                                            on_delete=models.CASCADE)
 
 
 class OrderDetails(models.Model):
@@ -63,7 +66,6 @@ class Order(models.Model):
     date_shipped = models.DateTimeField(auto_now_add=True)
     date_delivered = models.DateTimeField(auto_now_add=True)
     customer_id = models.ForeignKey("Customer", on_delete=models.CASCADE)
-    
 
 
 class Customer(models.Model):
@@ -74,6 +76,8 @@ class Customer(models.Model):
     phone_number = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
+
+
 class Review(models.Model):
     review_id = models.AutoField(primary_key=True)
     date_reviewed = models.DateTimeField(auto_now_add=True)
