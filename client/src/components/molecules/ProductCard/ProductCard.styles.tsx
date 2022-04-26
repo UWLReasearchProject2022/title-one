@@ -37,6 +37,7 @@ export const Image = styled("img")({
   height: "11rem",
   objectFit: "contain",
   objectPosition: "top",
+  pointerEvents: "none",
 });
 
 export const Description = styled(Typography)({

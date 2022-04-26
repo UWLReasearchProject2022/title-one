@@ -16,7 +16,7 @@ import sections from "./config";
 export const Footer: React.FunctionComponent = () => {
   return (
     <>
-      <StyledDivider color="primary" />
+      <StyledDivider />
       <Container>
         <LogoContainer>
           <Logo
