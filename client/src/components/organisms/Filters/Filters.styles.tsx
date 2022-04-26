@@ -3,10 +3,10 @@ import { Card, FormControlLabel, Typography, Divider } from "@mui/material";
 
 export const Container = styled(Card)({
   width: "30%",
+  height: "100%",
   maxWidth: "20rem",
-  height: "70em",
-  marginTop: "0.5em",
-  marginRight: "0.5em",
+  marginTop: "0.5rem",
+  marginRight: "0.5rem",
   backgroundColor: "#101010",
   backgroundImage: "none",
   padding: "1.5rem",
