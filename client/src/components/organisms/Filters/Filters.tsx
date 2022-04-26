@@ -3,8 +3,7 @@ import {
   Container,
   TopBar,
   Title,
-  Apply,
-  Divider,
+  StyledDivider,
   Separator,
   PriceWrapper,
   FormControl,
@@ -21,22 +20,14 @@ export const Filters: React.FunctionComponent<Props> = ({
   filter,
   setFilter,
 }) => {
-  const platforms: Platform[] = ["PC", "playstation", "xbox", "switch"];
+  const platforms: Platform[] = ["PC", "Playstation", "Xbox", "Nintendo"];
   return (
     <Container>
       <TopBar>
         <Title>Filters</Title>
-        <Apply
-          variant="contained"
-          size="small"
-          color="secondary"
-          onClick={() => setFilter({ ...filter, active: true })}
-        >
-          Apply
-        </Apply>
         <ClearFilters filterCount={2} setFilter={setFilter} />
       </TopBar>
-      <Divider />
+      <StyledDivider />
       <FilterContainer label={"Price"}>
         <PriceWrapper>
           <PriceField
@@ -45,12 +36,6 @@ export const Filters: React.FunctionComponent<Props> = ({
               setFilter({ ...filter, price: { ...filter.price, min } })
             }
             label="Min"
-            error={filter.price.min > filter.price.max}
-            helperText={
-              filter.price.min > filter.price.max
-                ? "Min cannot be greater than max"
-                : ""
-            }
           />
           <Separator>to</Separator>
           <PriceField
@@ -59,16 +44,10 @@ export const Filters: React.FunctionComponent<Props> = ({
               setFilter({ ...filter, price: { ...filter.price, max } })
             }
             label="Max"
-            error={filter.price.min > filter.price.max}
-            helperText={
-              filter.price.min > filter.price.max
-                ? "Max cannot be lower than min"
-                : ""
-            }
           />
         </PriceWrapper>
       </FilterContainer>
-      <Divider />
+      <StyledDivider />
       <FilterContainer label={"Platform"}>
         {platforms.map((platform) => (
           <FormControl
@@ -95,7 +74,7 @@ export const Filters: React.FunctionComponent<Props> = ({
           />
         ))}
       </FilterContainer>
-      <Divider />
+      <StyledDivider />
     </Container>
   );
 };

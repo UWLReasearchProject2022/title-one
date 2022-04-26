@@ -4,6 +4,6 @@ import { Button } from "@mui/material";
 export const ClearButton = styled(Button)({
   marginLeft: "auto",
   textTransform: "capitalize",
-  fontSize: "1em",
+  fontSize: "14px",
   fontWeight: "normal",
 });

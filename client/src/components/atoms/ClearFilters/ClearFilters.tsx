@@ -1,5 +1,6 @@
 import { ClearButton } from "./ClearFilters.styles";
 import { Filter } from "types";
+import { filterState } from "utils/initialStates";
 
 type Props = {
   filterCount: number;
@@ -11,14 +12,7 @@ export const ClearFilters: React.FunctionComponent<Props> = ({
   setFilter,
 }: Props) => {
   const onClick = () => {
-    setFilter({
-      active: false,
-      platform: [],
-      price: {
-        min: 0,
-        max: 100,
-      },
-    });
+    setFilter(filterState);
   };
   return (
     <ClearButton onClick={onClick}>Clear filters ({filterCount})</ClearButton>

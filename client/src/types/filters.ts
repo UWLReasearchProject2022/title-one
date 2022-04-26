@@ -3,10 +3,9 @@ export type PriceRange = {
   max: number;
 };
 
-export type Platform = "PC" | "playstation" | "xbox" | "switch";
+export type Platform = "PC" | "Playstation" | "Xbox" | "Nintendo";
 
 export type Filter = {
-  active: boolean;
   platform: Platform[];
   price: PriceRange;
 };

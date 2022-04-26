@@ -1,21 +1,15 @@
 import React, { useState } from "react";
 
 import { PageTemplate, ProductGrid, SearchBar, Filters } from "components";
-import type { Filter } from "types";
+import { Filter } from "types";
 import { MainContent } from "./Search.styles";
 import { productSort } from "utils/sorting";
+import { filterState } from "utils/initialStates";
 
 export const Search: React.FunctionComponent = () => {
   const [sortBy, setSortBy] = useState<string>(productSort[0].key);
   const [query, setQuery] = useState<string>("");
-  const [filter, setFilter] = useState<Filter>({
-    active: false,
-    platform: [],
-    price: {
-      min: 0,
-      max: 100,
-    },
-  });
+  const [filter, setFilter] = useState<Filter>(filterState);
   return (
     <PageTemplate>
       <SearchBar
