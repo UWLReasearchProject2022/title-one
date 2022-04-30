@@ -2,7 +2,7 @@ import { Button, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 
 export const Container = styled("div")({
-  height: "22rem",
+  height: "18rem",
   display: "flex",
   flexDirection: "column",
 });

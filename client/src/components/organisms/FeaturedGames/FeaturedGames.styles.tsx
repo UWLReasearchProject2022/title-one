@@ -2,7 +2,7 @@ import { styled } from "@mui/system";
 import { Paper } from "@mui/material";
 
 export const Container = styled(Paper)({
-  minHeight: "22rem",
+  minHeight: "18rem",
   marginTop: "2rem",
   paddingTop: "1.5rem",
   paddingBottom: "0.75rem",
