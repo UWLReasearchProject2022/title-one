@@ -8,12 +8,30 @@ import {
   LargeSpacer,
 } from "./Header.styles";
 import { IconButton } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AccountIcon from "@mui/icons-material/AccountCircleSharp";
 import BasketIcon from "@mui/icons-material/ShoppingBasketSharp";
 import { BASE_URL } from "utils/config";
+import { useUserData } from "hooks";
 
 export const Header: React.FunctionComponent = () => {
+  const { userData, dispatchUser } = useUserData();
+  const navigate = useNavigate();
+
+  const onAccountClick = () => {
+    if (userData.user) {
+      navigate("/account");
+    } else {
+      dispatchUser({
+        type: "SET_USER",
+        data: {
+          email: "test",
+          password: "test",
+        },
+      });
+    }
+  };
+
   return (
     <Container>
       <Link to="/">
@@ -27,11 +45,9 @@ export const Header: React.FunctionComponent = () => {
         <ConsoleButton key={text}>{text}</ConsoleButton>
       ))}
       <RightContainer>
-        <Link to="/account">
-          <IconButton color="primary">
-            <AccountIcon />
-          </IconButton>
-        </Link>
+        <IconButton color="primary" onClick={() => onAccountClick()}>
+          <AccountIcon />
+        </IconButton>
         <SmallSpacer />
         <Link to="/basket">
           <IconButton color="primary">

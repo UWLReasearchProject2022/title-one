@@ -1,9 +1,12 @@
-import { User, UserReducerAction } from "types";
+import { UserState, UserAction } from "types";
 
-export const userReducer = (state: User, action: UserReducerAction): User => {
+export const userReducer = (
+  state: UserState,
+  action: UserAction,
+): UserState => {
   switch (action.type) {
-    case "SET":
-      return action.data ? action.data : state;
+    case "SET_USER":
+      return { ...state, user: action.data };
     default:
       return state;
   }

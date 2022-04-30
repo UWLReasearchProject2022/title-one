@@ -1,12 +1,7 @@
-export type User = {
-  loggedIn: boolean;
-  data?: UserData;
+export type UserState = {
+  user?: User;
 };
 
-export type UserData = {};
+export type User = { email: string; password: string };
 
-export enum UserReducerOptions {
-  SET = "SET",
-}
-
-export type UserReducerAction = { type: UserReducerOptions; data: User };
+export type UserAction = { type: "SET_USER"; data: User };

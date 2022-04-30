@@ -5,26 +5,29 @@ import { routes, AppRoute } from "pages/routes";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { UserProvider } from "context";
 
 const App: React.FunctionComponent = () => {
   const queryClient = new QueryClient();
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={darkTheme}>
-        <Router>
-          <Routes>
-            {routes.map((route: AppRoute) => (
-              <Route
-                key={route.name}
-                path={route.path}
-                element={<route.element />}
-              />
-            ))}
-          </Routes>
-        </Router>
-      </ThemeProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <UserProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={darkTheme}>
+          <Router>
+            <Routes>
+              {routes.map((route: AppRoute) => (
+                <Route
+                  key={route.name}
+                  path={route.path}
+                  element={<route.element />}
+                />
+              ))}
+            </Routes>
+          </Router>
+        </ThemeProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </UserProvider>
   );
 };
 
