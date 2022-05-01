@@ -4,10 +4,17 @@ import {
   Divider,
   FormControl,
   IconButton,
+  Modal,
   Paper,
   TextField,
   Typography,
 } from "@mui/material";
+
+export const StyledModal = styled(Modal)({
+  "& .MuiBackdrop-root": {
+    backgroundColor: "rgba(0, 0, 0, 0.85)",
+  },
+});
 
 export const Container = styled(Paper)({
   position: "absolute",

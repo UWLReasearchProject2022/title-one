@@ -11,8 +11,8 @@ import {
   InputContainer,
   CloseButton,
   Form,
+  StyledModal,
 } from "./SignInModal.styles";
-import { Modal } from "@mui/material";
 import { Close as CloseIcon } from "@mui/icons-material";
 import { PasswordInput } from "components";
 import { validateEmail } from "utils/helpers";
@@ -83,7 +83,7 @@ export const SignInModal: React.FunctionComponent<Props> = ({
   };
 
   return (
-    <Modal open={open} onClose={handleClose}>
+    <StyledModal open={open} onClose={handleClose}>
       <Container>
         <CloseButton onClick={handleClose}>
           <CloseIcon />
@@ -145,6 +145,6 @@ export const SignInModal: React.FunctionComponent<Props> = ({
           </ProceedButton>
         </MethodContainer>
       </Container>
-    </Modal>
+    </StyledModal>
   );
 };
