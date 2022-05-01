@@ -25,13 +25,6 @@ export const Header: React.FunctionComponent = () => {
       navigate("/account");
     } else {
       setSignInOpen(true);
-      // dispatchUser({
-      //   type: "SET_USER",
-      //   data: {
-      //     email: "test",
-      //     password: "test",
-      //   },
-      // });
     }
   };
 

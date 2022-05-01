@@ -55,9 +55,7 @@ export const InputContainer = styled("div")({
 
 export const Input = styled(TextField)({});
 
-export const ProceedButton = styled(Button)({
-  marginTop: "2rem",
-});
+export const ProceedButton = styled(Button)({});
 
 export const CloseButton = styled(IconButton)({
   position: "absolute",
