@@ -3,18 +3,10 @@ import {
   Button,
   Divider,
   FormControl,
-  IconButton,
-  Modal,
   Paper,
   TextField,
   Typography,
 } from "@mui/material";
-
-export const StyledModal = styled(Modal)({
-  "& .MuiBackdrop-root": {
-    backgroundColor: "rgba(0, 0, 0, 0.85)",
-  },
-});
 
 export const Container = styled(Paper)({
   position: "absolute",
@@ -63,9 +55,3 @@ export const InputContainer = styled("div")({
 export const Input = styled(TextField)({});
 
 export const ProceedButton = styled(Button)({});
-
-export const CloseButton = styled(IconButton)({
-  position: "absolute",
-  top: "0.5rem",
-  right: "0.5rem",
-});

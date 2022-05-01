@@ -6,3 +6,4 @@ export * from "./LargeProductCard";
 export * from "./SignInModal";
 export * from "./Footer";
 export * from "./FeaturedGames";
+export * from "./CreateAccountModal";

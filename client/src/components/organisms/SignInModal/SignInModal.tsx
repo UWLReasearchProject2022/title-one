@@ -9,12 +9,9 @@ import {
   SubHeaderText,
   Input,
   InputContainer,
-  CloseButton,
   Form,
-  StyledModal,
 } from "./SignInModal.styles";
-import { Close as CloseIcon } from "@mui/icons-material";
-import { PasswordInput } from "components";
+import { PasswordInput, ModalTemplate } from "components";
 import { validateEmail } from "utils/helpers";
 import { getUser } from "services";
 import { useUserData } from "hooks";
@@ -72,79 +69,68 @@ export const SignInModal: React.FunctionComponent<Props> = ({
               password: value.password.data,
             },
           });
-          handleClose();
+          setOpen(false);
         }
       }
     }
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   return (
-    <StyledModal open={open} onClose={handleClose}>
-      <Container>
-        <CloseButton onClick={handleClose}>
-          <CloseIcon />
-        </CloseButton>
-        <MethodContainer>
-          <HeaderText>
-            <Bold>Existing</Bold> Customers
-          </HeaderText>
-          <SubHeaderText>Sign into Title1</SubHeaderText>
-          <Form>
-            <InputContainer>
-              <Input
-                fullWidth
-                error={value.email.error !== " "}
-                helperText={value.email.error}
-                type="email"
-                label="Email"
-                size="small"
-                value={value.email.data}
-                onChange={(event) => {
-                  handleChange("email", event.target.value);
-                }}
-              />
-              <PasswordInput
-                fullWidth
-                error={value.password.error !== " "}
-                helperText={value.password.error}
-                style={{ marginTop: "0.25rem" }}
-                value={value.password.data}
-                onChange={(event) =>
-                  handleChange("password", event.target.value)
-                }
-              />
-            </InputContainer>
-            <ProceedButton
-              variant="contained"
-              color="secondary"
-              onClick={handleSubmit}
-              style={{ marginTop: "0.5rem" }}
-            >
-              Sign In
-            </ProceedButton>
-          </Form>
-        </MethodContainer>
-        <StyledDivider flexItem orientation="vertical" />
-        <MethodContainer>
-          <HeaderText>
-            <Bold>New</Bold> Customers
-          </HeaderText>
-          <SubHeaderText>
-            Register with Title1 to find you next game
-          </SubHeaderText>
+    <ModalTemplate open={open} setOpen={setOpen} Container={Container}>
+      <MethodContainer>
+        <HeaderText>
+          <Bold>Existing</Bold> Customers
+        </HeaderText>
+        <SubHeaderText>Sign into Title1</SubHeaderText>
+        <Form>
+          <InputContainer>
+            <Input
+              fullWidth
+              error={value.email.error !== " "}
+              helperText={value.email.error}
+              type="email"
+              label="Email"
+              size="small"
+              value={value.email.data}
+              onChange={(event) => {
+                handleChange("email", event.target.value);
+              }}
+            />
+            <PasswordInput
+              fullWidth
+              error={value.password.error !== " "}
+              helperText={value.password.error}
+              style={{ marginTop: "0.25rem" }}
+              value={value.password.data}
+              onChange={(event) => handleChange("password", event.target.value)}
+            />
+          </InputContainer>
           <ProceedButton
             variant="contained"
             color="secondary"
-            style={{ marginTop: "2rem" }}
+            onClick={handleSubmit}
+            style={{ marginTop: "0.5rem" }}
           >
-            Register now
+            Sign In
           </ProceedButton>
-        </MethodContainer>
-      </Container>
-    </StyledModal>
+        </Form>
+      </MethodContainer>
+      <StyledDivider flexItem orientation="vertical" />
+      <MethodContainer>
+        <HeaderText>
+          <Bold>New</Bold> Customers
+        </HeaderText>
+        <SubHeaderText>
+          Register with Title1 to find you next game
+        </SubHeaderText>
+        <ProceedButton
+          variant="contained"
+          color="secondary"
+          style={{ marginTop: "2rem" }}
+        >
+          Register now
+        </ProceedButton>
+      </MethodContainer>
+    </ModalTemplate>
   );
 };
