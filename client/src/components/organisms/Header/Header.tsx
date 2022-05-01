@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   Logo,
@@ -13,27 +13,31 @@ import AccountIcon from "@mui/icons-material/AccountCircleSharp";
 import BasketIcon from "@mui/icons-material/ShoppingBasketSharp";
 import { BASE_URL } from "utils/config";
 import { useUserData } from "hooks";
+import { SignInModal } from "../SignInModal";
 
 export const Header: React.FunctionComponent = () => {
-  const { userData, dispatchUser } = useUserData();
+  const [signInOpen, setSignInOpen] = useState<boolean>(false);
+  const { userData } = useUserData();
   const navigate = useNavigate();
 
   const onAccountClick = () => {
     if (userData.user) {
       navigate("/account");
     } else {
-      dispatchUser({
-        type: "SET_USER",
-        data: {
-          email: "test",
-          password: "test",
-        },
-      });
+      setSignInOpen(true);
+      // dispatchUser({
+      //   type: "SET_USER",
+      //   data: {
+      //     email: "test",
+      //     password: "test",
+      //   },
+      // });
     }
   };
 
   return (
     <Container>
+      <SignInModal open={signInOpen} setOpen={setSignInOpen} />
       <Link to="/">
         <Logo
           src={`${BASE_URL}logos/title-one-full-logo.svg`}
