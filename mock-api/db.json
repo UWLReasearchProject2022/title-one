@@ -28,7 +28,8 @@
       "age_rating": "18+",
       "release_date": "12/04/2022",
       "rating": 3.2,
-      "review_count": 936
+      "review_count": 936,
+      "featured": true
     },
     {
       "id": 2,
@@ -43,7 +44,8 @@
       "age_rating": "12+",
       "release_date": "29/06/2018",
       "rating": 4.5,
-      "review_count": 1298
+      "review_count": 1298,
+      "featured": true
     }
   ],
   "reviews": [

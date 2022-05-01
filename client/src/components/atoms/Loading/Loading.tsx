@@ -5,7 +5,7 @@ import { Typography } from "@mui/material";
 export const Loading: React.FunctionComponent = () => {
   return (
     <Container>
-      <Typography color="primary">Loading... ⌛</Typography>;
+      <Typography color="primary">Loading... ⌛</Typography>
     </Container>
   );
 };

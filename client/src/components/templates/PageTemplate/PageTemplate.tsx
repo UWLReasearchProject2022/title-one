@@ -1,5 +1,5 @@
 import React from "react";
-import { Header } from "components";
+import { Header, Footer } from "components";
 import { Body } from "./PageTemplate.styles";
 
 export const PageTemplate: React.FunctionComponent = ({ children }) => {
@@ -7,6 +7,7 @@ export const PageTemplate: React.FunctionComponent = ({ children }) => {
     <>
       <Header />
       <Body>{children}</Body>
+      <Footer />
     </>
   );
 };
