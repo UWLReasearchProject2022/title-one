@@ -7,5 +7,5 @@ export const useUserData = () => {
 
   const user = useUser(state.user?.email, state.user?.password);
 
-  return { ...user, userData: state, dispatchUser: dispatch };
+  return { ...user, userData: state, dispatchUserData: dispatch };
 };

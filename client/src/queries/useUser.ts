@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import { User } from "types";
 
 export const useUser = (email?: string, password?: string) => {
-  const { data, isLoading, error } = useQuery<User, Error>(
+  const { data, isLoading, error } = useQuery<User[], Error>(
     `user_${email}`,
     () =>
       fetch(
@@ -11,7 +11,7 @@ export const useUser = (email?: string, password?: string) => {
     { enabled: !(email === undefined && password === undefined) },
   );
   return {
-    user: data,
+    user: data ? data[0] : undefined,
     isLoading,
     error,
   };

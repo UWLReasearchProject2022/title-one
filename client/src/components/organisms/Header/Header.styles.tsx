@@ -1,5 +1,5 @@
 import { styled } from "@mui/system";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 export const Container = styled("div")({
   backgroundColor: "black",
@@ -40,4 +40,10 @@ export const SmallSpacer = styled("div")({
 
 export const LargeSpacer = styled("div")({
   width: "4%",
+});
+
+export const UserText = styled(Typography)({
+  height: "19px",
+  lineHeight: "19px",
+  marginRight: "0.25rem",
 });

@@ -1,7 +1,17 @@
 export type UserState = {
-  user?: User;
+  user?: UserData;
 };
 
-export type User = { email: string; password: string };
+export type UserData = {
+  email: string;
+  password: string;
+};
 
-export type UserAction = { type: "SET_USER"; data: User };
+export type User = {
+  id: number;
+  email: string;
+  name: string;
+  password: string;
+};
+
+export type UserAction = { type: "SET_USER"; data: UserData };

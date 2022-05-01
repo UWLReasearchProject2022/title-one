@@ -6,6 +6,7 @@ import {
   RightContainer,
   SmallSpacer,
   LargeSpacer,
+  UserText,
 } from "./Header.styles";
 import { IconButton } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
@@ -17,11 +18,11 @@ import { SignInModal } from "../SignInModal";
 
 export const Header: React.FunctionComponent = () => {
   const [signInOpen, setSignInOpen] = useState<boolean>(false);
-  const { userData } = useUserData();
+  const { user } = useUserData();
   const navigate = useNavigate();
 
   const onAccountClick = () => {
-    if (userData.user) {
+    if (user) {
       navigate("/account");
     } else {
       setSignInOpen(true);
@@ -42,6 +43,9 @@ export const Header: React.FunctionComponent = () => {
         <ConsoleButton key={text}>{text}</ConsoleButton>
       ))}
       <RightContainer>
+        <UserText color="primary">
+          {user?.name ? user.name : "Sign In"}
+        </UserText>
         <IconButton color="primary" onClick={() => onAccountClick()}>
           <AccountIcon />
         </IconButton>

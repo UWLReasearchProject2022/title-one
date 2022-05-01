@@ -38,7 +38,7 @@ export const SignInModal: React.FunctionComponent<Props> = ({
     password: { data: "", error: " " },
   };
   const [value, setValue] = useState<FormValue>(initialValue);
-  const { dispatchUser } = useUserData();
+  const { dispatchUserData } = useUserData();
 
   const handleChange = (key: keyof FormValue, data: string) => {
     const newValue = { ...value };
@@ -65,7 +65,7 @@ export const SignInModal: React.FunctionComponent<Props> = ({
           setError(" ", "Password is incorrect");
         } else {
           setError(" ", " ");
-          dispatchUser({
+          dispatchUserData({
             type: "SET_USER",
             data: {
               email: value.email.data,
