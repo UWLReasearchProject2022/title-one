@@ -3,8 +3,16 @@
     {
       "id": 1,
       "email": "ed.fisk@test.com",
-      "name": "Ed Fisk",
-      "password": "password"
+      "first_name": "Ed",
+      "last_name": "Fisk",
+      "password": "password",
+      "address": {
+        "house_number": 123,
+        "road_name": "Old Road",
+        "city": "Main town",
+        "county": "Essex",
+        "post_code": "XZ12 4GD"
+      }
     }
   ],
   "orders": [
