@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-#*^33k-&2wr8&8oz#6s_km=20q3e32$j4!8&i3szkm=hqa*!i2"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True if os.environ["ENVIRONMENT"] == "development" else False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["titleone.azurewebsites.net", "localhost"]
 
 
 # Application definition
@@ -39,12 +39,14 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "drf_yasg",
     "rest_framework",
-    "api",  
+    "api",
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -106,6 +108,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'https://www.titleone.co.uk'
+]
+
+CSRF_TRUSTED_ORIGINS=['https://titleone.azurewebsites.net']
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
