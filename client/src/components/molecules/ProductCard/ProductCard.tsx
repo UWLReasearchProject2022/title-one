@@ -15,6 +15,7 @@ import {
 import { Button } from "@mui/material";
 import { LikeButton } from "components";
 import { pegiIcons, platformIcons } from "utils/icons";
+import { Link } from "react-router-dom";
 
 type Props = {
   product: Product;
@@ -42,9 +43,11 @@ export const ProductCard: React.FunctionComponent<Props> = ({ product }) => {
         </IconStack>
         <Actions>
           <LikeButton />
-          <Button variant="contained" color="secondary">
-            View
-          </Button>
+          <Link to={`/search/${product.id}`}>
+            <Button variant="contained" color="secondary">
+              View
+            </Button>
+          </Link>
         </Actions>
       </Body>
     </Container>

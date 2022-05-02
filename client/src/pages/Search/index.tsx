@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { PageTemplate, ProductGrid, SearchBar } from "components";
-import { SortBy } from "types";
+import { productSort } from "utils/sorting";
 
 export const Search: React.FunctionComponent = () => {
-  const [sortBy, setSortBy] = useState<SortBy>("price-asc");
+  const [sortBy, setSortBy] = useState<string>(productSort[0].key);
   const [query, setQuery] = useState<string>("");
   return (
     <PageTemplate>
