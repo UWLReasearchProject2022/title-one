@@ -15,4 +15,6 @@ export type User = {
   password: string;
 };
 
-export type UserAction = { type: "SET_USER"; data: UserData };
+export type UserAction =
+  | { type: "SET_USER"; data: UserData }
+  | { type: "SIGN_OUT" };

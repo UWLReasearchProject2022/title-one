@@ -7,6 +7,8 @@ export const userReducer = (
   switch (action.type) {
     case "SET_USER":
       return { ...state, user: action.data };
+    case "SIGN_OUT":
+      return { ...state, user: undefined };
     default:
       return state;
   }
