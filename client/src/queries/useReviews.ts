@@ -6,7 +6,7 @@ export const useReviews = (product_id: number) => {
     `reviews_for_product_${product_id}`,
     () =>
       fetch(
-        `${process.env.REACT_APP_API_URL}/api/reviews?product_id=${product_id}`,
+        `${process.env.REACT_APP_API_URL}/reviews?product_id=${product_id}`,
       ).then((res) => res.json()),
   );
   return {
