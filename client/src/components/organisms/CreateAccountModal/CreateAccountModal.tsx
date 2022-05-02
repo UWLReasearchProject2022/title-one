@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ModalTemplate, PasswordInput } from "components";
+import { ModalTemplate } from "components";
 import {
   Container,
   HeaderText,
@@ -7,14 +7,13 @@ import {
   SubHeaderText,
   Form,
   ProceedButton,
-  SplitInput,
-  Input,
 } from "./CreateAccountModal.styles";
 import { ModalProps, User } from "types";
 import { useAddUser } from "queries";
 import { validateEmail, isBlank } from "utils/helpers";
 import { getUser } from "services";
-import { useUserData } from "";
+import formConfig from "./config";
+import { useUserData } from "hooks";
 
 type Errors = {
   first_name: string;
@@ -22,30 +21,6 @@ type Errors = {
   email: string;
   password: string;
 };
-
-const formConfig = [
-  {
-    name: "first_name",
-    label: "First name",
-    style: { paddingRight: "1rem" },
-    component: SplitInput,
-  },
-  {
-    name: "last_name",
-    label: "Last name",
-    component: SplitInput,
-  },
-  {
-    name: "email",
-    label: "Email",
-    component: Input,
-  },
-  {
-    name: "password",
-    label: "Password",
-    component: PasswordInput,
-  },
-];
 
 export const CreateAccountModal: React.FunctionComponent<ModalProps> = ({
   open,
@@ -59,9 +34,17 @@ export const CreateAccountModal: React.FunctionComponent<ModalProps> = ({
   };
   const [errors, setErrors] = useState<Errors>(initialErrors);
   const { mutate } = useAddUser();
-  const { dis } = useUserData();
+  const { dispatchUserData } = useUserData();
 
   const onSuccess = (user: User) => {
+    console.log(user);
+    dispatchUserData({
+      type: "SET_USER",
+      data: {
+        email: user.email,
+        password: user.password,
+      },
+    });
     setOpen(false);
   };
 
