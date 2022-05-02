@@ -98,7 +98,6 @@ export const SignInModal: React.FunctionComponent<Props> = ({
               }}
             />
             <PasswordInput
-              fullWidth
               error={value.password.error !== " "}
               helperText={value.password.error}
               style={{ marginTop: "0.25rem" }}

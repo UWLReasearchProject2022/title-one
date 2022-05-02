@@ -10,9 +10,10 @@ export const PasswordInput: React.FunctionComponent<TextFieldProps> = (
 
   return (
     <Input
+      fullWidth
       {...props}
       type={visible ? "text" : "password"}
-      label="Password"
+      label={props.label ? props.label : "Password"}
       size="small"
       InputProps={{
         endAdornment: (
