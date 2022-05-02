@@ -12,5 +12,10 @@ export const filterProducts = (items: Product[], filter: Filter) => {
       if (filter.price.min <= item.price && filter.price.max >= item.price)
         return true;
       return false;
+    })
+    .filter((item) => {
+      if (filter.ageRating.length === 0) return true;
+      if (filter.ageRating.includes(item.age_rating)) return true;
+      return false;
     });
 };

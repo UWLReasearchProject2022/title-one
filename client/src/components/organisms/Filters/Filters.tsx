@@ -8,7 +8,7 @@ import {
   PriceWrapper,
   FormControl,
 } from "./Filters.styles";
-import { Platform, Filter } from "types";
+import { Platform, Filter, AgeRating } from "types";
 import { Checkbox } from "@mui/material";
 
 type Props = {
@@ -21,6 +21,7 @@ export const Filters: React.FunctionComponent<Props> = ({
   setFilter,
 }) => {
   const platforms: Platform[] = ["PC", "Playstation", "Xbox", "Nintendo"];
+  const ageRatings: AgeRating[] = ["3+", "7+", "12+", "16+", "18+"];
   return (
     <Container>
       <TopBar>
@@ -71,6 +72,35 @@ export const Filters: React.FunctionComponent<Props> = ({
             }
             label={platform}
             key={platform}
+          />
+        ))}
+      </FilterContainer>
+      <StyledDivider />
+      <FilterContainer label={"Age Rating"}>
+        {ageRatings.map((ageRating) => (
+          <FormControl
+            control={
+              <Checkbox
+                checked={filter.ageRating.includes(ageRating)}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  if (event.target.checked) {
+                    setFilter({
+                      ...filter,
+                      ageRating: [...filter.ageRating, ageRating],
+                    });
+                  } else {
+                    setFilter({
+                      ...filter,
+                      ageRating: filter.ageRating.filter(
+                        (a) => a !== ageRating,
+                      ),
+                    });
+                  }
+                }}
+              />
+            }
+            label={ageRating}
+            key={ageRating}
           />
         ))}
       </FilterContainer>

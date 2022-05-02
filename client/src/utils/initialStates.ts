@@ -4,4 +4,5 @@ export const filterState = {
     min: 0,
     max: 100,
   },
+  ageRating: [],
 };

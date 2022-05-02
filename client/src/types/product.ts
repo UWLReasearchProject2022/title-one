@@ -1,4 +1,4 @@
-import { Platform } from "./filters";
+import { AgeRating, Platform } from "./filters";
 
 export type Product = {
   id: number;
@@ -10,7 +10,7 @@ export type Product = {
   price: number;
   image: string;
   platform: Platform;
-  age_rating: "3+" | "7+" | "12+" | "16+" | "18+";
+  age_rating: AgeRating;
   release_date: string;
   rating: number;
   review_count: number;
