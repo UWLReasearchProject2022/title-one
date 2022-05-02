@@ -32,8 +32,8 @@ class Platform(models.Model):
 
 class ProductPlatform(models.Model):
     product_platform_id = models.AutoField(primary_key=True)
-    product_id = models.ForeignKey("Product", on_delete=models.CASCADE)
-    platform_id = models.ForeignKey("Platform", on_delete=models.CASCADE)
+    product_id = models.ForeignKey("Product", on_delete=models.CASCADE, related_name="platforms")
+    platform_id = models.ForeignKey("Platform", on_delete=models.CASCADE, related_name="platform")
     price = models.FloatField()
 
 
@@ -44,8 +44,9 @@ class Genre(models.Model):
 
 
 class ProductGenre(models.Model):
-    product_id = models.ForeignKey("Product", on_delete=models.CASCADE)
-    genre_id = models.ForeignKey("Genre", on_delete=models.CASCADE)
+    
+    product_id = models.ForeignKey("Product", on_delete=models.CASCADE, related_name="genres")
+    genre_id = models.ForeignKey("Genre", on_delete=models.CASCADE, related_name="genre")
 
 
 class Stock(models.Model):

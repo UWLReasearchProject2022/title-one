@@ -3,6 +3,8 @@ from .models import (Product, Developer, Platform, ProductPlatform, Genre,
                      ProductGenre, Stock, OrderDetails, Order, Customer,
                      Review)
 
+from rest_framework.serializers import (SlugRelatedField)
+
 
 class DeveloperSerializer(serializers.ModelSerializer):
 
@@ -11,33 +13,13 @@ class DeveloperSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class ProductSerializer(serializers.ModelSerializer):
-    developer = DeveloperSerializer(read_only=True)
-
-    #Developer = serializers.PickledObjectField(source='developer_id')
-
-    class Meta:
-        model = Product
-        fields = [
-            "product_id", "name", "short_description", "long_description",
-            "image_url", "developer"
-        ]
-        depth = 1
-
-
 class PlatformSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Platform
-        fields = "__all__"
+        fields = ["name", "platform_id"]
 
 
-class ProductPlatformSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = ProductPlatform
-        fields = "__all__"
-        depth = 1
 
 
 class GenreSerializer(serializers.ModelSerializer):
@@ -51,8 +33,31 @@ class ProductGenreSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductGenre
-        fields = "__all__"
+        fields = ["genre_id"]
+        depth = 1
 
+class ProductPlatformSerializer(serializers.ModelSerializer):
+    
+
+    class Meta:
+        model = ProductPlatform
+        fields = [ "price", "platform_id", "product_platform_id"]
+        depth = 2
+
+        
+     
+class ProductSerializer(serializers.ModelSerializer):
+    platforms = ProductPlatformSerializer(many=True, read_only=True)
+    genres = ProductGenreSerializer(many=True, read_only=True)
+    developer = DeveloperSerializer(read_only=True)
+    
+
+    #Developer = serializers.PickledObjectField(source='developer_id')
+  
+
+    class Meta:
+        model = Product
+        fields = ["product_id","name", "short_description", "long_description", "image_url", "platforms", "genres", "developer"]
 
 class StockSerializer(serializers.ModelSerializer):
 

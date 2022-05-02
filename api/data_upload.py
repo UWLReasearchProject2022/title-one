@@ -1,5 +1,6 @@
 """Script to upload data to the database, only run once"""
 
+from turtle import clear
 import requests
 import random
 
@@ -126,20 +127,40 @@ def upload_product_platform():
                     "price": random.choice(PRICES),
                 },
             )
+
+            print({
+                    "product_id": prod,
+                    "platform_id": platform_ids[i],
+                    "price": random.choice(PRICES),
+                },
+            )
             response.raise_for_status()
 
 
 def upload_product_genre():
     url = "/product_genre/"
-    for prod in PRODS:
-        random.shuffle(GENRES)
-        for i in range(random.randint(1, len(GENRES))):
 
-            requests.post(BASE_URL + url,
-                          json={
-                              "product_id": prod,
-                              "genre_id": GENRES[i]
-                          })
+    prod_ids = requests.get(f"{BASE_URL}/product/").json()
+    prod_ids = [x["product_id"] for x in prod_ids]
+
+
+    genre_ids = requests.get(f"{BASE_URL}/genre/").json()
+    genre_ids = [x["genre_id"] for x in genre_ids]
+
+    print("yes")
+    for prod in prod_ids:
+        random.shuffle(genre_ids)
+        for i in range(random.randint(1, len(genre_ids))):
+
+            body = {
+                "product_id": prod,
+                "genre_id": genre_ids[i]
+                          }
+
+            print(body)
+
+            r = requests.post(BASE_URL + url, json=body, headers={"Content-Type": "application/json"})
+            r.raise_for_status()
 
 
 def upload_stock():
@@ -216,14 +237,18 @@ def upload_order_detail():
             },
         )
 
+def clear_db():
+    url = "/clear"
+    requests.get(BASE_URL + url)
+
 
 if __name__ == "__main__":
-    # if not check_db_empty():
-    #     raise ValueError("Database is not empty you absolute moron.")
-
-    # upload_developer()
+    clear_db()
+    
+    
+    upload_developer()
     upload_platform()
-    # upload_genre()
+    upload_genre()
     upload_product()
     upload_product_platform()
     upload_product_genre()
