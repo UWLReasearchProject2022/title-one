@@ -15,11 +15,9 @@ def upload_developer():
     url = "/developer/"
 
     for name in DEV_NAMES:
-        requests.post(BASE_URL + url,
-                      json={
-                          "name": name,
-                          "description": "A great company"
-                      })
+        requests.post(
+            BASE_URL + url, json={"name": name, "description": "A great company"}
+        )
     print("Uploaded developers")
 
 
@@ -79,7 +77,6 @@ def upload_product():
         )
         r.raise_for_status()
     print("Uploaded products")
-      
 
 
 def upload_platform():
@@ -94,13 +91,12 @@ def upload_platform():
 def upload_genre():
     url = "/genre/"
     for name in GENRES:
-        r = requests.post(BASE_URL + url,
-                          json={
-                              "name": name,
-                              "description": "A great genre"
-                          })
+        r = requests.post(
+            BASE_URL + url, json={"name": name, "description": "A great genre"}
+        )
         r.raise_for_status()
     print("Uploaded genres")
+
 
 def check_db_empty():
     url = "/developer/"
@@ -133,8 +129,6 @@ def upload_product_platform():
                 },
             )
 
-          
-            
             response.raise_for_status()
     print("Uploaded product platforms")
 
@@ -145,23 +139,18 @@ def upload_product_genre():
     prod_ids = requests.get(f"{BASE_URL}/product/").json()
     prod_ids = [x["product_id"] for x in prod_ids]
 
-
     genre_ids = requests.get(f"{BASE_URL}/genre/").json()
     genre_ids = [x["genre_id"] for x in genre_ids]
 
-    
     for prod in prod_ids:
         random.shuffle(genre_ids)
         for i in range(random.randint(1, 2)):
 
-            body = {
-                "product_id": prod,
-                "genre_id": genre_ids[i]
-                          }
+            body = {"product_id": prod, "genre_id": genre_ids[i]}
 
-           
-
-            r = requests.post(BASE_URL + url, json=body, headers={"Content-Type": "application/json"})
+            r = requests.post(
+                BASE_URL + url, json=body, headers={"Content-Type": "application/json"}
+            )
             r.raise_for_status()
     print("Uploaded product genres")
 
@@ -171,20 +160,20 @@ def upload_stock():
 
     platform_ids = requests.get(BASE_URL + "/product_platform/").json()
     platform_ids = [x["product_platform_id"] for x in platform_ids]
-    platform_ids = list(set(platform_ids)) 
+    platform_ids = list(set(platform_ids))
 
     if not platform_ids:
         raise ValueError("No platform prod in the database")
 
     for plat in platform_ids:
-        
-            r = requests.post(
-                BASE_URL + url,
-                json={
-                    "product_platform_id": plat,
-                },
-            )
-            r.raise_for_status()
+
+        r = requests.post(
+            BASE_URL + url,
+            json={
+                "product_platform_id": plat,
+            },
+        )
+        r.raise_for_status()
     print("Uploaded stock")
 
 
@@ -245,6 +234,7 @@ def upload_order_detail():
         )
     print("Uploaded order details")
 
+
 def upload_review():
     url = "/review/"
 
@@ -255,26 +245,25 @@ def upload_review():
     customers = [x["customer_id"] for x in customers]
 
     for product, _ in itertools.product(products, range(5)):
-        
-        body ={
-                "product_id": product,
-                "customer_id": random.choice(customers),
-                "rating": random.randint(1, 5),
-                "text": "review text will go here.",
-            }
+
+        body = {
+            "product_id": product,
+            "customer_id": random.choice(customers),
+            "rating": random.randint(1, 5),
+            "text": "review text will go here.",
+        }
         r = requests.post(
             BASE_URL + url,
             json=body,
-            
         )
-        
+
         try:
             r.raise_for_status()
         except Exception:
             print(body)
-            raise 
+            raise
     print("Uploaded reviews")
-      
+
 
 def clear_db():
     url = "/clear"
@@ -283,8 +272,7 @@ def clear_db():
 
 if __name__ == "__main__":
     clear_db()
-    
-    
+
     upload_developer()
     upload_platform()
     upload_genre()
@@ -296,5 +284,3 @@ if __name__ == "__main__":
     upload_order()
     upload_order_detail()
     upload_review()
-
-

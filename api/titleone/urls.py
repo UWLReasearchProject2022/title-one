@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 from api import views
+
 # from api.api.views import DeveloperViewset
 from rest_framework.routers import DefaultRouter
 from django.views.generic import TemplateView
@@ -41,19 +42,15 @@ router.register(r"platform", views.PlatformViewset, basename="platform")
 router.register(r"genre", views.GenreViewset, basename="genre")
 router.register(r"order", views.OrderViewset, basename="order")
 router.register(r"stock", views.StockViewset, basename="stock")
-router.register(r"order_detail",
-                views.OrderDetailsViewset,
-                basename="order_detail")
-router.register(r"product_platform",
-                views.ProductPlatformViewset,
-                basename="product_platform")
-router.register(r"product_genre",
-                views.ProductGenreViewset,
-                basename="product_genre")
+router.register(r"order_detail", views.OrderDetailsViewset, basename="order_detail")
+router.register(
+    r"product_platform", views.ProductPlatformViewset, basename="product_platform"
+)
+router.register(r"product_genre", views.ProductGenreViewset, basename="product_genre")
 router.register(r"customer", views.CustomerViewset, basename="customer")
 router.register(r"review", views.ReviewViewset, basename="review")
 
-#nested product endpoint with developer
+# nested product endpoint with developer
 # developer_router = routers.NestedSimpleRouter(router,
 #                                               r'developer',
 #                                               lookup='product')
@@ -67,7 +64,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("clear/", views.clear_database),
     path("api-auth/", include("rest_framework.urls")),
-    path("swagger/",
-         schema_view.with_ui("swagger", cache_timeout=0),
-         name="swagger"),
+    path("swagger/", schema_view.with_ui("swagger", cache_timeout=0), name="swagger"),
 ]

@@ -8,15 +8,34 @@ from rest_framework.decorators import api_view
 from rest_framework.request import Request
 from rest_framework.renderers import JSONRenderer
 from django.http import HttpResponse, JsonResponse
-from .models import (Product, Developer, Platform, ProductPlatform, Genre,
-                     ProductGenre, Review, Stock, OrderDetails, Order,
-                     Customer, Review)
-from .serializers import (ProductSerializer, DeveloperSerializer,
-                          PlatformSerializer, ProductPlatformSerializer,
-                          GenreSerializer, ProductGenreSerializer,
-                          ReviewSerializer, StockSerializer,
-                          OrderDetailsSerializer, OrderSerializer,
-                          CustomerSerializer, ReviewSerializer)
+from .models import (
+    Product,
+    Developer,
+    Platform,
+    ProductPlatform,
+    Genre,
+    ProductGenre,
+    Review,
+    Stock,
+    OrderDetails,
+    Order,
+    Customer,
+    Review,
+)
+from .serializers import (
+    ProductSerializer,
+    DeveloperSerializer,
+    PlatformSerializer,
+    ProductPlatformSerializer,
+    GenreSerializer,
+    ProductGenreSerializer,
+    ReviewSerializer,
+    StockSerializer,
+    OrderDetailsSerializer,
+    OrderSerializer,
+    CustomerSerializer,
+    ReviewSerializer,
+)
 from rest_framework.viewsets import ModelViewSet
 
 # Create your views here.
@@ -31,9 +50,10 @@ from rest_framework.viewsets import ModelViewSet
 #     # response_body = JSONRenderer().render(serializer.data)
 #     return JsonResponse(serializer.data, safe=False)
 
-@api_view(['GET'])
+
+@api_view(["GET"])
 def clear_database(request):
-    if request.method != 'GET':
+    if request.method != "GET":
         return Response(status=405)
 
     Product.objects.all().delete()
@@ -52,12 +72,11 @@ def clear_database(request):
     return HttpResponse("Database cleared")
 
 
-
 class ProductViewset(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
-    #allows for new product to be added into database, while still keeping a the nested JSON with developer table
+    # allows for new product to be added into database, while still keeping a the nested JSON with developer table
 
     def create(self, request):
         product_data = request.data
@@ -67,7 +86,8 @@ class ProductViewset(ModelViewSet):
             short_description=product_data["short_description"],
             long_description=product_data["long_description"],
             image_url=product_data["image_url"],
-            developer_id=product_data["developer_id"])
+            developer_id=product_data["developer_id"],
+        )
 
         new_product.save()
 
@@ -96,22 +116,19 @@ class ProductPlatformViewset(ModelViewSet):
 
         new_product_platform = ProductPlatform.objects.create(
             price=product_platform_data["price"],
-           
-            product_id= self.product_queryset.get(product_id=product_platform_data["product_id"]),
-        
-        platform_id = Platform.objects.get(platform_id=product_platform_data["platform_id"]))
-
+            product_id=self.product_queryset.get(
+                product_id=product_platform_data["product_id"]
+            ),
+            platform_id=Platform.objects.get(
+                platform_id=product_platform_data["platform_id"]
+            ),
+        )
 
         new_product_platform.save()
 
         serializer = ProductPlatformSerializer(new_product_platform)
         return Response(serializer.data)
 
-
-
-    
-    
-    
     queryset = ProductPlatform.objects.all()
     serializer_class = ProductPlatformSerializer
 
@@ -129,8 +146,9 @@ class ProductGenreViewset(ModelViewSet):
         product_genre_data = request.data
 
         new_product_genre = ProductGenre.objects.create(
-            product_id= Product.objects.get(product_id=product_genre_data["product_id"]),
-            genre_id=Genre.objects.get(genre_id=product_genre_data["genre_id"]))
+            product_id=Product.objects.get(product_id=product_genre_data["product_id"]),
+            genre_id=Genre.objects.get(genre_id=product_genre_data["genre_id"]),
+        )
 
         new_product_genre.save()
 
@@ -169,7 +187,8 @@ class ReviewViewset(ModelViewSet):
             product_id=Product.objects.get(product_id=review_data["product_id"]),
             customer_id=Customer.objects.get(customer_id=review_data["customer_id"]),
             rating=review_data["rating"],
-            text=review_data["text"])
+            text=review_data["text"],
+        )
 
         new_review.save()
 
