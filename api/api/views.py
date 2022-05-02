@@ -47,6 +47,7 @@ def clear_database(request):
     OrderDetails.objects.all().delete()
     Order.objects.all().delete()
     Customer.objects.all().delete()
+    Review.objects.all().delete()
 
     return HttpResponse("Database cleared")
 
@@ -160,3 +161,17 @@ class CustomerViewset(ModelViewSet):
 class ReviewViewset(ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+
+    def create(self, request):
+        review_data = request.data
+
+        new_review = Review.objects.create(
+            product_id=Product.objects.get(product_id=review_data["product_id"]),
+            customer_id=Customer.objects.get(customer_id=review_data["customer_id"]),
+            rating=review_data["rating"],
+            text=review_data["text"])
+
+        new_review.save()
+
+        serializer = ReviewSerializer(new_review)
+        return Response(serializer.data)

@@ -1,5 +1,7 @@
 """Script to upload data to the database, only run once"""
 
+
+import itertools
 from turtle import clear
 import requests
 import random
@@ -18,6 +20,7 @@ def upload_developer():
                           "name": name,
                           "description": "A great company"
                       })
+    print("Uploaded developers")
 
 
 PLATFORMS = ["PC", "PS4", "XBOX ONE", "SWITCH"]
@@ -75,7 +78,8 @@ def upload_product():
             },
         )
         r.raise_for_status()
-        print(r.status_code)
+    print("Uploaded products")
+      
 
 
 def upload_platform():
@@ -84,6 +88,7 @@ def upload_platform():
     for name in PLATFORMS:
         r = requests.post(BASE_URL + url, json={"name": name})
         r.raise_for_status()
+    print("Uploaded platforms")
 
 
 def upload_genre():
@@ -95,7 +100,7 @@ def upload_genre():
                               "description": "A great genre"
                           })
         r.raise_for_status()
-
+    print("Uploaded genres")
 
 def check_db_empty():
     url = "/developer/"
@@ -118,7 +123,7 @@ def upload_product_platform():
 
     for prod in prod_ids:
         random.shuffle(platform_ids)
-        for i in range(random.randint(1, len(platform_ids))):
+        for i in range(random.randint(1, 3)):
             response = requests.post(
                 BASE_URL + url,
                 json={
@@ -128,13 +133,10 @@ def upload_product_platform():
                 },
             )
 
-            print({
-                    "product_id": prod,
-                    "platform_id": platform_ids[i],
-                    "price": random.choice(PRICES),
-                },
-            )
+          
+            
             response.raise_for_status()
+    print("Uploaded product platforms")
 
 
 def upload_product_genre():
@@ -147,20 +149,21 @@ def upload_product_genre():
     genre_ids = requests.get(f"{BASE_URL}/genre/").json()
     genre_ids = [x["genre_id"] for x in genre_ids]
 
-    print("yes")
+    
     for prod in prod_ids:
         random.shuffle(genre_ids)
-        for i in range(random.randint(1, len(genre_ids))):
+        for i in range(random.randint(1, 2)):
 
             body = {
                 "product_id": prod,
                 "genre_id": genre_ids[i]
                           }
 
-            print(body)
+           
 
             r = requests.post(BASE_URL + url, json=body, headers={"Content-Type": "application/json"})
             r.raise_for_status()
+    print("Uploaded product genres")
 
 
 def upload_stock():
@@ -168,12 +171,13 @@ def upload_stock():
 
     platform_ids = requests.get(BASE_URL + "/product_platform/").json()
     platform_ids = [x["product_platform_id"] for x in platform_ids]
+    platform_ids = list(set(platform_ids)) 
 
     if not platform_ids:
         raise ValueError("No platform prod in the database")
 
     for plat in platform_ids:
-        for _ in range(random.randint(1, 10)):
+        
             r = requests.post(
                 BASE_URL + url,
                 json={
@@ -181,6 +185,7 @@ def upload_stock():
                 },
             )
             r.raise_for_status()
+    print("Uploaded stock")
 
 
 def upload_customer():
@@ -198,6 +203,7 @@ def upload_customer():
                 "other_names": "James",
             },
         )
+    print("Uploaded customers")
 
 
 def upload_order():
@@ -214,6 +220,7 @@ def upload_order():
                 "date_delivered": "2020-01-01",
             },
         )
+    print("Orders uploaded")
 
 
 def upload_order_detail():
@@ -236,6 +243,38 @@ def upload_order_detail():
                 "stock_id": random.choice(stock_ids),
             },
         )
+    print("Uploaded order details")
+
+def upload_review():
+    url = "/review/"
+
+    products = requests.get(f"{BASE_URL}/product/").json()
+    products = [x["product_id"] for x in products]
+
+    customers = requests.get(f"{BASE_URL}/customer/").json()
+    customers = [x["customer_id"] for x in customers]
+
+    for product, _ in itertools.product(products, range(5)):
+        
+        body ={
+                "product_id": product,
+                "customer_id": random.choice(customers),
+                "rating": random.randint(1, 5),
+                "text": "review text will go here.",
+            }
+        r = requests.post(
+            BASE_URL + url,
+            json=body,
+            
+        )
+        
+        try:
+            r.raise_for_status()
+        except Exception:
+            print(body)
+            raise 
+    print("Uploaded reviews")
+      
 
 def clear_db():
     url = "/clear"
@@ -256,3 +295,6 @@ if __name__ == "__main__":
     upload_customer()
     upload_order()
     upload_order_detail()
+    upload_review()
+
+

@@ -56,7 +56,7 @@ class Stock(models.Model):
 
 
 class OrderDetails(models.Model):
-
+    order_details_id = models.AutoField(primary_key=True)
     stock_id = models.ForeignKey("Stock", on_delete=models.CASCADE)
     order_id = models.ForeignKey("Order", on_delete=models.CASCADE)
 
@@ -81,10 +81,12 @@ class Customer(models.Model):
 
 class Review(models.Model):
     review_id = models.AutoField(primary_key=True)
-    date_reviewed = models.DateTimeField(auto_now_add=True)
-    review_text = models.CharField(max_length=255)
-    order_id = models.ForeignKey("Order", on_delete=models.CASCADE)
+    product_id = models.ForeignKey("Product", on_delete=models.CASCADE, related_name="reviews")
     customer_id = models.ForeignKey("Customer", on_delete=models.CASCADE)
+    text = models.CharField(max_length=255)
+    rating = models.IntegerField()
+    date_reviewed = models.DateTimeField(auto_now_add=True)
+    
 
     def __str__(self):
         return self.name

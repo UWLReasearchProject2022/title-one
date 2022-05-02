@@ -44,12 +44,20 @@ class ProductPlatformSerializer(serializers.ModelSerializer):
         fields = [ "price", "platform_id", "product_platform_id"]
         depth = 2
 
+
+class ReviewSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Review
+        fields = "__all__"
+        
         
      
 class ProductSerializer(serializers.ModelSerializer):
     platforms = ProductPlatformSerializer(many=True, read_only=True)
     genres = ProductGenreSerializer(many=True, read_only=True)
     developer = DeveloperSerializer(read_only=True)
+    reviews = ReviewSerializer(many=True, read_only=True)
     
 
     #Developer = serializers.PickledObjectField(source='developer_id')
@@ -57,7 +65,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ["product_id","name", "short_description", "long_description", "image_url", "platforms", "genres", "developer"]
+        fields = ["product_id","name", "short_description", "long_description", "image_url", "platforms", "genres", "developer", "reviews"]
 
 class StockSerializer(serializers.ModelSerializer):
 
@@ -86,10 +94,3 @@ class CustomerSerializer(serializers.ModelSerializer):
         model = Customer
         fields = "__all__"
 
-
-class ReviewSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Review
-        fields = "__all__"
-        depth = 1
