@@ -50,9 +50,26 @@ export const useBasket = () => {
     }
   };
 
+  const setQuantity = (productId: number, quantity: number) => {
+    try {
+      const newBasket = basket.map((item) => {
+        if (item.product.id === productId) {
+          item.quantity = quantity;
+        }
+        return item;
+      });
+      setBasket(newBasket);
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem("basket", JSON.stringify(newBasket));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const total = basket.reduce((total, item) => {
     return total + item.product.price * item.quantity;
   }, 0);
 
-  return { basket, total, addToBasket, removeFromBasket };
+  return { basket, total, addToBasket, removeFromBasket, setQuantity };
 };

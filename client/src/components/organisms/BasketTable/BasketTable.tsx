@@ -3,27 +3,36 @@ import {
   GridColDef,
   GridValueGetterParams,
   GridRenderCellParams,
+  GridValueSetterParams,
 } from "@mui/x-data-grid";
-import { Container, Delete } from "./BasketTable.styles";
+import { Container, Delete, ProductLink } from "./BasketTable.styles";
 import { PriceTotal } from "components";
 import { useBasket } from "utils/lib/useBasket";
 import { IconButton } from "@mui/material";
 
 export const BasketTable: React.FunctionComponent = () => {
-  const { basket, total, removeFromBasket } = useBasket();
+  const { basket, total, removeFromBasket, setQuantity } = useBasket();
 
   const columns: GridColDef[] = [
     {
       field: "product.name",
       headerName: "Product Name",
       flex: 1,
-      valueGetter: (params: GridValueGetterParams) => params.row.product.name,
+      renderCell: (params: GridRenderCellParams) => (
+        <ProductLink to={`/search/${params.row.product.id}`}>
+          {params.row.product.name}
+        </ProductLink>
+      ),
     },
     {
       field: "quantity",
       headerName: "Quantity",
       flex: 0.5,
       editable: true,
+      valueSetter: (params: GridValueSetterParams) => {
+        setQuantity(params.row.product.id, params.value);
+        return params.value;
+      },
     },
     {
       field: "product.price",
