@@ -1,47 +1,123 @@
-import React from "react";
+import React, { useState } from "react";
 import { ModalTemplate, PasswordInput } from "components";
 import {
   Container,
   HeaderText,
   InputContainer,
   SubHeaderText,
-  Input,
   Form,
   ProceedButton,
   SplitInput,
+  Input,
 } from "./CreateAccountModal.styles";
 import { ModalProps, User } from "types";
 import { useAddUser } from "queries";
+import { validateEmail, isBlank } from "utils/helpers";
+import { getUser } from "services";
+import { useUserData } from "";
+
+type Errors = {
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+};
+
+const formConfig = [
+  {
+    name: "first_name",
+    label: "First name",
+    style: { paddingRight: "1rem" },
+    component: SplitInput,
+  },
+  {
+    name: "last_name",
+    label: "Last name",
+    component: SplitInput,
+  },
+  {
+    name: "email",
+    label: "Email",
+    component: Input,
+  },
+  {
+    name: "password",
+    label: "Password",
+    component: PasswordInput,
+  },
+];
 
 export const CreateAccountModal: React.FunctionComponent<ModalProps> = ({
   open,
   setOpen,
 }) => {
+  const initialErrors = {
+    first_name: " ",
+    last_name: " ",
+    email: " ",
+    password: " ",
+  };
+  const [errors, setErrors] = useState<Errors>(initialErrors);
   const { mutate } = useAddUser();
+  const { dis } = useUserData();
 
   const onSuccess = (user: User) => {
-    console.log(user);
+    setOpen(false);
   };
 
   const onError = () => {
-    console.log("FAILED");
+    setError("password", "Something went wrong, please try again later");
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const newErrors: Errors = {
+      first_name: " ",
+      last_name: " ",
+      email: " ",
+      password: " ",
+    };
+
     const formData = new FormData(event.currentTarget);
-    mutate(
-      {
-        first_name: formData.get("email") as string,
-        last_name: "hello",
-        email: "",
-        password: formData.get("password") as string,
-      },
-      {
-        onSuccess: (_, variables, __) => onSuccess(variables),
-        onError: onError,
-      },
-    );
+    const first_name = formData.get("first_name") as string;
+    const last_name = formData.get("last_name") as string;
+    const email = formData.get("email") as string;
+
+    newErrors.first_name = isBlank(first_name) ? "Please complete" : " ";
+    newErrors.last_name = isBlank(last_name) ? "Please complete" : " ";
+
+    if (newErrors.first_name === " " && newErrors.last_name === " ") {
+      if (!validateEmail(email)) {
+        newErrors.email = "Invalid email";
+      } else {
+        const users = await getUser(email);
+        if (!users || users.length !== 0) {
+          newErrors.email = "Email already registered";
+        } else {
+          addUser({
+            first_name: first_name,
+            last_name: last_name,
+            email: email,
+            password: formData.get("password") as string,
+          });
+        }
+      }
+    }
+    setErrors(newErrors);
+  };
+
+  const addUser = (user: User) => {
+    mutate(user, {
+      onSuccess: (_, variables, __) => onSuccess(variables),
+      onError: onError,
+    });
+  };
+
+  const setError = (key: keyof Errors, data: string) => {
+    const newErrors = { ...errors };
+    newErrors[key] = data;
+    setErrors(newErrors);
   };
 
   return (
@@ -53,27 +129,21 @@ export const CreateAccountModal: React.FunctionComponent<ModalProps> = ({
       </SubHeaderText>
       <Form onSubmit={handleSubmit}>
         <InputContainer>
-          <SplitInput
-            style={{ paddingRight: "1rem" }}
-            name="first_name"
-            label="First name"
-            size="small"
-            helperText={" "}
-          />
-          <SplitInput
-            name="last_name"
-            label="Last name"
-            size="small"
-            helperText={" "}
-          />
-          <Input
-            fullWidth
-            name="email"
-            label="Email"
-            size="small"
-            helperText={" "}
-          />
-          <PasswordInput name="password" />
+          {formConfig.map((config) => {
+            return (
+              <config.component
+                key={config.name}
+                style={config.style ? config.style : {}}
+                name={config.name}
+                label={config.label}
+                size="small"
+                error={
+                  errors[config.name as keyof Errors] === " " ? false : true
+                }
+                helperText={errors[config.name as keyof Errors]}
+              />
+            );
+          })}
         </InputContainer>
         <ProceedButton type="submit" variant="contained" color="secondary">
           Create account

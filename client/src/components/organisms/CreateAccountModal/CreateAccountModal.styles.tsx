@@ -30,14 +30,16 @@ export const Form = styled("form")({
 
 export const InputContainer = styled("div")({
   marginTop: "2rem",
-  marginBottom: "2rem",
 });
 
-export const Input = styled(TextField)({ marginBottom: "0.25rem" });
+export const Input = styled(TextField)({
+  width: "100%",
+  marginBottom: "0.25rem",
+});
 
 export const SplitInput = styled(TextField)({
   width: "calc(50% - 0.5rem)",
   marginBottom: "0.25rem",
 });
 
-export const ProceedButton = styled(Button)({});
+export const ProceedButton = styled(Button)({ marginTop: "0.5rem" });
