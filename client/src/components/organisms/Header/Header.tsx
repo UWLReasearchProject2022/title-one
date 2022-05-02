@@ -15,9 +15,11 @@ import BasketIcon from "@mui/icons-material/ShoppingBasketSharp";
 import { BASE_URL } from "utils/config";
 import { useUserData } from "hooks";
 import { SignInModal } from "../SignInModal";
+import { CreateAccountModal } from "components";
 
 export const Header: React.FunctionComponent = () => {
   const [signInOpen, setSignInOpen] = useState<boolean>(false);
+  const [createAccountOpen, setCreateAccountOpen] = useState<boolean>(false);
   const { user } = useUserData();
   const navigate = useNavigate();
 
@@ -29,9 +31,22 @@ export const Header: React.FunctionComponent = () => {
     }
   };
 
+  const handleCreateAccount = () => {
+    setSignInOpen(false);
+    setCreateAccountOpen(true);
+  };
+
   return (
     <Container>
-      <SignInModal open={signInOpen} setOpen={setSignInOpen} />
+      <CreateAccountModal
+        open={createAccountOpen}
+        setOpen={setCreateAccountOpen}
+      />
+      <SignInModal
+        open={signInOpen}
+        setOpen={setSignInOpen}
+        handleCreateAccount={handleCreateAccount}
+      />
       <Link to="/">
         <Logo
           src={`${BASE_URL}logos/title-one-full-logo.svg`}

@@ -1,12 +1,12 @@
-import React, { SetStateAction } from "react";
+import React from "react";
 import { StyledModal, CloseButton } from "./ModalTemplate.styles";
 import { Close as CloseIcon } from "@mui/icons-material";
+import { ModalProps } from "types";
 
-type Props = {
-  open: boolean;
-  setOpen: React.Dispatch<SetStateAction<boolean>>;
+type Props = ModalProps & {
   children: React.ReactNode;
   Container: React.FunctionComponent;
+  fadeIn?: boolean;
 };
 
 export const ModalTemplate: React.FunctionComponent<Props> = ({
@@ -14,13 +14,28 @@ export const ModalTemplate: React.FunctionComponent<Props> = ({
   setOpen,
   children,
   Container,
+  fadeIn,
 }) => {
   const handleClose = () => {
     setOpen(false);
   };
 
   return (
-    <StyledModal open={open} onClose={handleClose}>
+    <StyledModal
+      open={open}
+      onClose={handleClose}
+      BackdropProps={{
+        style: fadeIn
+          ? {}
+          : {
+              transition: "none",
+              transitionDelay: "0s",
+              transitionDuration: "0s",
+              transitionProperty: "none",
+              transitionTimingFunction: "ease",
+            },
+      }}
+    >
       <Container>
         {children}
         <CloseButton onClick={handleClose}>

@@ -1,4 +1,4 @@
-import React, { useState, SetStateAction } from "react";
+import React, { useState } from "react";
 import {
   Bold,
   Container,
@@ -15,20 +15,21 @@ import { PasswordInput, ModalTemplate } from "components";
 import { validateEmail } from "utils/helpers";
 import { getUser } from "services";
 import { useUserData } from "hooks";
+import { ModalProps } from "types";
 
 type FormValue = {
   email: { data: string; error: string };
   password: { data: string; error: string };
 };
 
-type Props = {
-  open: boolean;
-  setOpen: React.Dispatch<SetStateAction<boolean>>;
+type Props = ModalProps & {
+  handleCreateAccount: () => void;
 };
 
 export const SignInModal: React.FunctionComponent<Props> = ({
   open,
   setOpen,
+  handleCreateAccount,
 }) => {
   const initialValue = {
     email: { data: "", error: " " },
@@ -76,7 +77,7 @@ export const SignInModal: React.FunctionComponent<Props> = ({
   };
 
   return (
-    <ModalTemplate open={open} setOpen={setOpen} Container={Container}>
+    <ModalTemplate fadeIn open={open} setOpen={setOpen} Container={Container}>
       <MethodContainer>
         <HeaderText>
           <Bold>Existing</Bold> Customers
@@ -124,6 +125,7 @@ export const SignInModal: React.FunctionComponent<Props> = ({
           Register with Title1 to find you next game
         </SubHeaderText>
         <ProceedButton
+          onClick={handleCreateAccount}
           variant="contained"
           color="secondary"
           style={{ marginTop: "2rem" }}
