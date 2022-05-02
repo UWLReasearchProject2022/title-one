@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PageTemplate, BasketTable } from "components";
+import { PageTemplate, BasketTable, BasketActions } from "components";
 import { getBasket } from "utils/lib/getBasket";
 
 export const Basket: React.FunctionComponent = () => {
@@ -8,6 +8,7 @@ export const Basket: React.FunctionComponent = () => {
   return (
     <PageTemplate>
       <BasketTable />
+      <BasketActions />
     </PageTemplate>
   );
 };
