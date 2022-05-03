@@ -13,8 +13,7 @@ export const Container = styled("div")({
 });
 
 export const Logo = styled("img")({
-  height: "32",
-  width: "86.82px",
+  height: "2rem",
   marginRight: "4%",
 });
 

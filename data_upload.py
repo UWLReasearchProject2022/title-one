@@ -222,7 +222,7 @@ if __name__ == "__main__":
     #     raise ValueError("Database is not empty you absolute moron.")
 
     # upload_developer()
-    # upload_platform()
+    upload_platform()
     # upload_genre()
     upload_product()
     upload_product_platform()

@@ -26,7 +26,7 @@ export const AddToBasket: React.FunctionComponent = () => {
           <DropdownItem>PS4</DropdownItem>
         </Input>
       </Section>
-      <Divider color="primary" />
+      <Divider />
       <Section>
         <Text>Select the edition</Text>
         <Input
@@ -42,7 +42,7 @@ export const AddToBasket: React.FunctionComponent = () => {
           <DropdownItem>Standard</DropdownItem>
         </Input>
       </Section>
-      <Divider color="primary" />
+      <Divider />
       <Section>
         <Text>Quantity</Text>
         <Input
@@ -55,7 +55,7 @@ export const AddToBasket: React.FunctionComponent = () => {
           }}
         />
       </Section>
-      <Divider color="primary" />
+      <Divider />
     </Container>
   );
 };

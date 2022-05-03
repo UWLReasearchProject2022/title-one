@@ -58,7 +58,7 @@ export const CustomerReviews: React.FunctionComponent<TabComponentProps> = ({
           </Header>
           {sortReviews()?.map((review, index) => (
             <div key={index}>
-              <StyledDivider color="primary" />
+              <StyledDivider />
               <ReviewsContainer key={index}>
                 <OverviewContainer>
                   <UserDetails>

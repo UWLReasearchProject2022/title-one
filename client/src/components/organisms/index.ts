@@ -4,3 +4,5 @@ export * from "./SearchBar";
 export * from "./Filters";
 export * from "./DetailTabs";
 export * from "./LargeProductCard";
+export * from "./Footer";
+export * from "./FeaturedGames";
