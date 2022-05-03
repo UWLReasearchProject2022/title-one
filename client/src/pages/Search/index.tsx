@@ -15,7 +15,6 @@ export const Search: React.FunctionComponent = () => {
   const [filter, setFilter] = useState<Filter>(filterState);
 
   useEffect(() => {
-    console.log("RUNNING");
     const category = searchParams.get("category");
     const platform = searchParams.get("platform");
     setFilter({

@@ -18,14 +18,18 @@ export const Container = styled("div")({
 });
 
 export const TabsContainer = styled(Paper)({
-  width: "22rem",
-  height: "auto",
+  width: "19rem",
+  height: "100%",
+  padding: "1.5rem",
+  paddingTop: "0rem",
+  paddingBottom: "2.5rem",
   marginRight: "1rem",
 });
 
 export const TabContainer = styled("div")({
-  padding: "1.5rem",
   display: "flex",
+  paddingTop: "1rem",
+  paddingBottom: "1rem",
   alignItems: "center",
   justifyContent: "space-between",
 });

@@ -12,5 +12,9 @@ export const ClearFilters: React.FunctionComponent<Props> = ({
   const onClick = () => {
     setFilter(filterState);
   };
-  return <ClearButton onClick={onClick}>Clear filters</ClearButton>;
+  return (
+    <ClearButton onClick={onClick} variant="contained" color="secondary">
+      Clear Filters
+    </ClearButton>
+  );
 };

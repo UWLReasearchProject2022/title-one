@@ -35,7 +35,9 @@ export const Account: React.FunctionComponent = () => {
       {user ? (
         <Container>
           <TabsContainer>
-            <TabContainer>
+            <TabContainer
+              style={{ paddingTop: "1.5rem", paddingBottom: "1.5rem" }}
+            >
               <HeaderText>{`${user.first_name} ${user.last_name}`}</HeaderText>
               <SignOutButton
                 variant="contained"
@@ -55,6 +57,7 @@ export const Account: React.FunctionComponent = () => {
                 </TabContainer>
               </div>
             ))}
+            <StyledDivider />
           </TabsContainer>
           {tabsConfig.map((tab) => (
             <ContentContainer key={tab.key} hidden={tab.key !== activateTab}>

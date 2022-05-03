@@ -1,5 +1,5 @@
 import { styled } from "@mui/system";
-import { Card, Typography } from "@mui/material";
+import { Card, Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
 export const Container = styled(Card)({
@@ -71,4 +71,13 @@ export const Actions = styled("div")({
 
 export const ButtonLink = styled(Link)({
   textDecoration: "none",
+});
+
+export const ViewButton = styled(Button)({
+  fontSize: "14px",
+  padding: "0.5rem",
+  paddingTop: "0.25rem",
+  paddingBottom: "0.25rem",
+  textTransform: "none",
+  fontWeight: "normal",
 });
