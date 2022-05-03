@@ -18,7 +18,7 @@ export const Home: React.FunctionComponent = () => {
 
   const onSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    navigate(`/search?value=${searchValue}`);
+    navigate(`/search?query=${searchValue}`);
   };
 
   const onSearchChange = (

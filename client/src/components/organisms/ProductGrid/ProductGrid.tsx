@@ -4,17 +4,19 @@ import { useProducts } from "queries";
 import { ProductCard, Loading, Error } from "components";
 import Fuse from "fuse.js";
 import { productSort, getSortAlgorithm } from "utils/sorting";
-import { ProductSortAlgorithm } from "types";
+import { ProductSortAlgorithm, Filter } from "types";
+import { filterProducts } from "utils/filter";
 
 type Props = {
   query: string;
   sortBy: string;
+  filter: Filter;
 };
-
 // this component will either be passed the filtering props or get it from context
 export const ProductGrid: React.FunctionComponent<Props> = ({
   query,
   sortBy,
+  filter,
 }) => {
   const { products, isLoading, error } = useProducts();
 
@@ -25,8 +27,9 @@ export const ProductGrid: React.FunctionComponent<Props> = ({
   const fuse = products && new Fuse(products, options);
 
   const searchSort = () => {
+    const filteredProducts = products && filterProducts(products, filter);
     if (query === "" || !fuse) {
-      return products?.sort(
+      return filteredProducts?.sort(
         getSortAlgorithm(productSort, sortBy) as ProductSortAlgorithm,
       );
     }

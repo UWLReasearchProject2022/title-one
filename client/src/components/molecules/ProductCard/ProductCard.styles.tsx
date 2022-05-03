@@ -1,5 +1,6 @@
 import { styled } from "@mui/system";
 import { Card, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 export const Container = styled(Card)({
   padding: "1rem",
@@ -63,4 +64,8 @@ export const Actions = styled("div")({
   position: "absolute",
   right: 0,
   bottom: 0,
+});
+
+export const ButtonLink = styled(Link)({
+  textDecoration: "none",
 });
