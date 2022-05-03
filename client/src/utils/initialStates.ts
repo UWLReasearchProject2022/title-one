@@ -5,4 +5,5 @@ export const filterState = {
     max: 100,
   },
   ageRating: [],
+  category: [],
 };

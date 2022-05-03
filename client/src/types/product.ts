@@ -1,4 +1,4 @@
-import { AgeRating, Platform } from "./filters";
+import { AgeRating, Platform, Category } from "./filters";
 
 export type Product = {
   id: number;
@@ -7,6 +7,7 @@ export type Product = {
   description: string;
   long_description: string;
   developer: "Ubisoft" | "Rockstar Games";
+  category: Category;
   price: number;
   image: string;
   platform: Platform;

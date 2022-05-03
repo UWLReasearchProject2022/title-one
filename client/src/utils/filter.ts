@@ -17,5 +17,10 @@ export const filterProducts = (items: Product[], filter: Filter) => {
       if (filter.ageRating.length === 0) return true;
       if (filter.ageRating.includes(item.age_rating)) return true;
       return false;
+    })
+    .filter((item) => {
+      if (filter.category.length === 0) return true;
+      if (filter.category.includes(item.category)) return true;
+      return false;
     });
 };
