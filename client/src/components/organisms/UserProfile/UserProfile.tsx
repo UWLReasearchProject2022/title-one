@@ -15,20 +15,24 @@ import {
 import { Refresh as RefreshIcon, Save as SaveIcon } from "@mui/icons-material";
 import sectionsConfig from "./config";
 import { User } from "types";
+import { useUpdateUser } from "queries";
 
 type FormValue = User & {
-  current_password: string;
   new_password: string;
 };
 
 export const UserProfile: React.FunctionComponent<AccountPageProps> = ({
   user,
 }) => {
+  if (!user.id) return null;
+
   const initialValue: FormValue = {
     ...user,
-    current_password: "",
+    password: "",
     new_password: "",
   };
+
+  const { mutate } = useUpdateUser(user.id);
   const [value, setValue] = useState<FormValue>(initialValue);
 
   const updateValue = (key: keyof FormValue, data: string) => {
@@ -36,6 +40,15 @@ export const UserProfile: React.FunctionComponent<AccountPageProps> = ({
       const newValue = { ...value };
       newValue[key] = data;
       setValue(newValue);
+    }
+  };
+
+  const handleSubmit = () => {
+    if (user.password === value.password) {
+      const newUser = { ...value, password: value.new_password };
+      mutate(newUser);
+      updateValue("password", "");
+      updateValue("new_password", "");
     }
   };
 
@@ -56,7 +69,7 @@ export const UserProfile: React.FunctionComponent<AccountPageProps> = ({
           <StyledIconButton color="primary" onClick={resetValue}>
             <RefreshIcon />
           </StyledIconButton>
-          <StyledIconButton color="primary">
+          <StyledIconButton color="primary" onClick={handleSubmit}>
             <SaveIcon />
           </StyledIconButton>
         </ControlsContainer>
@@ -70,6 +83,7 @@ export const UserProfile: React.FunctionComponent<AccountPageProps> = ({
               {section.config.map((input) => {
                 return (
                   <input.component
+                    autocomplete="off"
                     key={input.key}
                     name={input.key}
                     label={input.label}

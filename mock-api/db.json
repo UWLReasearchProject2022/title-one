@@ -5,15 +5,10 @@
       "email": "ed.fisk@test.com",
       "first_name": "Ed",
       "last_name": "Fisk",
-      "password": "password",
-      "address": {
-        "house_number": 123,
-        "road_name": "Old Road",
-        "city": "Main town",
-        "county": "Essex",
-        "country": "United Kingdom",
-        "post_code": "XZ12 4GD"
-      }
+      "password": "",
+      "address": "hello",
+      "name": "ed",
+      "new_password": ""
     }
   ],
   "orders": [

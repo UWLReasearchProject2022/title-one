@@ -35,7 +35,7 @@ export default [
     title: "Password",
     config: [
       {
-        key: "current_password",
+        key: "password",
         label: "Current password",
         component: PasswordInput,
       },
