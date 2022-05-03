@@ -1,5 +1,6 @@
 import { styled } from "@mui/system";
 import { Button, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 export const Container = styled("div")({
   backgroundColor: "black",
@@ -17,6 +18,10 @@ export const Logo = styled("img")({
   marginRight: "4%",
 });
 
+export const StyledLink = styled(Link)({
+  marginLeft: "4%",
+});
+
 export const ConsoleButton = styled(Button)({
   textTransform: "none",
   fontFamily: "Roboto",
@@ -24,7 +29,6 @@ export const ConsoleButton = styled(Button)({
   fontWeight: "400",
   fontSize: "16px",
   lineHeight: "19px",
-  marginLeft: "4%",
 });
 
 export const RightContainer = styled("div")({

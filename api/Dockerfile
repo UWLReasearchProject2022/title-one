@@ -7,6 +7,6 @@ COPY . /src
 WORKDIR /src
 COPY requirements.txt /src/
 RUN pip install -r requirements.txt
-ENV GUNICORN_CMD_ARGS="--bind 0.0.0.0:8000 --workers=2"
+ENV GUNICORN_CMD_ARGS="--bind 0.0.0.0:8000 --workers=5"
 EXPOSE 8000
 CMD ["gunicorn","titleone.wsgi:application"]

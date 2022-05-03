@@ -12,7 +12,7 @@ export const platformIcons = {
   PC: `${BASE_URL}/assets/platform/PC.png`,
   Playstation: `${BASE_URL}/assets/platform/playstation.png`,
   Xbox: `${BASE_URL}/assets/platform/xbox.png`,
-  Switch: `${BASE_URL}/assets/platform/switch.png`,
+  Nintendo: `${BASE_URL}/assets/platform/switch.png`,
 };
 
 export const developerIcons = {

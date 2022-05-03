@@ -5,7 +5,7 @@ export const useProduct = (id: number) => {
   const { data, isLoading, error } = useQuery<Product, Error>(
     `product_${id}`,
     () =>
-      fetch(`${process.env.REACT_APP_API_URL}/api/products/${id}`).then((res) =>
+      fetch(`${process.env.REACT_APP_API_URL}/products/${id}`).then((res) =>
         res.json(),
       ),
   );

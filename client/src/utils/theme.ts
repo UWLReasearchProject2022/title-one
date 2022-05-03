@@ -8,6 +8,7 @@ export const darkTheme = createTheme({
     },
     secondary: {
       main: "#555555",
+      contrastText: "#CCCCCC",
     },
     text: {
       primary: "#CCCCCC",

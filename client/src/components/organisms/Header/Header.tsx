@@ -7,6 +7,7 @@ import {
   SmallSpacer,
   LargeSpacer,
   UserText,
+  StyledLink,
 } from "./Header.styles";
 import { IconButton } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
@@ -16,6 +17,7 @@ import { BASE_URL } from "utils/config";
 import { useUserData } from "hooks";
 import { SignInModal } from "../SignInModal";
 import { CreateAccountModal } from "components";
+import buttonsConfig from "./config";
 
 export const Header: React.FunctionComponent = () => {
   const [signInOpen, setSignInOpen] = useState<boolean>(false);
@@ -54,8 +56,10 @@ export const Header: React.FunctionComponent = () => {
         />
       </Link>
       <LargeSpacer />
-      {["Xbox", "PlayStation", "Nintendo", "PC Gaming"].map((text) => (
-        <ConsoleButton key={text}>{text}</ConsoleButton>
+      {buttonsConfig.map((button) => (
+        <StyledLink to={button.link}>
+          <ConsoleButton key={button.key}>{button.text}</ConsoleButton>
+        </StyledLink>
       ))}
       <RightContainer>
         <UserText color="primary">

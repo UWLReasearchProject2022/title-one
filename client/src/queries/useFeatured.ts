@@ -5,7 +5,7 @@ export const useFeatured = () => {
   const { data, isLoading, error } = useQuery<Product[], Error>(
     "featured",
     () =>
-      fetch(`${process.env.REACT_APP_API_URL}/api/products?featured=true`).then(
+      fetch(`${process.env.REACT_APP_API_URL}/products?featured=true`).then(
         (res) => res.json(),
       ),
   );
