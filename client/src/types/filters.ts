@@ -3,7 +3,7 @@ export type PriceRange = {
   max: number;
 };
 
-export type Platform = "PC" | "Playstation" | "Xbox" | "Nintendo";
+export type Platform = "Playstation" | "Xbox" | "Nintendo" | "PC";
 
 export type AgeRating = "3+" | "7+" | "12+" | "16+" | "18+";
 

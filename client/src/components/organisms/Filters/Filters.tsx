@@ -20,17 +20,17 @@ export const Filters: React.FunctionComponent<Props> = ({
   filter,
   setFilter,
 }) => {
-  const platforms: Platform[] = ["PC", "Playstation", "Xbox", "Nintendo"];
+  const platforms: Platform[] = ["Playstation", "Xbox", "Nintendo", "PC"];
   const ageRatings: AgeRating[] = ["3+", "7+", "12+", "16+", "18+"];
   const categories: Category[] = ["action", "shooter", "sport", "rpg"];
   return (
     <Container>
       <TopBar>
         <Title>Filters</Title>
-        <ClearFilters filterCount={2} setFilter={setFilter} />
+        <ClearFilters setFilter={setFilter} />
       </TopBar>
       <StyledDivider />
-      <FilterContainer label={"Price"}>
+      <FilterContainer defaultOpen label={"Price"}>
         <PriceWrapper>
           <PriceField
             value={filter.price.min}

@@ -11,13 +11,15 @@ import {
 type Props = {
   children: React.ReactNode;
   label: string;
+  defaultOpen?: boolean;
 };
 
 export const FilterContainer: React.FunctionComponent<Props> = ({
   children,
   label,
+  defaultOpen,
 }) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(defaultOpen ? defaultOpen : false);
   return (
     <Wrapper>
       <TitleWrapper>

@@ -6,12 +6,14 @@ import {
   RightContainer,
   SmallSpacer,
   LargeSpacer,
+  StyledLink,
 } from "./Header.styles";
 import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import AccountIcon from "@mui/icons-material/AccountCircleSharp";
 import BasketIcon from "@mui/icons-material/ShoppingBasketSharp";
 import { BASE_URL } from "utils/config";
+import buttonsConfig from "./config";
 
 export const Header: React.FunctionComponent = () => {
   return (
@@ -23,8 +25,10 @@ export const Header: React.FunctionComponent = () => {
         />
       </Link>
       <LargeSpacer />
-      {["Xbox", "PlayStation", "Nintendo", "PC Gaming"].map((text) => (
-        <ConsoleButton key={text}>{text}</ConsoleButton>
+      {buttonsConfig.map((button) => (
+        <StyledLink to={button.link}>
+          <ConsoleButton key={button.key}>{button.text}</ConsoleButton>
+        </StyledLink>
       ))}
       <RightContainer>
         <Link to="/account">

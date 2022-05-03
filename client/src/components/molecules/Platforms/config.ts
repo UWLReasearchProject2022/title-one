@@ -1,6 +1,6 @@
 export default [
   {
-    name: "PlayStation",
+    name: "Playstation",
     imageName: "playstation_controller.svg",
     redirectLink: "/search?platform=Playstation",
   },

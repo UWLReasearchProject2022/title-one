@@ -4,7 +4,7 @@ const columns = 2;
 const columnWidth = 350;
 
 export const Container = styled("div")({
-  width: "70%",
+  width: "calc(100% - 22rem)",
   marginLeft: "auto",
   display: "grid",
   flexDirection: "row",

@@ -2,11 +2,9 @@ import { styled } from "@mui/system";
 import { Card, FormControlLabel, Typography, Divider } from "@mui/material";
 
 export const Container = styled(Card)({
-  width: "30%",
-  height: "100%",
+  width: "22rem",
   maxWidth: "20rem",
   marginTop: "0.5rem",
-  marginRight: "0.5rem",
   backgroundColor: "#101010",
   backgroundImage: "none",
   padding: "1.5rem",

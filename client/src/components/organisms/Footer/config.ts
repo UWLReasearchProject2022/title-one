@@ -11,7 +11,7 @@ export default [
   {
     title: "Platforms",
     content: [
-      { text: "PlayStation", link: "/search?platform=playstation" },
+      { text: "Playstation", link: "/search?platform=playstation" },
       { text: "Xbox", link: "/search?platform=xbox" },
       { text: "Nintendo", link: "/search?platform=nintendo" },
       { text: "PC", link: "/search?platform=PC" },

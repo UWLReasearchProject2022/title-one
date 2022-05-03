@@ -20,8 +20,10 @@ export const PlatformContainer = styled(Link)({
 });
 
 export const PlatformText = styled(Typography)({
-  marginTop: "0.5rem",
+  marginTop: "1rem",
   textAlign: "center",
+  height: "1rem",
+  lineHeight: "1rem",
 });
 
 export const PlatformImage = styled("img")({
