@@ -7,3 +7,5 @@ export * from "./SignInModal";
 export * from "./Footer";
 export * from "./FeaturedGames";
 export * from "./CreateAccountModal";
+export * from "./UserProfile";
+export * from "./OrderHistory";

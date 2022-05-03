@@ -37,7 +37,6 @@ export const CreateAccountModal: React.FunctionComponent<ModalProps> = ({
   const { dispatchUserData } = useUserData();
 
   const onSuccess = (user: User) => {
-    console.log(user);
     dispatchUserData({
       type: "SET_USER",
       data: {

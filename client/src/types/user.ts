@@ -18,3 +18,7 @@ export type User = {
 export type UserAction =
   | { type: "SET_USER"; data: UserData }
   | { type: "SIGN_OUT" };
+
+export type AccountPageProps = {
+  user: User;
+};
