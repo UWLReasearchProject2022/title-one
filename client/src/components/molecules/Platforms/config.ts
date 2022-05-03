@@ -2,17 +2,17 @@ export default [
   {
     name: "PlayStation",
     imageName: "playstation_controller.svg",
-    redirectLink: "/search?platform=playstation",
+    redirectLink: "/search?platform=Playstation",
   },
   {
     name: "Xbox",
     imageName: "xbox_controller.svg",
-    redirectLink: "/search?platform=xbox",
+    redirectLink: "/search?platform=Xbox",
   },
   {
     name: "Nintendo",
     imageName: "nintendo_controller.svg",
-    redirectLink: "/search?platform=nintendo",
+    redirectLink: "/search?platform=Nintendo",
   },
   {
     name: "PC",
