@@ -84,6 +84,9 @@ class Review(models.Model):
     review_text = models.CharField(max_length=255)
     order_id = models.ForeignKey("Order", on_delete=models.CASCADE)
     customer_id = models.ForeignKey("Customer", on_delete=models.CASCADE)
+    product_platform = models.ForeignKey("ProductPlatform",
+                                         related_name="developer",
+                                         on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

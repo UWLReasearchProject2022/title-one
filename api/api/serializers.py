@@ -14,8 +14,6 @@ class DeveloperSerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     developer = DeveloperSerializer(read_only=True)
 
-    #Developer = serializers.PickledObjectField(source='developer_id')
-
     class Meta:
         model = Product
         fields = [
@@ -37,7 +35,6 @@ class ProductPlatformSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductPlatform
         fields = "__all__"
-        depth = 1
 
 
 class GenreSerializer(serializers.ModelSerializer):
@@ -83,8 +80,12 @@ class CustomerSerializer(serializers.ModelSerializer):
 
 
 class ReviewSerializer(serializers.ModelSerializer):
+    product_platform = ProductPlatformSerializer(read_only=True)
 
     class Meta:
         model = Review
-        fields = "__all__"
+        fields = [
+            "review_id", "date_reviewed", "review_text", "order_id",
+            "customer_id", "product_platform"
+        ]
         depth = 1

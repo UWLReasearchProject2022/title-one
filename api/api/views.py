@@ -103,3 +103,17 @@ class CustomerViewset(ModelViewSet):
 class ReviewViewset(ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+
+    def create(self, request):
+        review_data = request.data
+
+        new_review = Review.objects.create(
+            date_reviewed=review_data["date_reviewed"],
+            review_text=review_data["review_text"],
+            product_platform_id=ProductPlatform.objects.get(
+                product_platform_id=review_data["product_platform_id"]))
+
+        new_review.save()
+
+        serializer = ReviewSerializer(new_review)
+        return Response(serializer.data)
