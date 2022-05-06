@@ -1,12 +1,15 @@
 export type Product = {
   id: number;
   name: string;
-  description: string;
   short_description: string;
-  developer: string;
+  description: string;
+  long_description: string;
+  developer: "Ubisoft" | "Rockstar Games";
   price: number;
   image: string;
-  platform: "PC" | "playstation" | "xbox" | "switch";
+  platform: "PC" | "Playstation" | "Xbox" | "Switch";
   age_rating: "3+" | "7+" | "12+" | "16+" | "18+";
   release_date: string;
+  rating: number;
+  review_count: number;
 };

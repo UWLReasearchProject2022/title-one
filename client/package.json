@@ -17,6 +17,7 @@
     "axios": "^0.26.1",
     "eslint-config-prettier": "^8.5.0",
     "fuse.js": "^6.5.3",
+    "prettier": "^2.6.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-query": "^3.34.17",
@@ -29,7 +30,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "mock_api": "json-server --watch ../mock-api/db.json --port 4000 --routes ../mock-api/routes.json"
   },
   "browserslist": {
     "production": [
