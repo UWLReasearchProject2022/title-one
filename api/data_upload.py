@@ -177,33 +177,35 @@ def upload_stock():
     print("Uploaded stock")
 
 
-def upload_customer():
-    url = "/customer/"
+def upload_user():
+    url = "/user/"
     for i in range(random.randint(1, 10)):
-        requests.post(
+        r = requests.post(
             BASE_URL + url,
             json={
-                "surname": f"Customer {str(i)}",
-                "email": "customer" + str(i) + "@gmail.com",
+                "surname": f"User {str(i)}",
+                "email": "user" + str(i) + "@gmail.com",
                 "password": "password",
                 "address": "address",
                 "phone_number": "phone",
                 "city": "LONDON",
                 "other_names": "James",
+                "username": "user" + str(i),
             },
         )
-    print("Uploaded customers")
+        r.raise_for_status()
+    print("Uploaded users")
 
 
 def upload_order():
     url = "/order/"
-    customer_ids = requests.get(BASE_URL + "/customer/").json()
-    customer_ids = [x["customer_id"] for x in customer_ids]
+    user_ids = requests.get(BASE_URL + "/user/").json()
+    user_ids = [x["user_id"] for x in user_ids]
     for i in range(random.randint(1, 10)):
         requests.post(
             BASE_URL + url,
             json={
-                "customer_id": random.choice(customer_ids),
+                "user_id": random.choice(user_ids),
                 "date_ordered": "2020-01-01",
                 "date_shipped": "2020-01-01",
                 "date_delivered": "2020-01-01",
@@ -241,14 +243,14 @@ def upload_review():
     products = requests.get(f"{BASE_URL}/product/").json()
     products = [x["product_id"] for x in products]
 
-    customers = requests.get(f"{BASE_URL}/customer/").json()
-    customers = [x["customer_id"] for x in customers]
+    users = requests.get(f"{BASE_URL}/user/").json()
+    users = [x["user_id"] for x in users]
 
     for product, _ in itertools.product(products, range(5)):
 
         body = {
             "product_id": product,
-            "customer_id": random.choice(customers),
+            "user_id": random.choice(users),
             "rating": random.randint(1, 5),
             "text": "review text will go here.",
         }
@@ -280,7 +282,7 @@ if __name__ == "__main__":
     upload_product_platform()
     upload_product_genre()
     upload_stock()
-    upload_customer()
+    upload_user()
     upload_order()
     upload_order_detail()
     upload_review()

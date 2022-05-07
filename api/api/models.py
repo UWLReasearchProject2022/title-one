@@ -73,17 +73,19 @@ class Order(models.Model):
     date_ordered = models.DateTimeField(auto_now_add=True)
     date_shipped = models.DateTimeField(auto_now_add=True)
     date_delivered = models.DateTimeField(auto_now_add=True)
-    customer_id = models.ForeignKey("Customer", on_delete=models.CASCADE)
+    user_id = models.ForeignKey("User", on_delete=models.CASCADE)
 
 
-class Customer(models.Model):
-    customer_id = models.AutoField(primary_key=True)
+class User(models.Model):
+    user_id = models.AutoField(primary_key=True)
     email = models.CharField(max_length=255)
     surname = models.CharField(max_length=255)
     other_names = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
+    username = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
 
 
 class Review(models.Model):
@@ -91,7 +93,7 @@ class Review(models.Model):
     product_id = models.ForeignKey(
         "Product", on_delete=models.CASCADE, related_name="reviews"
     )
-    customer_id = models.ForeignKey("Customer", on_delete=models.CASCADE)
+    user_id = models.ForeignKey("User", on_delete=models.CASCADE)
     text = models.CharField(max_length=255)
     rating = models.IntegerField()
     date_reviewed = models.DateTimeField(auto_now_add=True)

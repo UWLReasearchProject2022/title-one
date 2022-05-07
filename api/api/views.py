@@ -19,7 +19,7 @@ from .models import (
     Stock,
     OrderDetails,
     Order,
-    Customer,
+    User,
     Review,
 )
 from .serializers import (
@@ -33,7 +33,7 @@ from .serializers import (
     StockSerializer,
     OrderDetailsSerializer,
     OrderSerializer,
-    CustomerSerializer,
+    UserSerializer,
     ReviewSerializer,
 )
 from rest_framework.viewsets import ModelViewSet
@@ -66,7 +66,7 @@ def clear_database(request):
     Stock.objects.all().delete()
     OrderDetails.objects.all().delete()
     Order.objects.all().delete()
-    Customer.objects.all().delete()
+    User.objects.all().delete()
     Review.objects.all().delete()
 
     return HttpResponse("Database cleared")
@@ -92,7 +92,7 @@ class ProductViewset(ModelViewSet):
         new_product.save()
 
         serializer = ProductSerializer(new_product)
-        return Response(serializer.data)
+        return JsonResponse(serializer.data)
 
 
 class DeveloperViewset(ModelViewSet):
@@ -127,7 +127,7 @@ class ProductPlatformViewset(ModelViewSet):
         new_product_platform.save()
 
         serializer = ProductPlatformSerializer(new_product_platform)
-        return Response(serializer.data)
+        return JsonResponse(serializer.data)
 
     queryset = ProductPlatform.objects.all()
     serializer_class = ProductPlatformSerializer
@@ -153,7 +153,7 @@ class ProductGenreViewset(ModelViewSet):
         new_product_genre.save()
 
         serializer = ProductGenreSerializer(new_product_genre)
-        return Response(serializer.data)
+        return JsonResponse(serializer.data)
 
 
 class StockViewset(ModelViewSet):
@@ -171,9 +171,32 @@ class OrderViewset(ModelViewSet):
     serializer_class = OrderSerializer
 
 
-class CustomerViewset(ModelViewSet):
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
+class UserViewset(ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    # def list(self, request):
+
+    #     user = request.GET.get("username")
+    #     password = request.GET.get("password")
+    #     if user is not None and password is not None:
+    #         user = User.objects.get(username=user, password=password)
+    #     else:
+    #         user = User.objects.all()
+
+    #     serializer = UserSerializer(user)
+    #     print(serializer)
+    #     print(serializer.data)
+    #     return Response(serializer.data)
+
+
+def get_user(request):
+    email = request.GET.get("email")
+    password = request.GET.get("password")
+
+    user = get_object_or_404(User, email=email, password=password)
+    serializer = UserSerializer(user)
+    return JsonResponse(serializer.data)
 
 
 class ReviewViewset(ModelViewSet):
@@ -185,7 +208,7 @@ class ReviewViewset(ModelViewSet):
 
         new_review = Review.objects.create(
             product_id=Product.objects.get(product_id=review_data["product_id"]),
-            customer_id=Customer.objects.get(customer_id=review_data["customer_id"]),
+            user_id=User.objects.get(user_id=review_data["user_id"]),
             rating=review_data["rating"],
             text=review_data["text"],
         )
@@ -193,4 +216,4 @@ class ReviewViewset(ModelViewSet):
         new_review.save()
 
         serializer = ReviewSerializer(new_review)
-        return Response(serializer.data)
+        return JsonResponse(serializer.data)
