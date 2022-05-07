@@ -176,28 +176,28 @@ class UserViewset(ModelViewSet):
     serializer_class = UserSerializer
 
     # def list(self, request):
-            
+
     #     user = request.GET.get("username")
     #     password = request.GET.get("password")
     #     if user is not None and password is not None:
     #         user = User.objects.get(username=user, password=password)
     #     else:
     #         user = User.objects.all()
-        
+
     #     serializer = UserSerializer(user)
     #     print(serializer)
     #     print(serializer.data)
     #     return Response(serializer.data)
 
+
 def get_user(request):
     email = request.GET.get("email")
     password = request.GET.get("password")
-    
-    user = get_object_or_404(User, email = email, password=password)
+
+    user = get_object_or_404(User, email=email, password=password)
     serializer = UserSerializer(user)
     return JsonResponse(serializer.data)
 
-        
 
 class ReviewViewset(ModelViewSet):
     queryset = Review.objects.all()
@@ -217,5 +217,3 @@ class ReviewViewset(ModelViewSet):
 
         serializer = ReviewSerializer(new_review)
         return JsonResponse(serializer.data)
-
-  
