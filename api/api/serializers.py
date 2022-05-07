@@ -9,7 +9,7 @@ from .models import (
     Stock,
     OrderDetails,
     Order,
-    Customer,
+    User,
     Review,
 )
 
@@ -51,7 +51,7 @@ class ProductPlatformSerializer(serializers.ModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ["review_id", "rating", "text", "customer_id", "date_reviewed"]
+        fields = ["review_id", "rating", "text", "user_id", "date_reviewed"]
         depth = 2
 
 
@@ -96,7 +96,7 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class CustomerSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Customer
+        model = User
         fields = "__all__"
