@@ -14,6 +14,7 @@ import { validateEmail, isBlank } from "utils/helpers";
 import { getUser } from "services";
 import formConfig from "./config";
 import { useUserData } from "hooks";
+import { useSnackbar } from "notistack";
 
 type Errors = {
   first_name: string;
@@ -32,11 +33,12 @@ export const CreateAccountModal: React.FunctionComponent<ModalProps> = ({
     email: " ",
     password: " ",
   };
+  const { enqueueSnackbar } = useSnackbar();
   const [errors, setErrors] = useState<Errors>(initialErrors);
   const { mutate } = useAddUser();
   const { dispatchUserData } = useUserData();
 
-  const onSuccess = (user: User) => {
+  const handleSuccess = (user: User) => {
     dispatchUserData({
       type: "SET_USER",
       data: {
@@ -45,10 +47,11 @@ export const CreateAccountModal: React.FunctionComponent<ModalProps> = ({
       },
     });
     setOpen(false);
+    enqueueSnackbar("Successfully created!", { variant: "success" });
   };
 
-  const onError = () => {
-    setError("password", "Something went wrong, please try again later");
+  const handleError = () => {
+    enqueueSnackbar("Failed to create account!", { variant: "error" });
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -98,15 +101,9 @@ export const CreateAccountModal: React.FunctionComponent<ModalProps> = ({
 
   const addUser = (user: User) => {
     mutate(user, {
-      onSuccess: (_, variables, __) => onSuccess(variables),
-      onError: onError,
+      onSuccess: (_, variables, __) => handleSuccess(variables),
+      onError: handleError,
     });
-  };
-
-  const setError = (key: keyof Errors, data: string) => {
-    const newErrors = { ...errors };
-    newErrors[key] = data;
-    setErrors(newErrors);
   };
 
   return (

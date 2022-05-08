@@ -19,6 +19,7 @@ import { useUpdateUser } from "queries";
 import { isBlank, validateEmail } from "utils/helpers";
 import { getUser } from "services";
 import { useUserData } from "hooks";
+import { useSnackbar } from "notistack";
 
 type FormValue = User & {
   new_password: string;
@@ -50,7 +51,7 @@ export const UserProfile: React.FunctionComponent<AccountPageProps> = ({
     password: " ",
     new_password: " ",
   };
-
+  const { enqueueSnackbar } = useSnackbar();
   const { mutate } = useUpdateUser(user.id);
   const { dispatchUserData } = useUserData();
   const [value, setValue] = useState<FormValue>(initialValue);
@@ -59,10 +60,10 @@ export const UserProfile: React.FunctionComponent<AccountPageProps> = ({
   const updateValue = (key: keyof FormValue, data: string | Address) => {
     if (key !== "id") {
       const newValue = { ...value };
-      if (key === "address" && typeof data !== "string") {
-        newValue.address = data;
-      } else if (typeof data === "string") {
-        newValue[key] = data;
+      if (key === "address") {
+        newValue.address = data as Address;
+      } else {
+        newValue[key] = data as string;
       }
       setValue(newValue);
     }
@@ -113,7 +114,10 @@ export const UserProfile: React.FunctionComponent<AccountPageProps> = ({
           : updatedValue.new_password,
       address: updatedValue.address,
     };
-    mutate(updatedUser);
+    mutate(updatedUser, {
+      onSuccess: handleSuccess,
+      onError: handleError,
+    });
     dispatchUserData({
       type: "SET_USER",
       data: {
@@ -121,6 +125,14 @@ export const UserProfile: React.FunctionComponent<AccountPageProps> = ({
         password: updatedUser.password,
       },
     });
+  };
+
+  const handleSuccess = () => {
+    enqueueSnackbar("Successfully updated!", { variant: "success" });
+  };
+
+  const handleError = () => {
+    enqueueSnackbar("Failed to update account!", { variant: "error" });
   };
 
   const resetValue = () => {
