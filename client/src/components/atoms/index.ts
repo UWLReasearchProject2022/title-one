@@ -6,3 +6,4 @@ export * from "./PriceField";
 export * from "./CollapseButton";
 export * from "./Loading";
 export * from "./Error";
+export * from "./PasswordInput";

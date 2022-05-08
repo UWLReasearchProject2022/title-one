@@ -12,8 +12,8 @@ import {
   Icon,
   Actions,
   ButtonLink,
+  ViewButton,
 } from "./ProductCard.styles";
-import { Button } from "@mui/material";
 import { LikeButton } from "components";
 import { pegiIcons, platformIcons } from "utils/icons";
 
@@ -44,9 +44,9 @@ export const ProductCard: React.FunctionComponent<Props> = ({ product }) => {
         <Actions>
           <LikeButton />
           <ButtonLink to={`/search/${product.id}`}>
-            <Button variant="contained" color="secondary">
-              View
-            </Button>
+            <ViewButton variant="contained" color="secondary">
+              VIEW
+            </ViewButton>
           </ButtonLink>
         </Actions>
       </Body>
