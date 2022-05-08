@@ -1,16 +1,24 @@
 import {
-  DataGrid,
   GridColDef,
   GridValueGetterParams,
   GridRenderCellParams,
   GridValueSetterParams,
 } from "@mui/x-data-grid";
-import { Container, Delete, ProductLink } from "./BasketTable.styles";
+import {
+  Container,
+  Delete,
+  DataCellText,
+  StyledDataGrid,
+  StyledIconButton,
+} from "./BasketTable.styles";
 import { PriceTotal } from "components";
 import { useBasket } from "utils/lib/useBasket";
-import { IconButton } from "@mui/material";
+import { IconButton, Stack } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { OpenInNew as LinkToIcon } from "@mui/icons-material";
 
 export const BasketTable: React.FunctionComponent = () => {
+  const navigate = useNavigate();
   const { basket, total, removeFromBasket, setQuantity } = useBasket();
 
   const columns: GridColDef[] = [
@@ -19,9 +27,15 @@ export const BasketTable: React.FunctionComponent = () => {
       headerName: "Product Name",
       flex: 1,
       renderCell: (params: GridRenderCellParams) => (
-        <ProductLink to={`/search/${params.row.product.id}`}>
+        <DataCellText>
           {params.row.product.name}
-        </ProductLink>
+          <StyledIconButton
+            color="primary"
+            onClick={() => navigate(`/search/${params.row.product.id}`)}
+          >
+            <LinkToIcon fontSize="small" />
+          </StyledIconButton>
+        </DataCellText>
       ),
     },
     {
@@ -69,19 +83,28 @@ export const BasketTable: React.FunctionComponent = () => {
     },
   ];
 
-  console.log(total);
-
   return (
     <Container>
-      <DataGrid
+      <StyledDataGrid
         rows={basket}
-        columns={columns}
+        columns={[...columns]}
         pageSize={5}
         disableSelectionOnClick
-        getRowId={(row: any) => row.product.id}
+        getRowId={(row) => row.product.id}
         hideFooterPagination
         components={{
           Footer: PriceTotal,
+          NoRowsOverlay: () => (
+            <Stack height="100%" alignItems="center" justifyContent="center">
+              <DataCellText
+                style={{ whiteSpace: "pre-line", textAlign: "center" }}
+              >
+                {
+                  "Nothing in your basket!\nTake a look at some of our games on our search page"
+                }
+              </DataCellText>
+            </Stack>
+          ),
         }}
         componentsProps={{
           footer: { total: total },
