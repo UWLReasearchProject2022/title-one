@@ -179,7 +179,19 @@ def upload_stock():
 def upload_user():
     url = "/user/"
     for i in range(random.randint(1, 10)):
-        r = requests.post(BASE_URL + url, json={"surname": f"User {str(i)}", "email": f"user{str(i)}@gmail.com", "password": "password", "address": "address", "phone_number": "phone", "city": "LONDON", "other_names": "James", "username": f"user{str(i)}"})
+        r = requests.post(
+            BASE_URL + url,
+            json={
+                "surname": f"User {str(i)}",
+                "email": f"user{str(i)}@gmail.com",
+                "password": "password",
+                "address": "address",
+                "phone_number": "phone",
+                "city": "LONDON",
+                "other_names": "James",
+                "username": f"user{str(i)}",
+            },
+        )
 
         r.raise_for_status()
     print("Uploaded users")

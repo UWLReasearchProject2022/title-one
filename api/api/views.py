@@ -173,10 +173,7 @@ class OrderDetailsViewset(ModelViewSet):
 
     #     user_orders = Order.objects.filter(user_id=user_id).values_list("order_id")
 
-        
     #     # print(user_orders)
-
-
 
     #     queryset = OrderDetails.objects.filter(order_id__in=user_orders)
     #     #group by order_id and get quantity of each product
@@ -184,31 +181,22 @@ class OrderDetailsViewset(ModelViewSet):
     #     queryset = queryset.values("order_id", "product_id").annotate(
     #         quantity=Count("product_id")
 
-
     #     print(queryset.values())
 
-
     #     stock_ids = queryset.values_list("stock_id")
-
 
     #     prod_platform_counts = Stock.objects.filter(stock_id__in=stock_ids).annotate(
     #         count=Count("product_platform_id_id")
     #     )
-        
-        # print(prod_platform_counts)
-        # print(prod_platform_counts.values())
 
+    # print(prod_platform_counts)
+    # print(prod_platform_counts.values())
 
-        # print(prod_platform_ids)
+    # print(prod_platform_ids)
 
-        # print(stock_ids)
+    # print(stock_ids)
 
-
-
-        # print(queryset)
-
-
-
+    # print(queryset)
 
 
 class OrderViewset(ModelViewSet):
@@ -217,29 +205,42 @@ class OrderViewset(ModelViewSet):
 
     def list(self, request):
         user_id = request.query_params.get("user_id")
-        
-        #get all orders for user
+
+        # get all orders for user
         user_orders = Order.objects.filter(user_id=user_id).values_list("order_id")
 
-
-    
-        #get all order details for user
+        # get all order details for user
         queryset = OrderDetails.objects.filter(order_id__in=user_orders)
         order_details = pd.DataFrame(queryset.values())
-        order_details.rename(columns= {"stock_id_id": "stock_id"}, inplace=True)
+        order_details.rename(columns={"stock_id_id": "stock_id"}, inplace=True)
 
-        #get all stock ids for user
+        # get all stock ids for user
         stock_ids = queryset.values_list("stock_id")
         stock_entries = Stock.objects.filter(stock_id__in=stock_ids)
         stocks = pd.DataFrame.from_records(list(stock_entries.values()))
 
         # groups each order by product and finds the quantity of each product
-        order = pd.merge(order_details, stocks, on="stock_id").loc[:,["order_id_id", "product_platform_id_id"]]
-        order.rename(columns= {"order_id_id": "order_id", "product_platform_id_id" : "product_platform_id"}, inplace=True)
-        product_count_by_order = order.groupby(["order_id","product_platform_id"]).size().to_frame("quantity").reset_index()
+        order = pd.merge(order_details, stocks, on="stock_id").loc[
+            :, ["order_id_id", "product_platform_id_id"]
+        ]
+        order.rename(
+            columns={
+                "order_id_id": "order_id",
+                "product_platform_id_id": "product_platform_id",
+            },
+            inplace=True,
+        )
+        product_count_by_order = (
+            order.groupby(["order_id", "product_platform_id"])
+            .size()
+            .to_frame("quantity")
+            .reset_index()
+        )
         order_data = product_count_by_order.to_dict("records")
-        order_data =  [list(v) for k,v  in groupby(order_data, key=lambda x: x["order_id"])]
-        
+        order_data = [
+            list(v) for k, v in groupby(order_data, key=lambda x: x["order_id"])
+        ]
+
         # this is f horrible code, but it works
         for order in chain.from_iterable(order_data):
             del order["order_id"]
@@ -248,19 +249,17 @@ class OrderViewset(ModelViewSet):
 
     def create(self, request):
         order_data = request.data
-        
+
         user_id = order_data["user_id"]
         order_details = order_data["order_details"]
         created = Order.objects.create(user_id=User.objects.get(user_id=user_id))
-       
 
         for product in order_details:
             prod_id = product["product_platform_id"]
             quantity = product["quantity"]
-            
+
             stocks = Stock.objects.filter(product_platform_id=prod_id)[:quantity]
-            
-           
+
             for stock in stocks:
                 OrderDetails.objects.create(order_id=created, stock_id=stock)
             # not handling out of stock as cba to do it
@@ -268,14 +267,11 @@ class OrderViewset(ModelViewSet):
         return JsonResponse({"order_id": created.order_id})
 
 
-       
-     
-
 class UserViewset(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-  
+
 def get_user(request):
     email = request.GET.get("email")
     password = request.GET.get("password")

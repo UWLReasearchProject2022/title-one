@@ -66,7 +66,9 @@ class Stock(models.Model):
 class OrderDetails(models.Model):
     order_details_id = models.AutoField(primary_key=True)
     stock_id = models.ForeignKey("Stock", on_delete=models.CASCADE)
-    order_id = models.ForeignKey("Order", on_delete=models.CASCADE, related_name="order_details")
+    order_id = models.ForeignKey(
+        "Order", on_delete=models.CASCADE, related_name="order_details"
+    )
 
 
 class Order(models.Model):
