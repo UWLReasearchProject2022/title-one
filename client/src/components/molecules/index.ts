@@ -10,3 +10,4 @@ export * from "./Platforms";
 export * from "./Categories";
 export * from "./SmallProductCard";
 export * from "./CheckoutOptions";
+export * from "./AddressField";

@@ -7,3 +7,4 @@ export * from "./CollapseButton";
 export * from "./PriceTotal";
 export * from "./Loading";
 export * from "./Error";
+export * from "./PasswordInput";

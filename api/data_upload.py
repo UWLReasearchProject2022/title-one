@@ -158,15 +158,14 @@ def upload_product_genre():
 def upload_stock():
     url = "/stock/"
 
-    platform_ids = requests.get(BASE_URL + "/product_platform/").json()
+    platform_ids = requests.get(f"{BASE_URL}/product_platform/").json()
     platform_ids = [x["product_platform_id"] for x in platform_ids]
     platform_ids = list(set(platform_ids))
 
     if not platform_ids:
         raise ValueError("No platform prod in the database")
 
-    for plat in platform_ids:
-
+    for plat, _ in itertools.product(platform_ids, range(10)):
         r = requests.post(
             BASE_URL + url,
             json={
@@ -184,24 +183,25 @@ def upload_user():
             BASE_URL + url,
             json={
                 "surname": f"User {str(i)}",
-                "email": "user" + str(i) + "@gmail.com",
+                "email": f"user{str(i)}@gmail.com",
                 "password": "password",
                 "address": "address",
                 "phone_number": "phone",
                 "city": "LONDON",
                 "other_names": "James",
-                "username": "user" + str(i),
+                "username": f"user{str(i)}",
             },
         )
+
         r.raise_for_status()
     print("Uploaded users")
 
 
 def upload_order():
     url = "/order/"
-    user_ids = requests.get(BASE_URL + "/user/").json()
+    user_ids = requests.get(f"{BASE_URL}/user/").json()
     user_ids = [x["user_id"] for x in user_ids]
-    for i in range(random.randint(1, 10)):
+    for _ in range(random.randint(1, 10)):
         requests.post(
             BASE_URL + url,
             json={
@@ -226,14 +226,15 @@ def upload_order_detail():
     if not stock_ids:
         raise ValueError("No stocks in the database")
 
-    for i in range(random.randint(1, 3)):
-        requests.post(
+    for i in range(10):
+        r = requests.post(
             BASE_URL + url,
             json={
                 "order_id": random.choice(order_ids),
                 "stock_id": random.choice(stock_ids),
             },
         )
+        r.raise_for_status()
     print("Uploaded order details")
 
 
