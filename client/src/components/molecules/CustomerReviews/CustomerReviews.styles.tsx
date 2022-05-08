@@ -6,6 +6,20 @@ export const Container = styled("div")({
   overflowY: "auto",
   width: "calc(100% - 1rem)",
   paddingRight: "1rem",
+  "&::-webkit-scrollbar": {
+    width: "0.5rem",
+  },
+  "&::-webkit-scrollbar-track": {
+    background: "#424242",
+    borderRadius: "0.5rem",
+  },
+  "&::-webkit-scrollbar-thumb": {
+    background: "#686868",
+    borderRadius: "0.5rem",
+  },
+  "&::-webkit-scrollbar-thumb:hover": {
+    background: "#7b7b7b",
+  },
 });
 
 export const ReviewsContainer = styled("div")({

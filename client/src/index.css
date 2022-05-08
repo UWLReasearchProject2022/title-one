@@ -13,3 +13,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+:root {
+  color-scheme: dark;
+}
+
+.MuiDataGrid-cell--editing {
+  background-color: rgba(255, 255, 255, 0.00) !important;
+  box-shadow: none !important;
+}

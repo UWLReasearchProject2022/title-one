@@ -1,10 +1,20 @@
 import React from "react";
-import { PageTemplate, Placeholder } from "components";
+import {
+  PageTemplate,
+  BasketTable,
+  SearchBar,
+  CheckoutOptions,
+} from "components";
+import { Container } from "./Basket.styles";
 
 export const Basket: React.FunctionComponent = () => {
   return (
     <PageTemplate>
-      <Placeholder>Basket</Placeholder>
+      <SearchBar backTo="/search" backPage="search" />
+      <Container>
+        <BasketTable />
+        <CheckoutOptions />
+      </Container>
     </PageTemplate>
   );
 };
