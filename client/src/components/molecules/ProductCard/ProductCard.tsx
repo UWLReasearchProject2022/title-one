@@ -17,6 +17,8 @@ import {
 import { LikeButton } from "components";
 import { pegiIcons, platformIcons } from "utils/icons";
 import { addToBasket } from "utils/lib/addToBasket";
+import { Button } from "@mui/material";
+
 type Props = {
   product: Product;
 };

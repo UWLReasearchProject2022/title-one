@@ -12,7 +12,6 @@ import {
 import { Divider } from "@mui/material";
 import { deliveryOptions } from "./config";
 import { DeliveryOption } from "types";
-import { useBasket } from "utils/lib/useBasket";
 import { useNavigate } from "react-router-dom";
 
 const getDeliveryFromKey = (key: string): DeliveryOption | undefined => {
@@ -27,9 +26,14 @@ const getDeliveryFromKey = (key: string): DeliveryOption | undefined => {
   return deliveryOption;
 };
 
-export const CheckoutOptions: React.FunctionComponent = () => {
+type Props = {
+  basketTotal: number;
+};
+
+export const CheckoutOptions: React.FunctionComponent<Props> = ({
+  basketTotal,
+}) => {
   const navigate = useNavigate();
-  const { total: basketTotal } = useBasket();
   const initialDelivery = getDeliveryFromKey("first_class");
   const [delivery, setDelivery] = useState<DeliveryOption>(
     initialDelivery ? initialDelivery : deliveryOptions[0],
