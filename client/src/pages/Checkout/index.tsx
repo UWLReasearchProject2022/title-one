@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { PageTemplate } from "components";
-import { Elements, PaymentElement } from "@stripe/react-stripe-js";
+import { PageTemplate, CheckoutForm, OrderSummary } from "components";
+import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import { Container } from "./Checkout.styles";
+import { getToken, getOptions } from "utils/stripeConfig";
+import { useMakeOrder } from "mutations";
+import { useBasket } from "utils/lib/useBasket";
 
 const stripePromise = loadStripe(
   "pk_test_51KvGbwCUMmacvvXbW7msn5BD98sj6P7L1rFMqijwnYuHGLaxBeaqiXGZbyJZdmCo2cqBl3LHEhxq0uTL0KohIkJs00UIP4j4lo",
@@ -9,36 +13,33 @@ const stripePromise = loadStripe(
 
 export const Checkout: React.FunctionComponent = () => {
   const [clientSecret, setClientSecret] = useState<string | undefined>();
+  const makeOrderMutation = useMakeOrder();
+  const { basket, total } = useBasket();
+
+  const submitForm = () => {
+    makeOrderMutation.mutate({
+      user_id: 1,
+      order_details: basket.map((item) => ({
+        product_platform_id: item.product.id,
+        quantity: item.quantity,
+      })),
+    });
+  };
 
   useEffect(() => {
-    const getToken = async () => {
-      const res = await fetch("https://api.stripe.com/v1/payment_intents", {
-        body: "amount=1099&currency=eur&automatic_payment_methods[enabled]=true",
-        headers: {
-          Authorization:
-            "Bearer sk_test_51KvGbwCUMmacvvXbd7DZd9GAI36d8Lcq3FK3Erppqb9mWJsuOjMbAMciDJe63OiwH2cFv200Zra36TV0pWlVyvhq00lTcqV0sY",
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        method: "POST",
-      });
-      const data = await res.json();
-      setClientSecret(data.client_secret);
-    };
-    getToken();
+    getToken(setClientSecret);
   }, []);
-
-  const options = {
-    // passing the client secret obtained from the server
-    clientSecret: clientSecret,
-  };
 
   return (
     <PageTemplate>
-      {clientSecret && (
-        <Elements stripe={stripePromise} options={options}>
-          <PaymentElement />
-        </Elements>
-      )}
+      <Container>
+        {clientSecret && (
+          <Elements stripe={stripePromise} options={getOptions(clientSecret)}>
+            <CheckoutForm submitForm={submitForm} />
+          </Elements>
+        )}
+        <OrderSummary basket={basket} total={total} />
+      </Container>
     </PageTemplate>
   );
 };

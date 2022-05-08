@@ -7,3 +7,4 @@ export * from "./CustomerReviews";
 export * from "./DeliveryAndReturns";
 export * from "./RatingBreakdown";
 export * from "./BasketActions";
+export * from "./SummaryProduct";

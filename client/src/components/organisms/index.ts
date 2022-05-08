@@ -5,3 +5,5 @@ export * from "./Filters";
 export * from "./BasketTable";
 export * from "./DetailTabs";
 export * from "./LargeProductCard";
+export * from "./CheckoutForm";
+export * from "./OrderSummary";
