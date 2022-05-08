@@ -60,19 +60,22 @@ class ProductGenre(models.Model):
 class Stock(models.Model):
     stock_id = models.AutoField(primary_key=True)
     product_platform_id = models.ForeignKey("ProductPlatform", on_delete=models.CASCADE)
+    isSold = models.BooleanField(default=False)
 
 
 class OrderDetails(models.Model):
     order_details_id = models.AutoField(primary_key=True)
     stock_id = models.ForeignKey("Stock", on_delete=models.CASCADE)
-    order_id = models.ForeignKey("Order", on_delete=models.CASCADE)
+    order_id = models.ForeignKey(
+        "Order", on_delete=models.CASCADE, related_name="order_details"
+    )
 
 
 class Order(models.Model):
     order_id = models.AutoField(primary_key=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
-    date_shipped = models.DateTimeField(auto_now_add=True)
-    date_delivered = models.DateTimeField(auto_now_add=True)
+    date_shipped = models.DateTimeField(auto_now_add=True, null=True)
+    date_delivered = models.DateTimeField(auto_now_add=True, null=True)
     user_id = models.ForeignKey("User", on_delete=models.CASCADE)
 
 

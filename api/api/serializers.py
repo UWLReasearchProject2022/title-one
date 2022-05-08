@@ -91,9 +91,16 @@ class OrderDetailsSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
+    order_details = OrderDetailsSerializer(many=True, read_only=True)
+
     class Meta:
         model = Order
-        fields = "__all__"
+        fields = (
+            "order_id",
+            "user_id",
+            "date_ordered",
+            "order_details",
+        )
 
 
 class UserSerializer(serializers.ModelSerializer):
