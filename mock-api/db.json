@@ -5,10 +5,14 @@
       "email": "ed.fisk@test.com",
       "first_name": "Ed",
       "last_name": "Fisk",
-      "password": "",
-      "address": "hello",
-      "name": "ed",
-      "new_password": ""
+      "password": "password",
+      "address": {
+        "house_number": "",
+        "road_name": "",
+        "city": "",
+        "county": "",
+        "postcode": ""
+      }
     }
   ],
   "orders": [

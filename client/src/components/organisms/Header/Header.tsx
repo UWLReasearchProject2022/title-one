@@ -57,8 +57,8 @@ export const Header: React.FunctionComponent = () => {
       </Link>
       <LargeSpacer />
       {buttonsConfig.map((button) => (
-        <StyledLink to={button.link}>
-          <ConsoleButton key={button.key}>{button.text}</ConsoleButton>
+        <StyledLink key={button.key} to={button.link}>
+          <ConsoleButton>{button.text}</ConsoleButton>
         </StyledLink>
       ))}
       <RightContainer>

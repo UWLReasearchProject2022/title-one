@@ -14,10 +14,21 @@ import {
 } from "./UserProfile.styles";
 import { Refresh as RefreshIcon, Save as SaveIcon } from "@mui/icons-material";
 import sectionsConfig from "./config";
-import { User } from "types";
+import { User, Address } from "types";
 import { useUpdateUser } from "queries";
+import { isBlank, validateEmail } from "utils/helpers";
+import { getUser } from "services";
+import { useUserData } from "hooks";
 
 type FormValue = User & {
+  new_password: string;
+};
+
+type Errors = {
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
   new_password: string;
 };
 
@@ -32,24 +43,84 @@ export const UserProfile: React.FunctionComponent<AccountPageProps> = ({
     new_password: "",
   };
 
-  const { mutate } = useUpdateUser(user.id);
-  const [value, setValue] = useState<FormValue>(initialValue);
+  const initialErrors: Errors = {
+    first_name: " ",
+    last_name: " ",
+    email: " ",
+    password: " ",
+    new_password: " ",
+  };
 
-  const updateValue = (key: keyof FormValue, data: string) => {
+  const { mutate } = useUpdateUser(user.id);
+  const { dispatchUserData } = useUserData();
+  const [value, setValue] = useState<FormValue>(initialValue);
+  const [errors, setErrors] = useState<Errors>(initialErrors);
+
+  const updateValue = (key: keyof FormValue, data: string | Address) => {
     if (key !== "id") {
       const newValue = { ...value };
-      newValue[key] = data;
+      if (key === "address" && typeof data !== "string") {
+        newValue.address = data;
+      } else if (typeof data === "string") {
+        newValue[key] = data;
+      }
       setValue(newValue);
     }
   };
 
-  const handleSubmit = () => {
-    if (user.password === value.password) {
-      const newUser = { ...value, password: value.new_password };
-      mutate(newUser);
-      updateValue("password", "");
-      updateValue("new_password", "");
+  const handleSubmit = async () => {
+    const newErrors = initialErrors;
+    newErrors.first_name = isBlank(value.first_name) ? "Please complete" : " ";
+    newErrors.last_name = isBlank(value.last_name) ? "Please complete" : " ";
+    if (user.email !== value.email) {
+      if (!validateEmail(value.email)) {
+        newErrors.email = "Invalid email";
+      } else {
+        const users = await getUser(value.email);
+        if (!users || users.length !== 0) {
+          newErrors.email = "Email already registered";
+        }
+      }
     }
+    if (value.password !== user.password) {
+      newErrors.password = "Password incorrect";
+    }
+    if (!errorsExist(newErrors)) {
+      updateUser(value);
+    }
+    setErrors(newErrors);
+  };
+
+  const errorsExist = (newErrors: Errors): boolean => {
+    let exists = false;
+    Object.values(newErrors).forEach((error) => {
+      if (error !== " ") {
+        exists = true;
+      }
+    });
+    return exists;
+  };
+
+  const updateUser = (updatedValue: FormValue) => {
+    const updatedUser: User = {
+      id: updatedValue.id,
+      first_name: updatedValue.first_name,
+      last_name: updatedValue.last_name,
+      email: updatedValue.email,
+      password:
+        updatedValue.new_password === ""
+          ? updatedValue.password
+          : updatedValue.new_password,
+      address: updatedValue.address,
+    };
+    mutate(updatedUser);
+    dispatchUserData({
+      type: "SET_USER",
+      data: {
+        email: updatedUser.email,
+        password: updatedUser.password,
+      },
+    });
   };
 
   const resetValue = () => {
@@ -76,35 +147,46 @@ export const UserProfile: React.FunctionComponent<AccountPageProps> = ({
       </Header>
       <StyledDivider />
       <Body>
-        {sectionsConfig.map((section) => (
-          <div key={section.key}>
-            <BodyText>{section.title}</BodyText>
-            <Form>
-              {section.config.map((input) => {
-                return (
-                  <input.component
-                    autocomplete="off"
-                    key={input.key}
-                    name={input.key}
-                    label={input.label}
-                    style={
-                      input.key === "first_name" ? { marginRight: "1rem" } : {}
-                    }
-                    size="small"
-                    helperText={" "}
-                    value={value[input.key as keyof FormValue]}
-                    onChange={(event) =>
-                      updateValue(
-                        input.key as keyof FormValue,
-                        event.target.value,
-                      )
-                    }
-                  />
-                );
-              })}
-            </Form>
-          </div>
-        ))}
+        {sectionsConfig.map((section) => {
+          return (
+            <div key={section.key}>
+              <BodyText>{section.title}</BodyText>
+              {section.component ? (
+                <section.component
+                  address={value.address}
+                  onChange={(newAddress) => updateValue("address", newAddress)}
+                />
+              ) : (
+                <Form>
+                  {section.config.map((input) => {
+                    return (
+                      <input.component
+                        key={input.key}
+                        name={input.key}
+                        label={input.label}
+                        style={
+                          input.key === "first_name"
+                            ? { marginRight: "1rem" }
+                            : {}
+                        }
+                        size="small"
+                        error={errors[input.key as keyof Errors] !== " "}
+                        helperText={errors[input.key as keyof Errors]}
+                        value={value[input.key as keyof FormValue]}
+                        onChange={(event) =>
+                          updateValue(
+                            input.key as keyof FormValue,
+                            event.target.value,
+                          )
+                        }
+                      />
+                    );
+                  })}
+                </Form>
+              )}
+            </div>
+          );
+        })}
       </Body>
     </>
   );

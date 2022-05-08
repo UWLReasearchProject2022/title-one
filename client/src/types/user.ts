@@ -13,6 +13,7 @@ export type User = {
   last_name: string;
   email: string;
   password: string;
+  address: Address;
 };
 
 export type UserAction =
@@ -21,4 +22,12 @@ export type UserAction =
 
 export type AccountPageProps = {
   user: User;
+};
+
+export type Address = {
+  house_number: string;
+  road_name: string;
+  city: string;
+  county: string;
+  postcode: string;
 };

@@ -1,6 +1,6 @@
 import { SplitInput } from "../CreateAccountModal/CreateAccountModal.styles";
 import { Input } from "./UserProfile.styles";
-import { PasswordInput } from "components";
+import { PasswordInput, AddressField } from "components";
 
 export default [
   {
@@ -46,9 +46,9 @@ export default [
       },
     ],
   },
-  //   {
-  //     key: "delivery_address",
-  //     title: "Delivery address",
-  //     config: [],
-  //   },
+  {
+    key: "address",
+    title: "Delivery address",
+    component: AddressField,
+  },
 ];

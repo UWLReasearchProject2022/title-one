@@ -82,6 +82,13 @@ export const CreateAccountModal: React.FunctionComponent<ModalProps> = ({
             last_name: last_name,
             email: email,
             password: formData.get("password") as string,
+            address: {
+              house_number: "",
+              road_name: "",
+              city: "",
+              county: "",
+              postcode: "",
+            },
           });
         }
       }
