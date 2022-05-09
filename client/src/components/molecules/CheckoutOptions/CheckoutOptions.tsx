@@ -122,7 +122,7 @@ export const CheckoutOptions: React.FunctionComponent<Props> = ({
           variant="contained"
           color="secondary"
         >
-          Checkout and pay!
+          Checkout and pay
         </PayNowButton>
       </PriceContainer>
     </Container>

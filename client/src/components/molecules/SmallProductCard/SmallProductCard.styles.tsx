@@ -35,5 +35,10 @@ export const ActionContainer = styled("div")({
 export const PriceText = styled(Typography)({});
 
 export const ViewButton = styled(Button)({
-  width: "4.5rem",
+  fontSize: "14px",
+  padding: "0.5rem",
+  paddingTop: "0.25rem",
+  paddingBottom: "0.25rem",
+  textTransform: "none",
+  fontWeight: "normal",
 });

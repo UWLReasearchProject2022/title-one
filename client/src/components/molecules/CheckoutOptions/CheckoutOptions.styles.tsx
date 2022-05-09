@@ -35,5 +35,11 @@ export const SubText = styled(Typography)({
 });
 
 export const PayNowButton = styled(Button)({
+  fontSize: "14px",
+  padding: "1rem",
+  paddingTop: "0.25rem",
+  paddingBottom: "0.25rem",
   marginTop: "1.5rem",
+  textTransform: "none",
+  fontWeight: "normal",
 });

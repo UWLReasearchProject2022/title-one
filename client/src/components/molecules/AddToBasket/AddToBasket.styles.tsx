@@ -32,8 +32,16 @@ export const PriceContainer = styled("div")({
 
 export const SubText = styled(Typography)({
   fontSize: "14px",
+  maxWidth: "100%",
+  overflowWrap: "break-word",
 });
 
-export const PayNowButton = styled(Button)({
+export const AddToBasketButton = styled(Button)({
+  fontSize: "14px",
+  padding: "1rem",
+  paddingTop: "0.25rem",
+  paddingBottom: "0.25rem",
   marginTop: "1.5rem",
+  textTransform: "none",
+  fontWeight: "normal",
 });

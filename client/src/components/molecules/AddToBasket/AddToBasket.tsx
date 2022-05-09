@@ -5,6 +5,9 @@ import {
   Input,
   DropdownItem,
   Text,
+  PriceContainer,
+  SubText,
+  AddToBasketButton,
 } from "./AddToBasket.styles";
 import { Divider } from "@mui/material";
 import { Product, Platform } from "types";
@@ -113,6 +116,27 @@ export const AddToBasket: React.FunctionComponent<Props> = ({ product }) => {
         />
       </Section>
       <Divider />
+      <PriceContainer>
+        <SubText>
+          {`${formData.quantity}x ${product.name} - ${formData.platform} - ${formData.edition}`}
+        </SubText>
+      </PriceContainer>
+      <PriceContainer>
+        <SubText>{`Total: ${(formData.quantity * product.price).toLocaleString(
+          "en-GB",
+          {
+            style: "currency",
+            currency: "GBP",
+          },
+        )}`}</SubText>
+        <AddToBasketButton
+          onClick={() => console.log("test")}
+          variant="contained"
+          color="secondary"
+        >
+          Add to basket
+        </AddToBasketButton>
+      </PriceContainer>
     </Container>
   );
 };

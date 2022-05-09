@@ -37,7 +37,7 @@ export const SmallProductCard: React.FunctionComponent<Props> = ({
         </PriceText>
         <Link to={`/search/${product.id}`}>
           <ViewButton variant="contained" color="secondary">
-            View
+            VIEW
           </ViewButton>
         </Link>
       </ActionContainer>
