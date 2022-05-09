@@ -117,11 +117,9 @@ class ProductPlatformViewset(ModelViewSet):
         new_product_platform = ProductPlatform.objects.create(
             price=product_platform_data["price"],
             product_id=self.product_queryset.get(
-                product_id=product_platform_data["product_id"]
-            ),
+                product_id=product_platform_data["product_id"]),
             platform_id=Platform.objects.get(
-                platform_id=product_platform_data["platform_id"]
-            ),
+                platform_id=product_platform_data["platform_id"]),
         )
 
         new_product_platform.save()
@@ -146,8 +144,10 @@ class ProductGenreViewset(ModelViewSet):
         product_genre_data = request.data
 
         new_product_genre = ProductGenre.objects.create(
-            product_id=Product.objects.get(product_id=product_genre_data["product_id"]),
-            genre_id=Genre.objects.get(genre_id=product_genre_data["genre_id"]),
+            product_id=Product.objects.get(
+                product_id=product_genre_data["product_id"]),
+            genre_id=Genre.objects.get(
+                genre_id=product_genre_data["genre_id"]),
         )
 
         new_product_genre.save()
@@ -184,18 +184,13 @@ class ReviewViewset(ModelViewSet):
         review_data = request.data
 
         new_review = Review.objects.create(
-<<<<<<< HEAD
-            date_reviewed=review_data["date_reviewed"],
-            review_text=review_data["review_text"],
-            product_platform_id=ProductPlatform.objects.get(
-                product_platform_id=review_data["product_platform_id"]))
-=======
-            product_id=Product.objects.get(product_id=review_data["product_id"]),
-            customer_id=Customer.objects.get(customer_id=review_data["customer_id"]),
+            product_id=Product.objects.get(
+                product_id=review_data["product_id"]),
+            customer_id=Customer.objects.get(
+                customer_id=review_data["customer_id"]),
             rating=review_data["rating"],
             text=review_data["text"],
         )
->>>>>>> 1e8df9cf4eb37255a7a82d19ab9fdfebe4012a4d
 
         new_review.save()
 

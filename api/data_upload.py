@@ -1,6 +1,5 @@
 """Script to upload data to the database, only run once"""
 
-
 import itertools
 from turtle import clear
 import requests
@@ -15,9 +14,11 @@ def upload_developer():
     url = "/developer/"
 
     for name in DEV_NAMES:
-        requests.post(
-            BASE_URL + url, json={"name": name, "description": "A great company"}
-        )
+        requests.post(BASE_URL + url,
+                      json={
+                          "name": name,
+                          "description": "A great company"
+                      })
     print("Uploaded developers")
 
 
@@ -91,9 +92,11 @@ def upload_platform():
 def upload_genre():
     url = "/genre/"
     for name in GENRES:
-        r = requests.post(
-            BASE_URL + url, json={"name": name, "description": "A great genre"}
-        )
+        r = requests.post(BASE_URL + url,
+                          json={
+                              "name": name,
+                              "description": "A great genre"
+                          })
         r.raise_for_status()
     print("Uploaded genres")
 
@@ -148,9 +151,9 @@ def upload_product_genre():
 
             body = {"product_id": prod, "genre_id": genre_ids[i]}
 
-            r = requests.post(
-                BASE_URL + url, json=body, headers={"Content-Type": "application/json"}
-            )
+            r = requests.post(BASE_URL + url,
+                              json=body,
+                              headers={"Content-Type": "application/json"})
             r.raise_for_status()
     print("Uploaded product genres")
 
