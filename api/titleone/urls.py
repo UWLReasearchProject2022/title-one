@@ -47,7 +47,7 @@ router.register(
     r"product_platform", views.ProductPlatformViewset, basename="product_platform"
 )
 router.register(r"product_genre", views.ProductGenreViewset, basename="product_genre")
-router.register(r"customer", views.CustomerViewset, basename="customer")
+router.register(r"user", views.UserViewset, basename="user")
 router.register(r"review", views.ReviewViewset, basename="review")
 
 # nested product endpoint with developer
@@ -60,6 +60,7 @@ router.register(r"review", views.ReviewViewset, basename="review")
 
 urlpatterns = [
     path("", include(router.urls)),
+    path("user-data/", views.get_user),
     # path(r'', include(developer_router.urls)),
     path("admin/", admin.site.urls),
     path("clear/", views.clear_database),

@@ -19,7 +19,7 @@ from .models import (
     Stock,
     OrderDetails,
     Order,
-    Customer,
+    User,
     Review,
 )
 from .serializers import (
@@ -33,10 +33,13 @@ from .serializers import (
     StockSerializer,
     OrderDetailsSerializer,
     OrderSerializer,
-    CustomerSerializer,
+    UserSerializer,
     ReviewSerializer,
 )
 from rest_framework.viewsets import ModelViewSet
+from django.db.models import Count
+from itertools import groupby
+import pandas as pd
 
 # Create your views here.
 # @api_view(['GET'])
@@ -66,7 +69,7 @@ def clear_database(request):
     Stock.objects.all().delete()
     OrderDetails.objects.all().delete()
     Order.objects.all().delete()
-    Customer.objects.all().delete()
+    User.objects.all().delete()
     Review.objects.all().delete()
 
     return HttpResponse("Database cleared")
@@ -92,7 +95,7 @@ class ProductViewset(ModelViewSet):
         new_product.save()
 
         serializer = ProductSerializer(new_product)
-        return Response(serializer.data)
+        return JsonResponse(serializer.data)
 
 
 class DeveloperViewset(ModelViewSet):
@@ -125,7 +128,7 @@ class ProductPlatformViewset(ModelViewSet):
         new_product_platform.save()
 
         serializer = ProductPlatformSerializer(new_product_platform)
-        return Response(serializer.data)
+        return JsonResponse(serializer.data)
 
     queryset = ProductPlatform.objects.all()
     serializer_class = ProductPlatformSerializer
@@ -153,7 +156,7 @@ class ProductGenreViewset(ModelViewSet):
         new_product_genre.save()
 
         serializer = ProductGenreSerializer(new_product_genre)
-        return Response(serializer.data)
+        return JsonResponse(serializer.data)
 
 
 class StockViewset(ModelViewSet):
@@ -165,15 +168,118 @@ class OrderDetailsViewset(ModelViewSet):
     queryset = OrderDetails.objects.all()
     serializer_class = OrderDetailsSerializer
 
+    # def list(self, request):
+    #     user_id = request.query_params.get("user_id")
+
+    #     user_orders = Order.objects.filter(user_id=user_id).values_list("order_id")
+
+    #     # print(user_orders)
+
+    #     queryset = OrderDetails.objects.filter(order_id__in=user_orders)
+    #     #group by order_id and get quantity of each product
+
+    #     queryset = queryset.values("order_id", "product_id").annotate(
+    #         quantity=Count("product_id")
+
+    #     print(queryset.values())
+
+    #     stock_ids = queryset.values_list("stock_id")
+
+    #     prod_platform_counts = Stock.objects.filter(stock_id__in=stock_ids).annotate(
+    #         count=Count("product_platform_id_id")
+    #     )
+
+    # print(prod_platform_counts)
+    # print(prod_platform_counts.values())
+
+    # print(prod_platform_ids)
+
+    # print(stock_ids)
+
+    # print(queryset)
+
 
 class OrderViewset(ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
+    def list(self, request):
+        user_id = request.query_params.get("user_id")
 
-class CustomerViewset(ModelViewSet):
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
+        # get all orders for user
+        user_orders = Order.objects.filter(
+            user_id=user_id).values_list("order_id")
+
+        # get all order details for user
+        queryset = OrderDetails.objects.filter(order_id__in=user_orders)
+        order_details = pd.DataFrame(queryset.values())
+        order_details.rename(columns={"stock_id_id": "stock_id"}, inplace=True)
+
+        # get all stock ids for user
+        stock_ids = queryset.values_list("stock_id")
+        stock_entries = Stock.objects.filter(stock_id__in=stock_ids)
+        stocks = pd.DataFrame.from_records(list(stock_entries.values()))
+
+        # groups each order by product and finds the quantity of each product
+        order = pd.merge(
+            order_details, stocks,
+            on="stock_id").loc[:, ["order_id_id", "product_platform_id_id"]]
+        order.rename(
+            columns={
+                "order_id_id": "order_id",
+                "product_platform_id_id": "product_platform_id",
+            },
+            inplace=True,
+        )
+        product_count_by_order = (order.groupby(
+            ["order_id",
+             "product_platform_id"]).size().to_frame("quantity").reset_index())
+        order_data = product_count_by_order.to_dict("records")
+        order_data = [
+            list(v)
+            for k, v in groupby(order_data, key=lambda x: x["order_id"])
+        ]
+
+        # this is f horrible code, but it works
+        for order in chain.from_iterable(order_data):
+            del order["order_id"]
+
+        return JsonResponse(order_data, safe=False)
+
+    def create(self, request):
+        order_data = request.data
+
+        user_id = order_data["user_id"]
+        order_details = order_data["order_details"]
+        created = Order.objects.create(user_id=User.objects.get(
+            user_id=user_id))
+
+        for product in order_details:
+            prod_id = product["product_platform_id"]
+            quantity = product["quantity"]
+
+            stocks = Stock.objects.filter(
+                product_platform_id=prod_id)[:quantity]
+
+            for stock in stocks:
+                OrderDetails.objects.create(order_id=created, stock_id=stock)
+            # not handling out of stock as cba to do it
+
+        return JsonResponse({"order_id": created.order_id})
+
+
+class UserViewset(ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+def get_user(request):
+    email = request.GET.get("email")
+    password = request.GET.get("password")
+
+    user = get_object_or_404(User, email=email, password=password)
+    serializer = UserSerializer(user)
+    return JsonResponse(serializer.data)
 
 
 class ReviewViewset(ModelViewSet):
@@ -186,8 +292,7 @@ class ReviewViewset(ModelViewSet):
         new_review = Review.objects.create(
             product_id=Product.objects.get(
                 product_id=review_data["product_id"]),
-            customer_id=Customer.objects.get(
-                customer_id=review_data["customer_id"]),
+            user_id=User.objects.get(user_id=review_data["user_id"]),
             rating=review_data["rating"],
             text=review_data["text"],
         )
@@ -195,4 +300,4 @@ class ReviewViewset(ModelViewSet):
         new_review.save()
 
         serializer = ReviewSerializer(new_review)
-        return Response(serializer.data)
+        return JsonResponse(serializer.data)

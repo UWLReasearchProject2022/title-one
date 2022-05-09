@@ -50,30 +50,35 @@ class Stock(models.Model):
     stock_id = models.AutoField(primary_key=True)
     product_platform_id = models.ForeignKey("ProductPlatform",
                                             on_delete=models.CASCADE)
+    isSold = models.BooleanField(default=False)
 
 
 class OrderDetails(models.Model):
     order_details_id = models.AutoField(primary_key=True)
     stock_id = models.ForeignKey("Stock", on_delete=models.CASCADE)
-    order_id = models.ForeignKey("Order", on_delete=models.CASCADE)
+    order_id = models.ForeignKey("Order",
+                                 on_delete=models.CASCADE,
+                                 related_name="order_details")
 
 
 class Order(models.Model):
     order_id = models.AutoField(primary_key=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
-    date_shipped = models.DateTimeField(auto_now_add=True)
-    date_delivered = models.DateTimeField(auto_now_add=True)
-    customer_id = models.ForeignKey("Customer", on_delete=models.CASCADE)
+    date_shipped = models.DateTimeField(auto_now_add=True, null=True)
+    date_delivered = models.DateTimeField(auto_now_add=True, null=True)
+    user_id = models.ForeignKey("User", on_delete=models.CASCADE)
 
 
-class Customer(models.Model):
-    customer_id = models.AutoField(primary_key=True)
+class User(models.Model):
+    user_id = models.AutoField(primary_key=True)
     email = models.CharField(max_length=255)
     surname = models.CharField(max_length=255)
     other_names = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
+    username = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
 
 
 class ProductPlatform(models.Model):
@@ -91,12 +96,8 @@ class Review(models.Model):
     review_id = models.AutoField(primary_key=True)
     product_id = models.ForeignKey("Product",
                                    on_delete=models.CASCADE,
-                                   related_name="review")
-    customer_id = models.ForeignKey("Customer", on_delete=models.CASCADE)
-    product_platform = models.ForeignKey("ProductPlatform",
-                                         related_name="developer",
-                                         on_delete=models.CASCADE,
-                                         null=True)
+                                   related_name="reviews")
+    user_id = models.ForeignKey("User", on_delete=models.CASCADE)
     text = models.CharField(max_length=255)
     rating = models.IntegerField()
     date_reviewed = models.DateTimeField(auto_now_add=True)
