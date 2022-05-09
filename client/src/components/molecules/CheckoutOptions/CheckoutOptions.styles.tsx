@@ -3,7 +3,6 @@ import { Paper, TextField, Typography, MenuItem, Button } from "@mui/material";
 
 export const Container = styled(Paper)({
   width: "27.5%",
-  height: "auto",
 });
 
 export const Section = styled("div")({
