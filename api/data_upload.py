@@ -211,9 +211,11 @@ def upload_order():
             json={
                 "user_id": random.choice(user_ids),
                 "order_details": [
-                    {"product_platform_id" : random.choice(prod_platform_ids), "quantity": random.randint(2, 3)}
-                ]
-               
+                    {
+                        "product_platform_id": random.choice(prod_platform_ids),
+                        "quantity": random.randint(2, 3),
+                    }
+                ],
             },
         )
     print("Orders uploaded")

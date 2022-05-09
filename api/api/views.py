@@ -169,8 +169,6 @@ class OrderDetailsViewset(ModelViewSet):
     serializer_class = OrderDetailsSerializer
 
 
-
-
 class OrderViewset(ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
@@ -179,7 +177,7 @@ class OrderViewset(ModelViewSet):
         user_id = request.query_params.get("user_id")
 
         # get all orders for user
-        
+
         if user_id is not None:
             user_orders = Order.objects.filter(user_id=user_id).values_list("order_id")
         else:
@@ -238,8 +236,7 @@ class OrderViewset(ModelViewSet):
             stocks = Stock.objects.filter(product_platform_id=prod_id)[:quantity]
 
             for stock in stocks:
-                OrderDetails.objects.create(
-                    order_id=created, stock_id=stock)
+                OrderDetails.objects.create(order_id=created, stock_id=stock)
             # not handling out of stock as cba to do it
 
         return JsonResponse({"order_id": created.order_id})
@@ -265,8 +262,6 @@ class ReviewViewset(ModelViewSet):
 
     def create(self, request):
         review_data = request.data
-
-
 
         new_review = Review.objects.create(
             product_id=Product.objects.get(product_id=review_data["product_id"]),
