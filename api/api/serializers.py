@@ -36,20 +36,20 @@ class ProductSerializer(serializers.ModelSerializer):
         depth = 1
 
 
-class PlatformSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Platform
-        fields = ["platform_id", "name"]
-
-
-# class ProductPlatformSerializer(serializers.ModelSerializer):
-#     product = ProductSerializer(read_only=True)
+# class PlatformSerializer(serializers.ModelSerializer):
 
 #     class Meta:
-#         model = ProductPlatform
-#         # fields = "__all__"
-#         fields = ["name", "platform_id"]
+#         model = Platform
+#         fields = ["platform_id", "name"]
+
+
+class ProductPlatformSerializer(serializers.ModelSerializer):
+    product = ProductSerializer(read_only=True)
+
+    class Meta:
+        model = ProductPlatform
+        fields = "__all__"
+        fields = ["name", "platform_id"]
 
 
 class ProductPlatformSerializer(serializers.ModelSerializer):
@@ -85,13 +85,13 @@ class ReviewSerializer(serializers.ModelSerializer):
         depth = 2
 
 
-class ProductSerializer(serializers.ModelSerializer):
-    platforms = ProductPlatformSerializer(many=True, read_only=True)
-    genres = ProductGenreSerializer(many=True, read_only=True)
-    developer = DeveloperSerializer(read_only=True)
-    reviews = ReviewSerializer(many=True, read_only=True)
+# class ProductSerializer(serializers.ModelSerializer):
+#     platforms = ProductPlatformSerializer(many=True, read_only=True)
+#     genres = ProductGenreSerializer(many=True, read_only=True)
+#     developer = DeveloperSerializer(read_only=True)
+#     reviews = ReviewSerializer(many=True, read_only=True)
 
-    # Developer = serializers.PickledObjectField(source='developer_id')
+# Developer = serializers.PickledObjectField(source='developer_id')
 
     class Meta:
         model = Product
