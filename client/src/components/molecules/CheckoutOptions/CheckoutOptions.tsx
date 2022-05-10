@@ -118,6 +118,7 @@ export const CheckoutOptions: React.FunctionComponent<Props> = ({
           },
         )}`}</SubText>
         <PayNowButton
+          disabled={basketTotal === 0}
           onClick={onCheckoutAndPay}
           variant="contained"
           color="secondary"

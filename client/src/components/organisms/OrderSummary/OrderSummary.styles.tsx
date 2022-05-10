@@ -2,14 +2,13 @@ import { styled } from "@mui/system";
 import { Paper, Typography, Button } from "@mui/material";
 
 export const Container = styled(Paper)({
-  padding: "1rem",
-  width: "40%",
-  marginLeft: "1rem",
+  padding: "1.5rem",
+  width: "calc(27.5% - 2rem)",
 });
 
 export const Title = styled(Typography)({
   marginBottom: "1rem",
-  fontSize: "1.2rem",
+  fontSize: "16px",
 });
 
 export const TotalContainer = styled("div")({

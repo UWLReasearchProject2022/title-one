@@ -3,15 +3,16 @@ import { styled } from "@mui/system";
 import { PaymentElement } from "@stripe/react-stripe-js";
 
 export const Container = styled(Paper)({
-  padding: "1rem",
-  width: "60%",
+  padding: "1.5rem",
+  width: "calc(72.5% - 1rem)",
   minWidth: "25em",
+  marginRight: "1rem",
 });
 
 export const TextInput = styled(TextField)({
   marginBottom: "1rem",
   marginRight: "1rem",
-  width: "15rem",
+  width: "50%",
 });
 
 export const Row = styled("div")({
@@ -22,7 +23,7 @@ export const Row = styled("div")({
 export const FormLabel = styled(Typography)({
   marginBottom: "1rem",
   marginRight: "1rem",
-  fontSize: "1.2rem",
+  fontSize: "16px",
 });
 
 export const Section = styled("div")({
@@ -35,6 +36,6 @@ export const SubmitButton = styled(Button)({
 });
 
 export const Payment = styled(PaymentElement)({
-  width: "80%",
+  width: "calc(72.5% - 1rem)",
   marginBottom: "1rem",
 });

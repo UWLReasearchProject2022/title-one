@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { PageTemplate, CheckoutForm, OrderSummary } from "components";
+import {
+  PageTemplate,
+  CheckoutForm,
+  OrderSummary,
+  SearchBar,
+} from "components";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { Container } from "./Checkout.styles";
@@ -32,6 +37,7 @@ export const Checkout: React.FunctionComponent = () => {
 
   return (
     <PageTemplate>
+      <SearchBar backTo="/basket" backPage="Basket" />
       <Container>
         {clientSecret && (
           <Elements stripe={stripePromise} options={getOptions(clientSecret)}>

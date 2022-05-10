@@ -26,15 +26,17 @@ export const CheckoutForm: React.FunctionComponent<Props> = ({
     <Container>
       <form onSubmit={handleSubmit(submitForm)} id="payment-form">
         <Section>
-          <FormLabel variant="h2">Billing Details</FormLabel>
+          <FormLabel>Billing Details</FormLabel>
           <Row>
             <TextInput
+              size="small"
               label="First Name"
               variant="outlined"
               error={!!errors.other_names}
               helperText={errors.other_names?.message}
             />
             <TextInput
+              size="small"
               label="Last Name"
               variant="outlined"
               {...register("surname")}
@@ -44,42 +46,35 @@ export const CheckoutForm: React.FunctionComponent<Props> = ({
           </Row>
           <Row>
             <TextInput
+              size="small"
               label="Email"
               variant="outlined"
               type={"email"}
               {...register("email")}
               error={!!errors.email}
               helperText={errors.email?.message}
-              sx={{ width: "20rem" }}
-            />
-            <TextInput
-              label="Phone Number"
-              variant="outlined"
-              type={"tel"}
-              {...register("phone")}
-              error={!!errors.phone}
-              helperText={errors.phone?.message}
             />
           </Row>
           <TextInput
             label="Address"
             variant="outlined"
+            size="small"
             {...register("address")}
             error={!!errors.address}
             helperText={errors.address?.message}
             multiline={true}
             rows={2}
-            sx={{ width: "20rem" }}
           />
           <TextInput
             label="City"
             variant="outlined"
+            size="small"
             {...register("city")}
             error={!!errors.city}
             helperText={errors.city?.message}
           />
         </Section>
-        <FormLabel variant="h2">Payment Details</FormLabel>
+        <FormLabel>Payment Details</FormLabel>
         <Payment />
       </form>
     </Container>
