@@ -1,9 +1,8 @@
 body {
   background-color: black;
   margin: 0;
-  font-family: "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -19,6 +18,6 @@ code {
 }
 
 .MuiDataGrid-cell--editing {
-  background-color: rgba(255, 255, 255, 0.00) !important;
+  background-color: rgba(255, 255, 255, 0) !important;
   box-shadow: none !important;
 }
