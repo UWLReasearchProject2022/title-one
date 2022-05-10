@@ -66,6 +66,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "developer",
             "reviews",
             "genres",
+            "is_featured",
         ]
         depth = 1
 
