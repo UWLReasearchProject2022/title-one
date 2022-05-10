@@ -114,6 +114,14 @@ class ProductPlatformViewset(ModelViewSet):
 
     serializer_class = ProductPlatformSerializer
 
+    # def list(self, request):
+    #     featured = request.query_params.get("featured")
+    #     if featured:
+
+
+
+
+
     def create(self, request):
         product_platform_data = request.data
 
@@ -180,8 +188,12 @@ class OrderViewset(ModelViewSet):
 
         if user_id is not None:
             user_orders = Order.objects.filter(user_id=user_id).values_list("order_id")
+            if not user_orders:
+                return JsonResponse([], safe = False)
         else:
             user_orders = Order.objects.all().values_list("order_id")
+
+        print(user_orders)
 
         # get all order details for user
         queryset = OrderDetails.objects.filter(order_id__in=user_orders)
@@ -198,6 +210,8 @@ class OrderViewset(ModelViewSet):
         order = pd.merge(order_details, stocks, on="stock_id").loc[
             :, ["order_id_id", "product_platform_id_id"]
         ]
+        print(order)
+
         order.rename(
             columns={
                 "order_id_id": "order_id",
@@ -219,6 +233,14 @@ class OrderViewset(ModelViewSet):
         # this is f horrible code, but it works
         for order in chain.from_iterable(order_data):
             del order["order_id"]
+            prod = ProductPlatform.objects.filter(product_platform_id = order["product_platform_id"])
+            del order["product_platform_id"]
+            
+            data = ProductPlatformSerializer(prod[0]).data
+            order["product_platform"] = data
+            
+
+        
 
         return JsonResponse(order_data, safe=False)
 
