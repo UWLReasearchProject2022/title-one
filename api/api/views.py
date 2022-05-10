@@ -193,13 +193,11 @@ class OrderViewset(ModelViewSet):
         else:
             user_orders = Order.objects.all().values_list("order_id")
 
-        print(user_orders)
-
         # get all order details for user
         queryset = OrderDetails.objects.filter(order_id__in=user_orders)
         order_details = pd.DataFrame(queryset.values())
         order_details.rename(columns={"stock_id_id": "stock_id"}, inplace=True)
-        print(order_details)
+        # print(order_details)
 
         # get all stock ids for user
         stock_ids = queryset.values_list("stock_id")
@@ -210,7 +208,7 @@ class OrderViewset(ModelViewSet):
         order = pd.merge(order_details, stocks, on="stock_id").loc[
             :, ["order_id_id", "product_platform_id_id"]
         ]
-        print(order)
+        # print(order)
 
         order.rename(
             columns={
@@ -233,10 +231,11 @@ class OrderViewset(ModelViewSet):
         # this is f horrible code, but it works
         for order in chain.from_iterable(order_data):
             del order["order_id"]
-            prod = ProductPlatform.objects.filter(product_platform_id = order["product_platform_id"])
+            prod = ProductPlatform.objects.get(product_platform_id=order["product_platform_id"])
+            print(prod)
             del order["product_platform_id"]
             
-            data = ProductPlatformSerializer(prod[0]).data
+            data = ProductPlatformSerializer(prod).data
             order["product_platform"] = data
             
 
