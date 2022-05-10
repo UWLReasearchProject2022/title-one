@@ -2,11 +2,20 @@
 
 
 import itertools
-from sre_parse import CATEGORIES
+from operator import index
+
 from turtle import clear
 import requests
 import random
 from datetime import datetime
+import pandas as pd
+
+
+
+
+
+DATABASE_DELETION_KEY = "Production.. am I right?"
+
 
 BASE_URL = "http://localhost:4000"
 PRICES = [34.99, 39.99, 44.99, 49.99]
@@ -51,36 +60,30 @@ DEVELOPERS = [
 
 AGE_RATINGS = ["3+", "7+", "12+", "16+", "18+"]
 
-IMAGES = [
-    "https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png",
-    "https://www.shortlist.com/media/images/2019/05/50-greatest-video-game-covers-186-1556729312-ZIaP-column-width-inline.jpg",
-    "https://cdn.tutsplus.com/cdn-cgi/image/width=600/psd/uploads/legacy/psdtutsarticles/linkb_60vgamecovers/27.jpg",
-    "https://static.wikia.nocookie.net/gamia_gamepedia_en/images/c/c4/Front-Cover-Jumanji-The-Video-Game-EU-NSW.png/revision/latest/scale-to-width-down/250?cb=20200316075305",
-    "https://static1.srcdn.com/wordpress/wp-content/uploads/2021/12/RDR-box-art-360.jpg?q=50&fit=crop&w=740&h=1045&dpr=1.5",
-]
 
+data = pd.read_csv("api/api/data/games.csv").to_dict("records")
 
+##############################
+################################
 def upload_product():
     url = "/product/"
 
-    for name in PRODS:
+    for record in data:
+        record["release_date"] = datetime.now()
+       
         r = requests.post(
             BASE_URL + url,
-            json={
-                "name": name,
-                "short_description": "A great product",
-                "long_description": "A great product",
-                "description": "A great product",
-                "age_rating": random.choice(AGE_RATINGS),
-                "image_url": random.choice(IMAGES),
-                "category": random.choice(CATEGORIES),
-                "release_date": "2020-01-01",
-                "developer": random.choice(DEVELOPERS),
-            },
+            data= record
         )
-        r.raise_for_status()
-    print("Uploaded products")
+        try:
+            r.raise_for_status()
+        except requests.exceptions.HTTPError as e:
+            print(record)
+            # record looks fine to me but returns 400.
 
+            raise e
+##########################
+#########################
 
 def upload_platform():
     url = "/platform/"
@@ -90,11 +93,6 @@ def upload_platform():
         r.raise_for_status()
     print("Uploaded platforms")
 
-
-def check_db_empty():
-    url = "/developer/"
-    response = requests.get(BASE_URL + url)
-    return response.json() == []
 
 
 def upload_product_platform():
@@ -112,19 +110,21 @@ def upload_product_platform():
 
     print(prod_ids)
 
-    for prod in prod_ids:
-        random.shuffle(platform_ids)
-        for i in range(random.randint(1, 3)):
-            response = requests.post(
-                BASE_URL + url,
-                json={
-                    "product_id": prod,
-                    "platform_id": platform_ids[i],
-                    "price": random.choice(PRICES),
-                },
-            )
 
-            response.raise_for_status()
+
+    for i, (prod, plat) in itertools.product(prod_ids, platform_ids):
+        response = requests.post(
+            BASE_URL + url,
+            json={
+                "product_id": prod,
+                "platform_id": plat,
+                "price": random.choice(PRICES),
+                "is_featured" : i % 50 == 0, # 1 in 50 chance of being featured
+                
+            },
+        )
+
+        response.raise_for_status()
     print("Uploaded product platforms")
 
 
@@ -278,7 +278,7 @@ def upload_review():
 
 def clear_db():
     url = "/clear"
-    requests.get(BASE_URL + url)
+    requests.get(BASE_URL + url, params = {"key": DATABASE_DELETION_KEY })
 
 
 if __name__ == "__main__":

@@ -12,6 +12,7 @@ class Product(models.Model):
     long_description = models.TextField(default="")
     description = models.TextField(default="")
     developer = models.CharField(max_length=255)
+    developer_logo_url = models.CharField(max_length=2083, default="")
     image_url = models.CharField(max_length=2083)
     release_date = models.DateField(null=True)
     age_rating = models.CharField(max_length=255, default="18+")

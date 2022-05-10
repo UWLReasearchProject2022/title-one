@@ -4,7 +4,7 @@ from urllib import response
 from django.shortcuts import render, get_object_or_404
 from rest_framework.response import Response
 from django_filters import rest_framework as filters
-
+from titleone.settings import DATABASE_DELETION_KEY
 from rest_framework.decorators import api_view
 from rest_framework.request import Request
 from rest_framework.renderers import JSONRenderer
@@ -55,8 +55,10 @@ def clear_database(request):
     if request.method != "GET":
         return Response(status=405)
 
+    if request.query_params.get("key") != DATABASE_DELETION_KEY:
+        return Response(status=403)
+
     Product.objects.all().delete()
-    Developer.objects.all().delete()
     Platform.objects.all().delete()
     ProductPlatform.objects.all().delete()
     Review.objects.all().delete()

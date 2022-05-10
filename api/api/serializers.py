@@ -72,38 +72,14 @@ class ProductGetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = [
-            "product_id",
-            "name",
-            "short_description",
-            "long_description",
-            "description",
-            "image_url",
-            "developer",
-            "reviews",
-            "category",
-            "age_rating",
-            "release_date",
-        ]
+        fields = "__all__"
         depth = 1
 
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = [
-            "product_id",
-            "name",
-            "short_description",
-            "long_description",
-            "description",
-            "image_url",
-            "developer",
-            "reviews",
-            "category",
-            "age_rating",
-            "release_date",
-        ]
+        fields = "__all__"
         depth = 1
 
 
