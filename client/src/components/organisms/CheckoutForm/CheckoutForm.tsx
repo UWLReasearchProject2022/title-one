@@ -5,9 +5,13 @@ import {
   FormLabel,
   Section,
   Payment,
+  StyledDivider,
+  SubText,
 } from "./CheckoutForm.styles";
+import { AddressField } from "components";
 import { useForm } from "react-hook-form";
-import { CheckoutInputs } from "types";
+import { CheckoutInputs, User } from "types";
+import { useUserData } from "hooks";
 
 type Props = {
   submitForm: () => void;
@@ -21,14 +25,33 @@ export const CheckoutForm: React.FunctionComponent<Props> = ({
     handleSubmit,
     formState: { errors },
   } = useForm<CheckoutInputs>();
+  const { user } = useUserData();
+  const initialUser: User = user
+    ? user
+    : {
+        first_name: "",
+        last_name: "",
+        email: "",
+        password: "",
+        address: {
+          house_number: "",
+          road_name: "",
+          city: "",
+          county: "",
+          postcode: "",
+        },
+      };
 
   return (
     <Container>
       <form onSubmit={handleSubmit(submitForm)} id="payment-form">
         <Section>
           <FormLabel>Billing Details</FormLabel>
+          <StyledDivider />
+          <SubText>Your name</SubText>
           <Row>
             <TextInput
+              defaultValue={initialUser.first_name}
               size="small"
               label="First Name"
               variant="outlined"
@@ -36,6 +59,7 @@ export const CheckoutForm: React.FunctionComponent<Props> = ({
               helperText={errors.other_names?.message}
             />
             <TextInput
+              defaultValue={initialUser.last_name}
               size="small"
               label="Last Name"
               variant="outlined"
@@ -44,8 +68,10 @@ export const CheckoutForm: React.FunctionComponent<Props> = ({
               helperText={errors.surname?.message}
             />
           </Row>
+          <SubText>Billing address</SubText>
           <Row>
             <TextInput
+              defaultValue={initialUser.email}
               size="small"
               label="Email"
               variant="outlined"
@@ -55,26 +81,15 @@ export const CheckoutForm: React.FunctionComponent<Props> = ({
               helperText={errors.email?.message}
             />
           </Row>
-          <TextInput
-            label="Address"
-            variant="outlined"
-            size="small"
-            {...register("address")}
-            error={!!errors.address}
-            helperText={errors.address?.message}
-            multiline={true}
-            rows={2}
-          />
-          <TextInput
-            label="City"
-            variant="outlined"
-            size="small"
-            {...register("city")}
-            error={!!errors.city}
-            helperText={errors.city?.message}
+          <AddressField
+            address={initialUser.address}
+            onChange={(_) => {
+              console.log();
+            }}
           />
         </Section>
         <FormLabel>Payment Details</FormLabel>
+        <StyledDivider />
         <Payment />
       </form>
     </Container>

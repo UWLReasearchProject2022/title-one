@@ -1,4 +1,4 @@
-import { Button, Paper, TextField, Typography } from "@mui/material";
+import { Button, Divider, Paper, TextField, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import { PaymentElement } from "@stripe/react-stripe-js";
 
@@ -10,20 +10,30 @@ export const Container = styled(Paper)({
 });
 
 export const TextInput = styled(TextField)({
-  marginBottom: "1rem",
   marginRight: "1rem",
   width: "50%",
+});
+
+export const StyledDivider = styled(Divider)({
+  marginTop: "1.5rem",
+  marginBottom: "1.5rem",
 });
 
 export const Row = styled("div")({
   display: "flex",
   width: "100%",
+  marginBottom: "1.5rem",
 });
 
 export const FormLabel = styled(Typography)({
   marginBottom: "1rem",
   marginRight: "1rem",
+  fontSize: "18px",
+});
+
+export const SubText = styled(Typography)({
   fontSize: "16px",
+  marginBottom: "1.5rem",
 });
 
 export const Section = styled("div")({
