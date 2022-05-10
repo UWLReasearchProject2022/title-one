@@ -8,10 +8,17 @@ import {
   PriceContainer,
   SubText,
   AddToBasketButton,
+  ButtonContainer,
+  StockContainer,
 } from "./AddToBasket.styles";
 import { Divider } from "@mui/material";
 import { Product, Platform } from "types";
 import { addToBasket } from "utils/lib/addToBasket";
+import {
+  CheckCircleOutline as TickIcon,
+  HighlightOff as CrossIcon,
+} from "@mui/icons-material";
+import { useSnackbar } from "notistack";
 
 type FormData = {
   platform: Platform;
@@ -33,11 +40,17 @@ export const AddToBasket: React.FunctionComponent<Props> = ({ product }) => {
   const [quantity, setQuantity] = useState<string>(
     `${initialFormData.quantity}`,
   );
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleAdd = () => {
     for (let iteration = 0; iteration < formData.quantity; iteration++) {
       addToBasket(product);
     }
+    enqueueSnackbar("Added to basket!", { variant: "success" });
+  };
+
+  const inStock = (): boolean => {
+    return product.quantity > formData.quantity;
   };
 
   return (
@@ -136,13 +149,29 @@ export const AddToBasket: React.FunctionComponent<Props> = ({ product }) => {
             currency: "GBP",
           },
         )}`}</SubText>
-        <AddToBasketButton
-          onClick={handleAdd}
-          variant="contained"
-          color="secondary"
-        >
-          Add to basket
-        </AddToBasketButton>
+        <ButtonContainer>
+          <StockContainer>
+            {inStock() ? (
+              <TickIcon fontSize="small" htmlColor="#76C271" />
+            ) : (
+              <CrossIcon fontSize="small" htmlColor="#C25151" />
+            )}
+            <SubText
+              color={inStock() ? "#76C271" : "#C25151"}
+              style={{ paddingLeft: "0.25rem" }}
+            >
+              {inStock() ? "In stock" : "No stock"}
+            </SubText>
+          </StockContainer>
+          <AddToBasketButton
+            onClick={handleAdd}
+            variant="contained"
+            color="secondary"
+            disabled={product.quantity < formData.quantity}
+          >
+            Add to basket
+          </AddToBasketButton>
+        </ButtonContainer>
       </PriceContainer>
     </Container>
   );

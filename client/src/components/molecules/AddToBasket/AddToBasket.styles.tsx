@@ -38,6 +38,13 @@ export const SubText = styled(Typography)({
   textAlign: "right",
 });
 
+export const ButtonContainer = styled("div")({
+  width: "100%",
+  display: "flex",
+  justifyContent: "end",
+  alignItems: "center",
+});
+
 export const AddToBasketButton = styled(Button)({
   fontSize: "14px",
   padding: "1rem",
@@ -47,4 +54,11 @@ export const AddToBasketButton = styled(Button)({
   marginBottom: "1.5rem",
   textTransform: "none",
   fontWeight: "normal",
+});
+
+export const StockContainer = styled("div")({
+  display: "flex",
+  marginTop: "1rem",
+  marginBottom: "1.5rem",
+  marginRight: "0.75rem",
 });

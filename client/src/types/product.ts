@@ -15,4 +15,5 @@ export type Product = {
   release_date: string;
   rating: number;
   review_count: number;
+  quantity: number;
 };

@@ -38,7 +38,8 @@
       "release_date": "12/04/2022",
       "rating": 3.2,
       "review_count": 936,
-      "featured": true
+      "featured": true,
+      "quantity": 12
     },
     {
       "id": 2,
@@ -55,7 +56,8 @@
       "release_date": "29/06/2018",
       "rating": 4.5,
       "review_count": 1298,
-      "featured": true
+      "featured": true,
+      "quantity": 5
     }
   ],
   "reviews": [
