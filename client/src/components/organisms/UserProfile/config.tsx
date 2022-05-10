@@ -1,6 +1,15 @@
-import { SplitInput } from "../CreateAccountModal/CreateAccountModal.styles";
-import { Input } from "./UserProfile.styles";
+import React from "react";
 import { PasswordInput, AddressField } from "components";
+import { SplitInput, Input } from "./UserProfile.styles";
+import { TextFieldProps } from "@mui/material";
+
+const SplitInputFC: React.FunctionComponent<TextFieldProps> = (props) => {
+  return <SplitInput {...props} />;
+};
+
+const InputFC: React.FunctionComponent<TextFieldProps> = (props) => (
+  <Input {...props} />
+);
 
 export default [
   {
@@ -10,12 +19,12 @@ export default [
       {
         key: "first_name",
         label: "First name",
-        component: SplitInput,
+        component: SplitInputFC,
       },
       {
         key: "last_name",
         label: "Last name",
-        component: SplitInput,
+        component: SplitInputFC,
       },
     ],
   },
@@ -26,7 +35,7 @@ export default [
       {
         key: "email",
         label: "Email",
-        component: Input,
+        component: InputFC,
       },
     ],
   },

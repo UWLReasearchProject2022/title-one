@@ -1,22 +1,32 @@
+import React from "react";
 import { PasswordInput } from "components";
 import { SplitInput, Input } from "./CreateAccountModal.styles";
+import { TextFieldProps } from "@mui/material";
+
+const SplitInputFC: React.FunctionComponent<TextFieldProps> = (props) => {
+  return <SplitInput {...props} />;
+};
+
+const InputFC: React.FunctionComponent<TextFieldProps> = (props) => (
+  <Input {...props} />
+);
 
 export default [
   {
     name: "first_name",
     label: "First name",
     style: { paddingRight: "1rem" },
-    component: SplitInput,
+    component: SplitInputFC,
   },
   {
     name: "last_name",
     label: "Last name",
-    component: SplitInput,
+    component: SplitInputFC,
   },
   {
     name: "email",
     label: "Email",
-    component: Input,
+    component: InputFC,
   },
   {
     name: "password",
