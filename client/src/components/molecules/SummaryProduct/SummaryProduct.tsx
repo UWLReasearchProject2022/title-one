@@ -15,9 +15,9 @@ export const SummaryProduct: React.FunctionComponent<Props> = ({ item }) => {
   return (
     <Container>
       <Quantity>{item.quantity} x</Quantity>
-      <Name>{item.product.name}</Name>
+      <Name>{item.productPlatform.product.name}</Name>
       <Price>
-        {item.product.price.toLocaleString("en-GB", {
+        {item.productPlatform.price.toLocaleString("en-GB", {
           style: "currency",
           currency: "GBP",
         })}

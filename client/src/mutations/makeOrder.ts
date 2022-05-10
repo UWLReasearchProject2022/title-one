@@ -4,7 +4,7 @@ import { MakeOrder } from "types";
 export const useMakeOrder = () => {
   const mutation = useMutation<unknown, unknown, MakeOrder>(
     async (order) => {
-      const response = await fetch("/order", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/order/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

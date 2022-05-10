@@ -23,7 +23,10 @@ export const OrderSummary: React.FunctionComponent<Props> = ({
       <Title>Order Summary</Title>
       {basket &&
         basket.map((item) => (
-          <SummaryProduct key={item.product.id} item={item} />
+          <SummaryProduct
+            key={item.productPlatform.product_platform_id}
+            item={item}
+          />
         ))}
       <TotalContainer>
         <Title variant="h2">Total</Title>

@@ -29,8 +29,8 @@ export const CheckoutForm: React.FunctionComponent<Props> = ({
   const initialUser: User = user
     ? user
     : {
-        first_name: "",
-        last_name: "",
+        other_names: "",
+        surname: "",
         email: "",
         password: "",
         address: {
@@ -51,7 +51,7 @@ export const CheckoutForm: React.FunctionComponent<Props> = ({
           <SubText>Your name</SubText>
           <Row>
             <TextInput
-              defaultValue={initialUser.first_name}
+              defaultValue={initialUser.other_names}
               size="small"
               label="First Name"
               variant="outlined"
@@ -59,7 +59,7 @@ export const CheckoutForm: React.FunctionComponent<Props> = ({
               helperText={errors.other_names?.message}
             />
             <TextInput
-              defaultValue={initialUser.last_name}
+              defaultValue={initialUser.surname}
               size="small"
               label="Last Name"
               variant="outlined"
