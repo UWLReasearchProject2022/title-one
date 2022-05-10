@@ -111,11 +111,13 @@ class PlatformViewset(ModelViewSet):
 
 class ProductPlatformViewset(ModelViewSet):
     queryset = ProductPlatform.objects.all()
-    product_queryset = Product.objects.all()
-    filter_backends = (filters.DjangoFilterBackend, )
-    filterset_fields = ("featured", )
+    # product_queryset = Product.objects.all()
 
     serializer_class = ProductPlatformSerializer
+
+    # def list(self, request):
+    #     featured = request.query_params.get("featured")
+    #     if featured:
 
     def create(self, request):
         product_platform_data = request.data
@@ -182,8 +184,9 @@ class OrderViewset(ModelViewSet):
         # get all orders for user
 
         if user_id is not None:
-            user_orders = Order.objects.filter(
-                user_id=user_id).values_list("order_id")
+            user_orders = Order.objects.filter(user_id=user_id).values_list("order_id")
+            if not user_orders:
+                return JsonResponse([], safe=False)
         else:
             user_orders = Order.objects.all().values_list("order_id")
 
@@ -191,7 +194,7 @@ class OrderViewset(ModelViewSet):
         queryset = OrderDetails.objects.filter(order_id__in=user_orders)
         order_details = pd.DataFrame(queryset.values())
         order_details.rename(columns={"stock_id_id": "stock_id"}, inplace=True)
-        print(order_details)
+        # print(order_details)
 
         # get all stock ids for user
         stock_ids = queryset.values_list("stock_id")
@@ -199,9 +202,11 @@ class OrderViewset(ModelViewSet):
         stocks = pd.DataFrame.from_records(list(stock_entries.values()))
 
         # groups each order by product and finds the quantity of each product
-        order = pd.merge(
-            order_details, stocks,
-            on="stock_id").loc[:, ["order_id_id", "product_platform_id_id"]]
+        order = pd.merge(order_details, stocks, on="stock_id").loc[
+            :, ["order_id_id", "product_platform_id_id"]
+        ]
+        # print(order)
+
         order.rename(
             columns={
                 "order_id_id": "order_id",
@@ -221,6 +226,14 @@ class OrderViewset(ModelViewSet):
         # this is f horrible code, but it works
         for order in chain.from_iterable(order_data):
             del order["order_id"]
+            prod = ProductPlatform.objects.get(
+                product_platform_id=order["product_platform_id"]
+            )
+            print(prod)
+            del order["product_platform_id"]
+
+            data = ProductPlatformSerializer(prod).data
+            order["product_platform"] = data
 
         return JsonResponse(order_data, safe=False)
 
