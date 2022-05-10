@@ -40,6 +40,8 @@ class ProductPlatform(models.Model):
                                  related_name="platform")
     price = models.FloatField()
 
+    featured = models.BooleanField(default=False)
+
 
 class Genre(models.Model):
     genre_id = models.AutoField(primary_key=True)

@@ -58,7 +58,9 @@ class ProductPlatformSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductPlatform
-        fields = ["price", "platform", "product_platform_id", "product"]
+        fields = [
+            "price", "platform", "product_platform_id", "product", "featured"
+        ]
         depth = 1
 
 
