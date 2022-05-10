@@ -11,11 +11,8 @@ from rest_framework.renderers import JSONRenderer
 from django.http import HttpResponse, JsonResponse
 from .models import (
     Product,
-    Developer,
     Platform,
     ProductPlatform,
-    Genre,
-    ProductGenre,
     Review,
     Stock,
     OrderDetails,
@@ -24,12 +21,10 @@ from .models import (
     Review,
 )
 from .serializers import (
+    ProductGetSerializer,
     ProductSerializer,
-    DeveloperSerializer,
     PlatformSerializer,
     ProductPlatformSerializer,
-    GenreSerializer,
-    ProductGenreSerializer,
     ReviewSerializer,
     StockSerializer,
     OrderDetailsSerializer,
@@ -64,8 +59,6 @@ def clear_database(request):
     Developer.objects.all().delete()
     Platform.objects.all().delete()
     ProductPlatform.objects.all().delete()
-    Genre.objects.all().delete()
-    ProductGenre.objects.all().delete()
     Review.objects.all().delete()
     Stock.objects.all().delete()
     OrderDetails.objects.all().delete()
@@ -81,27 +74,11 @@ class ProductViewset(ModelViewSet):
     serializer_class = ProductSerializer
 
     # allows for new product to be added into database, while still keeping a the nested JSON with developer table
-
-    def create(self, request):
-        product_data = request.data
-
-        new_product = Product.objects.create(
-            name=product_data["name"],
-            short_description=product_data["short_description"],
-            long_description=product_data["long_description"],
-            image_url=product_data["image_url"],
-            developer_id=product_data["developer_id"],
-        )
-
-        new_product.save()
-
-        serializer = ProductSerializer(new_product)
-        return JsonResponse(serializer.data)
-
-
-class DeveloperViewset(ModelViewSet):
-    queryset = Developer.objects.all()
-    serializer_class = DeveloperSerializer
+    def get_serializer_class(self):
+        if self.action in ["list", "retrieve"]:
+            return ProductGetSerializer
+        else:
+            return ProductSerializer
 
 
 class PlatformViewset(ModelViewSet):
@@ -111,14 +88,14 @@ class PlatformViewset(ModelViewSet):
 
 class ProductPlatformViewset(ModelViewSet):
     queryset = ProductPlatform.objects.all()
-    # product_queryset = Product.objects.all()
+    product_queryset = Product.objects.all()
 
     serializer_class = ProductPlatformSerializer
 
     def list(self, request):
         if featured := request.query_params.get("featured") or request.query_params.get("isFeatured") or request.query_params.get("is_featured") or request.query_params.get("Featured"):
             queryset = ProductPlatform.objects.filter(
-                 is_featured=bool(featured))
+                is_featured=bool(featured))
 
         else:
             queryset = ProductPlatform.objects.all()
@@ -126,17 +103,14 @@ class ProductPlatformViewset(ModelViewSet):
         serializer = ProductPlatformSerializer(queryset, many=True)
         return JsonResponse(serializer.data, safe=False)
 
-
-        
-
     def create(self, request):
         product_platform_data = request.data
 
         new_product_platform = ProductPlatform.objects.create(
             price=product_platform_data["price"],
-            product_id=self.product_queryset.get(
+            product=self.product_queryset.get(
                 product_id=product_platform_data["product_id"]),
-            platform_id=Platform.objects.get(
+            platform=Platform.objects.get(
                 platform_id=product_platform_data["platform_id"]),
         )
 
@@ -147,31 +121,6 @@ class ProductPlatformViewset(ModelViewSet):
 
     queryset = ProductPlatform.objects.all()
     serializer_class = ProductPlatformSerializer
-
-
-class GenreViewset(ModelViewSet):
-    queryset = Genre.objects.all()
-    serializer_class = GenreSerializer
-
-
-class ProductGenreViewset(ModelViewSet):
-    queryset = ProductGenre.objects.all()
-    serializer_class = ProductGenreSerializer
-
-    def create(self, request):
-        product_genre_data = request.data
-
-        new_product_genre = ProductGenre.objects.create(
-            product_id=Product.objects.get(
-                product_id=product_genre_data["product_id"]),
-            genre_id=Genre.objects.get(
-                genre_id=product_genre_data["genre_id"]),
-        )
-
-        new_product_genre.save()
-
-        serializer = ProductGenreSerializer(new_product_genre)
-        return JsonResponse(serializer.data)
 
 
 class StockViewset(ModelViewSet):
@@ -194,7 +143,8 @@ class OrderViewset(ModelViewSet):
         # get all orders for user
 
         if user_id is not None:
-            user_orders = Order.objects.filter(user_id=user_id).values_list("order_id")
+            user_orders = Order.objects.filter(
+                user_id=user_id).values_list("order_id")
             if not user_orders:
                 return JsonResponse([], safe=False)
         else:
@@ -292,10 +242,17 @@ class ReviewViewset(ModelViewSet):
 
         new_review = Review.objects.create(
             product_id=Product.objects.get(
-                product_id=review_data["product_id"]),
+                product_id=review_data["product_id"]
+            ),
             user_id=User.objects.get(user_id=review_data["user_id"]),
-            rating=review_data["rating"],
-            text=review_data["text"],
+            game_play=review_data["game_play"],
+            social=review_data["social"],
+            graphics=review_data["graphics"],
+            value=review_data["value"],
+            overall=review_data["overall"],
+            date_reviewed=review_data["date_reviewed"],
+            positive=review_data["positive"],
+            negative=review_data["negative"],
         )
 
         new_review.save()

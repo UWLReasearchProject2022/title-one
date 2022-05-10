@@ -2,11 +2,8 @@ from itertools import product
 from rest_framework import serializers
 from .models import (
     Product,
-    Developer,
     Platform,
     ProductPlatform,
-    Genre,
-    ProductGenre,
     Stock,
     OrderDetails,
     Order,
@@ -17,43 +14,61 @@ from .models import (
 from rest_framework.serializers import SlugRelatedField
 
 
-class DeveloperSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Developer
-        fields = "__all__"
-
-
 class PlatformSerializer(serializers.ModelSerializer):
     class Meta:
         model = Platform
         fields = ["platform_id", "name"]
 
 
-class GenreSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Genre
+        model = User
         fields = "__all__"
 
 
-class ProductGenreSerializer(serializers.ModelSerializer):
+class CommentsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ProductGenre
-        fields = ["genre_id"]
-        depth = 1
+        model = Review
+        fields = ["positive", "negative"]
+
+
+class RatingsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ["game_play", "social", "graphics", "value", "overall"]
+
+
+class ReviewGetSerializer(serializers.ModelSerializer):
+    user = UserSerializer(many=False, read_only=True, source="user_id")
+    ratings = RatingsSerializer(source="*")
+    comments = CommentsSerializer(source="*")
+
+    class Meta:
+        model = Review
+        fields = ["review_id", "ratings", "user", "date_reviewed", "comments"]
 
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ["review_id", "rating", "text", "user_id", "date_reviewed"]
-        depth = 2
+        fields = [
+            "review_id",
+            "date_reviewed",
+            "game_play",
+            "social",
+            "graphics",
+            "value",
+            "overall",
+            "positive",
+            "negative",
+            "product_id",
+            "user_id",
+        ]
+        depth = 1
 
 
-class ProductSerializer(serializers.ModelSerializer):
-
-    developer = DeveloperSerializer(read_only=True)
-    reviews = ReviewSerializer(many=True, read_only=True)
-    genres = ProductGenreSerializer(many=True, read_only=True)
+class ProductGetSerializer(serializers.ModelSerializer):
+    reviews = ReviewGetSerializer(many=True, read_only=True)
 
     class Meta:
         model = Product
@@ -62,22 +77,42 @@ class ProductSerializer(serializers.ModelSerializer):
             "name",
             "short_description",
             "long_description",
+            "description",
             "image_url",
             "developer",
             "reviews",
-            "genres",
-            
+            "category",
+            "age_rating",
+            "release_date",
+        ]
+        depth = 1
+
+
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = [
+            "product_id",
+            "name",
+            "short_description",
+            "long_description",
+            "description",
+            "image_url",
+            "developer",
+            "reviews",
+            "category",
+            "age_rating",
+            "release_date",
         ]
         depth = 1
 
 
 class ProductPlatformSerializer(serializers.ModelSerializer):
-
-    product = ProductSerializer(read_only=True, many=False)
+    product = ProductGetSerializer(read_only=True, many=False)
 
     class Meta:
         model = ProductPlatform
-        fields = "product_platform_id", "platform", "price","is_featured", "product", 
+        fields = "product_platform_id", "platform", "price", "is_featured", "product",
         depth = 1
 
 
@@ -104,23 +139,3 @@ class OrderSerializer(serializers.ModelSerializer):
             "date_ordered",
             "order_details",
         )
-
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = "__all__"
-
-
-class ReviewSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Review
-        fields = [
-            "review_id",
-            "date_reviewed",
-            "text",
-            "product_id",
-            "customer_id",
-            "product_platform",
-        ]
-        depth = 1
