@@ -115,9 +115,19 @@ class ProductPlatformViewset(ModelViewSet):
 
     serializer_class = ProductPlatformSerializer
 
-    # def list(self, request):
-    #     featured = request.query_params.get("featured")
-    #     if featured:
+    def list(self, request):
+        if featured := request.query_params.get("featured") or request.query_params.get("isFeatured") or request.query_params.get("is_featured") or request.query_params.get("Featured"):
+            queryset = ProductPlatform.objects.filter(
+                 is_featured=bool(featured))
+
+        else:
+            queryset = ProductPlatform.objects.all()
+
+        serializer = ProductPlatformSerializer(queryset, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+
+        
 
     def create(self, request):
         product_platform_data = request.data
