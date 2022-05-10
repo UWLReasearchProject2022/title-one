@@ -30,7 +30,7 @@ export const Home: React.FunctionComponent = () => {
   return (
     <PageTemplate>
       <CoverContainer>
-        <CoverImage src={`${BASE_URL}/assets/images/gt7_cover.png`} />
+        <CoverImage src={`${BASE_URL}/assets/images/gt7-cover.webp`} />
         <CoverSearchContainer onSubmit={onSubmit}>
           <CoverText color="primary">Find your next game.</CoverText>
           <CoverSearch
