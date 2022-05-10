@@ -1,14 +1,17 @@
 import { styled } from "@mui/system";
-import { Card, Typography } from "@mui/material";
+import { Card, Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
 export const Container = styled(Card)({
   padding: "1rem",
   margin: "0.5rem",
+  marginLeft: "1rem",
+  marginRight: "0rem",
   color: "#CCCCCC",
   backgroundColor: "#101010",
   backgroundImage: "none",
   borderRadius: "0.5rem",
+  maxWidth: "35rem",
 });
 
 export const Title = styled(Typography)({
@@ -38,6 +41,7 @@ export const Image = styled("img")({
   height: "11rem",
   objectFit: "contain",
   objectPosition: "top",
+  pointerEvents: "none",
 });
 
 export const Description = styled(Typography)({
@@ -67,4 +71,13 @@ export const Actions = styled("div")({
 
 export const ButtonLink = styled(Link)({
   textDecoration: "none",
+});
+
+export const ViewButton = styled(Button)({
+  fontSize: "14px",
+  padding: "0.5rem",
+  paddingTop: "0.25rem",
+  paddingBottom: "0.25rem",
+  textTransform: "none",
+  fontWeight: "normal",
 });

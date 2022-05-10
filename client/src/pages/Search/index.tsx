@@ -1,23 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { PageTemplate, ProductGrid, SearchBar, Filters } from "components";
-import type { Filter } from "types";
+import { Filter, Category, Platform } from "types";
 import { MainContent } from "./Search.styles";
 import { productSort } from "utils/sorting";
+import { filterState } from "utils/initialStates";
 import { useSearchParams } from "react-router-dom";
 
 export const Search: React.FunctionComponent = () => {
   const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get("query");
   const [sortBy, setSortBy] = useState<string>(productSort[0].key);
-  const [query, setQuery] = useState<string>(searchParams.get("query") || "");
-  const [filter, setFilter] = useState<Filter>({
-    active: false,
-    platform: [],
-    price: {
-      min: 0,
-      max: 100,
-    },
-  });
+  const [query, setQuery] = useState<string>(searchQuery || "");
+  const [filter, setFilter] = useState<Filter>(filterState);
+
+  useEffect(() => {
+    const category = searchParams.get("category");
+    const platform = searchParams.get("platform");
+    setFilter({
+      ...filterState,
+      category: category ? [category as Category] : [],
+      platform: platform ? [platform as Platform] : [],
+    });
+  }, [searchParams]);
+
   return (
     <PageTemplate>
       <SearchBar

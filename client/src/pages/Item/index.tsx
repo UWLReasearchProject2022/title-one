@@ -50,7 +50,7 @@ export const Item: React.FunctionComponent = () => {
         <>
           <Container>
             <LargeProductCard product={product} />
-            <AddToBasket />
+            <AddToBasket product={product} />
           </Container>
           <DetailTabs product={product} tabs={detailsTabs} />
         </>

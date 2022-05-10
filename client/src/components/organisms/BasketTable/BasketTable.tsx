@@ -1,33 +1,59 @@
+import React from "react";
 import {
-  DataGrid,
   GridColDef,
   GridValueGetterParams,
   GridRenderCellParams,
   GridValueSetterParams,
 } from "@mui/x-data-grid";
-import { Container, Delete, ProductLink } from "./BasketTable.styles";
+import {
+  Container,
+  Delete,
+  DataCellText,
+  StyledDataGrid,
+  StyledIconButton,
+} from "./BasketTable.styles";
 import { PriceTotal } from "components";
-import { useBasket } from "utils/lib/useBasket";
-import { IconButton } from "@mui/material";
+import { IconButton, Stack } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { OpenInNew as LinkToIcon } from "@mui/icons-material";
+import { BasketItem } from "types";
 
-export const BasketTable: React.FunctionComponent = () => {
-  const { basket, total, removeFromBasket, setQuantity } = useBasket();
+type Props = {
+  basket: BasketItem[];
+  total: number;
+  removeFromBasket: (_: number) => void;
+  setQuantity: (_: number, __: number) => void;
+};
+
+export const BasketTable: React.FunctionComponent<Props> = ({
+  basket,
+  total,
+  removeFromBasket,
+  setQuantity,
+}) => {
+  const navigate = useNavigate();
 
   const columns: GridColDef[] = [
     {
       field: "product.name",
       headerName: "Product Name",
-      flex: 1,
+      flex: 1.25,
       renderCell: (params: GridRenderCellParams) => (
-        <ProductLink to={`/search/${params.row.product.id}`}>
+        <DataCellText>
           {params.row.product.name}
-        </ProductLink>
+          <StyledIconButton
+            color="primary"
+            onClick={() => navigate(`/search/${params.row.product.id}`)}
+          >
+            <LinkToIcon fontSize="small" />
+          </StyledIconButton>
+        </DataCellText>
       ),
     },
     {
       field: "quantity",
       headerName: "Quantity",
-      flex: 0.5,
+      flex: 0.75,
       editable: true,
       valueSetter: (params: GridValueSetterParams) => {
         setQuantity(params.row.product.id, params.value);
@@ -37,7 +63,7 @@ export const BasketTable: React.FunctionComponent = () => {
     {
       field: "product.price",
       headerName: "Price",
-      flex: 1,
+      flex: 0.75,
       valueGetter: (params: GridValueGetterParams) =>
         params.row.product.price.toLocaleString("en-GB", {
           style: "currency",
@@ -47,7 +73,7 @@ export const BasketTable: React.FunctionComponent = () => {
     {
       field: "total",
       headerName: "Subtotal",
-      flex: 1,
+      flex: 0.75,
       valueGetter: (params: GridValueGetterParams) =>
         (params.row.product.price * params.row.quantity).toLocaleString(
           "en-GB",
@@ -60,7 +86,7 @@ export const BasketTable: React.FunctionComponent = () => {
     {
       field: "delete",
       headerName: "",
-      flex: 1,
+      width: 60,
       renderCell: (params: GridRenderCellParams) => (
         <IconButton onClick={() => removeFromBasket(params.row.product.id)}>
           <Delete />
@@ -69,19 +95,28 @@ export const BasketTable: React.FunctionComponent = () => {
     },
   ];
 
-  console.log(total);
-
   return (
     <Container>
-      <DataGrid
+      <StyledDataGrid
         rows={basket}
-        columns={columns}
+        columns={[...columns]}
         pageSize={5}
         disableSelectionOnClick
-        getRowId={(row: any) => row.product.id}
+        getRowId={(row) => row.product.id}
         hideFooterPagination
         components={{
           Footer: PriceTotal,
+          NoRowsOverlay: () => (
+            <Stack height="100%" alignItems="center" justifyContent="center">
+              <DataCellText
+                style={{ whiteSpace: "pre-line", textAlign: "center" }}
+              >
+                {
+                  "Nothing in your basket!\nTake a look at some of our games on our search page"
+                }
+              </DataCellText>
+            </Stack>
+          ),
         }}
         componentsProps={{
           footer: { total: total },

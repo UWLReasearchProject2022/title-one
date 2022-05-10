@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PageTemplate } from "components";
+import { PageTemplate, Platforms, Categories, FeaturedGames } from "components";
 import {
   CoverContainer,
   CoverImage,
@@ -13,11 +13,18 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 
 export const Home: React.FunctionComponent = () => {
-  const [query, setQuery] = useState("");
+  const [searchValue, setSearchValue] = useState<string>("");
   const navigate = useNavigate();
+
   const onSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    navigate(`/search?query=${query}`);
+    navigate(`/search?query=${searchValue}`);
+  };
+
+  const onSearchChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+  ) => {
+    setSearchValue(event.target.value);
   };
 
   return (
@@ -27,6 +34,8 @@ export const Home: React.FunctionComponent = () => {
         <CoverSearchContainer onSubmit={onSubmit}>
           <CoverText color="primary">Find your next game.</CoverText>
           <CoverSearch
+            value={searchValue}
+            onChange={onSearchChange}
             placeholder="Have something in mind?"
             InputProps={{
               startAdornment: (
@@ -42,11 +51,12 @@ export const Home: React.FunctionComponent = () => {
                 backgroundColor: "#CCCCCC",
               },
             }}
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
           />
         </CoverSearchContainer>
       </CoverContainer>
+      <Platforms />
+      <Categories />
+      <FeaturedGames />
     </PageTemplate>
   );
 };

@@ -1,38 +1,31 @@
 import { styled } from "@mui/system";
-import { Button, Card, FormControlLabel, Typography } from "@mui/material";
+import { Card, FormControlLabel, Typography, Divider } from "@mui/material";
 
 export const Container = styled(Card)({
-  width: "30%",
-  maxWidth: "20rem",
-  height: "70em",
-  marginTop: "0.5em",
-  marginRight: "0.5em",
+  width: "22rem",
+  marginTop: "0.5rem",
   backgroundColor: "#101010",
   backgroundImage: "none",
-  padding: "1.5em",
 });
 
 export const TopBar = styled("div")({
+  padding: "1.5rem",
   display: "flex",
   alignItems: "center",
+  justifyContent: "space-between",
+});
+
+export const Body = styled("div")({
+  padding: "1.5rem",
+  paddingTop: "0rem",
 });
 
 export const Title = styled(Typography)({
-  fontSize: "1.25em",
+  fontSize: "18px",
 });
 
-export const Apply = styled(Button)({
-  textTransform: "capitalize",
-  fontSize: "1em",
-  fontWeight: "normal",
-  height: "1.7em",
-  marginLeft: "1em",
-});
-
-export const Divider = styled("hr")({
-  width: "calc(100% + 3em)",
-  border: "1px solid #222222",
-  margin: "1.5em -1.5em",
+export const StyledDivider = styled(Divider)({
+  margin: "0.75rem -0.75rem",
 });
 
 export const Separator = styled("span")({
