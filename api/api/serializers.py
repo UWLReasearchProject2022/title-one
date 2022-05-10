@@ -66,7 +66,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "developer",
             "reviews",
             "genres",
-            "is_featured",
+            
         ]
         depth = 1
 
@@ -77,7 +77,7 @@ class ProductPlatformSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductPlatform
-        fields = "product_platform_id", "platform", "price", "product"
+        fields = "product_platform_id", "platform", "price","is_featured", "product", 
         depth = 1
 
 

@@ -14,7 +14,7 @@ class Product(models.Model):
         "Developer", related_name="developer", on_delete=models.CASCADE
     )
     image_url = models.CharField(max_length=2083)
-    is_featured = models.BooleanField(default=False)
+    
 
     def __str__(self):
         return self.name
@@ -40,6 +40,7 @@ class ProductPlatform(models.Model):
         "Platform", on_delete=models.CASCADE, related_name="platform"
     )
     price = models.FloatField()
+    is_featured = models.BooleanField(default=False)
 
     
 
