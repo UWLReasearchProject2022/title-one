@@ -24,42 +24,11 @@ class DeveloperSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class ProductSerializer(serializers.ModelSerializer):
-    developer = DeveloperSerializer(read_only=True)
-
-    class Meta:
-        model = Product
-        fields = [
-            "product_id", "name", "short_description", "long_description",
-            "image_url", "developer"
-        ]
-        depth = 1
-
-
 class PlatformSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Platform
         fields = ["platform_id", "name"]
-
-
-# class ProductPlatformSerializer(serializers.ModelSerializer):
-#     product = ProductSerializer(read_only=True)
-
-#     class Meta:
-#         model = ProductPlatform
-#         fields = "__all__"
-#        # fields = ["name", "platform_id"]
-
-
-class ProductPlatformSerializer(serializers.ModelSerializer):
-
-    product = ProductSerializer(read_only=True)
-
-    class Meta:
-        model = ProductPlatform
-        fields = ["price", "platform", "product_platform_id", "product"]
-        depth = 1
 
 
 class GenreSerializer(serializers.ModelSerializer):
@@ -85,27 +54,31 @@ class ReviewSerializer(serializers.ModelSerializer):
         depth = 2
 
 
-# class ProductSerializer(serializers.ModelSerializer):
-#     platforms = ProductPlatformSerializer(many=True, read_only=True)
-#     genres = ProductGenreSerializer(many=True, read_only=True)
-#     developer = DeveloperSerializer(read_only=True)
-#     reviews = ReviewSerializer(many=True, read_only=True)
+class ProductSerializer(serializers.ModelSerializer):
 
-# Developer = serializers.PickledObjectField(source='developer_id')
+    developer = DeveloperSerializer(read_only=True)
+    reviews = ReviewSerializer(many=True, read_only=True)
+    genres = ProductGenreSerializer(many=True, read_only=True)
 
     class Meta:
         model = Product
         fields = [
-            "product_id",
-            "name",
-            "short_description",
-            "long_description",
-            "image_url",
-            "platforms",
-            "genres",
-            "developer",
-            "reviews",
+            "product_id", "name", "short_description", "long_description",
+            "image_url", "developer", "reviews", "genres"
         ]
+        depth = 1
+
+class ProductPlatformSerializer(serializers.ModelSerializer):
+
+    product = ProductSerializer(read_only=True, many=False)
+
+    class Meta:
+        model = ProductPlatform
+        fields = "product_platform_id",  "platform", "price", "product"
+        depth = 1
+
+
+
 
 
 class StockSerializer(serializers.ModelSerializer):

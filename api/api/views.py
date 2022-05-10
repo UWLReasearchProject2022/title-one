@@ -95,7 +95,7 @@ class ProductViewset(ModelViewSet):
         new_product.save()
 
         serializer = ProductSerializer(new_product)
-        return JsonResponse(serializer.data)
+        return JsonResponse(serializer.data)         
 
 
 class DeveloperViewset(ModelViewSet):
@@ -110,7 +110,7 @@ class PlatformViewset(ModelViewSet):
 
 class ProductPlatformViewset(ModelViewSet):
     queryset = ProductPlatform.objects.all()
-    product_queryset = Product.objects.all()
+    # product_queryset = Product.objects.all()
 
     serializer_class = ProductPlatformSerializer
 

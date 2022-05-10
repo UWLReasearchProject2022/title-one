@@ -34,7 +34,7 @@ class ProductPlatform(models.Model):
     product_platform_id = models.AutoField(primary_key=True)
     product = models.ForeignKey("Product",
                                 on_delete=models.CASCADE,
-                                related_name="platforms")
+                                related_name="product1")
     platform = models.ForeignKey("Platform",
                                  on_delete=models.CASCADE,
                                  related_name="platform")
