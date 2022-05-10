@@ -16,7 +16,6 @@ import {
 } from "./ProductCard.styles";
 import { LikeButton } from "components";
 import { pegiIcons, platformIcons } from "utils/icons";
-import { Button } from "@mui/material";
 
 type Props = {
   product: Product;
