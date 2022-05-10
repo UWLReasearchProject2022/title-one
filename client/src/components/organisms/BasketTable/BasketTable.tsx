@@ -40,10 +40,14 @@ export const BasketTable: React.FunctionComponent<Props> = ({
       flex: 1.25,
       renderCell: (params: GridRenderCellParams) => (
         <DataCellText>
-          {params.row.product.name}
+          {params.row.productPlatform.product.name}
           <StyledIconButton
             color="primary"
-            onClick={() => navigate(`/search/${params.row.product.id}`)}
+            onClick={() =>
+              navigate(
+                `/search/${params.row.productPlatform.product_platform_id}`,
+              )
+            }
           >
             <LinkToIcon fontSize="small" />
           </StyledIconButton>
@@ -56,7 +60,10 @@ export const BasketTable: React.FunctionComponent<Props> = ({
       flex: 0.75,
       editable: true,
       valueSetter: (params: GridValueSetterParams) => {
-        setQuantity(params.row.product.id, params.value);
+        setQuantity(
+          params.row.productPlatform.product_platform_id,
+          params.value,
+        );
         return params.value;
       },
     },
@@ -65,7 +72,7 @@ export const BasketTable: React.FunctionComponent<Props> = ({
       headerName: "Price",
       flex: 0.75,
       valueGetter: (params: GridValueGetterParams) =>
-        params.row.product.price.toLocaleString("en-GB", {
+        params.row.productPlatform.price.toLocaleString("en-GB", {
           style: "currency",
           currency: "GBP",
         }),
@@ -75,7 +82,7 @@ export const BasketTable: React.FunctionComponent<Props> = ({
       headerName: "Subtotal",
       flex: 0.75,
       valueGetter: (params: GridValueGetterParams) =>
-        (params.row.product.price * params.row.quantity).toLocaleString(
+        (params.row.productPlatform.price * params.row.quantity).toLocaleString(
           "en-GB",
           {
             style: "currency",
@@ -102,7 +109,7 @@ export const BasketTable: React.FunctionComponent<Props> = ({
         columns={[...columns]}
         pageSize={5}
         disableSelectionOnClick
-        getRowId={(row) => row.product.id}
+        getRowId={(row) => row.productPlatform.product_platform_id}
         hideFooterPagination
         components={{
           Footer: PriceTotal,

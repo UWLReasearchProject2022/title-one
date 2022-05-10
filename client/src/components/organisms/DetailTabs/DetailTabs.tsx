@@ -6,17 +6,17 @@ import {
   TabContainer,
 } from "./DetailTabs.styles";
 import { Divider } from "@mui/material";
-import { Product, Tab } from "types";
+import { ProductPlatform, Tab } from "types";
 import { reviewSort } from "utils/sorting";
 
 type Props = {
   tabs: Tab[];
-  product: Product;
+  productPlatform: ProductPlatform;
 };
 
 export const DetailTabs: React.FunctionComponent<Props> = ({
   tabs,
-  product,
+  productPlatform,
 }) => {
   const initialValue = tabs[0].key;
   const [value, setValue] = useState<string>(initialValue);
@@ -43,7 +43,7 @@ export const DetailTabs: React.FunctionComponent<Props> = ({
         >
           {value === tab.key && (
             <tab.component
-              product={product}
+              productPlatform={productPlatform}
               reviewsSortBy={reviewsSortBy}
               reviewsSetSortBy={reviewsSetSortBy}
               textExpanded={textExpanded}

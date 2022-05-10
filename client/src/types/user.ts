@@ -9,8 +9,8 @@ export type UserData = {
 
 export type User = {
   id?: number;
-  first_name: string;
-  last_name: string;
+  other_names: string;
+  surname: string;
   email: string;
   password: string;
   address: Address;

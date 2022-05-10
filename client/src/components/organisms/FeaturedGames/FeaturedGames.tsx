@@ -2,7 +2,7 @@ import React from "react";
 import { Container, OverflowContainer } from "./FeaturedGames.styles";
 import { Loading, Error, SmallProductCard } from "components";
 import { useFeatured } from "queries";
-import { Product } from "types";
+import { ProductPlatform } from "types";
 
 export const FeaturedGames: React.FunctionComponent = () => {
   const { products, isLoading, error } = useFeatured();
@@ -13,11 +13,11 @@ export const FeaturedGames: React.FunctionComponent = () => {
         {isLoading ? (
           <Loading />
         ) : !error && products && products.length !== 0 ? (
-          products.map((product: Product, index: number) => (
+          products.map((productPlatform: ProductPlatform, index: number) => (
             <SmallProductCard
-              key={product.id}
+              key={productPlatform.product_platform_id}
               style={{ marginLeft: index === 0 ? "0rem" : "2rem" }}
-              product={product}
+              productPlatform={productPlatform}
             />
           ))
         ) : (

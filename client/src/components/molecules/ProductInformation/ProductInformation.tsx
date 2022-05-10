@@ -16,15 +16,15 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
 export const ProductInformation: React.FunctionComponent<TabComponentProps> = ({
-  product,
+  productPlatform,
   textExpanded,
   setTextExpanded,
 }) => {
   return (
     <>
-      <HeaderText>{`Release (${product.release_date})`}</HeaderText>
+      <HeaderText>{`Release (${productPlatform.product.release_date})`}</HeaderText>
       <StyledCollapse in={textExpanded} collapsedSize={"6.25rem"}>
-        <BodyText>{product.long_description}</BodyText>
+        <BodyText>{productPlatform.product.long_description}</BodyText>
       </StyledCollapse>
       <CollapseButtonContainer>
         <CollapseButton
@@ -37,16 +37,16 @@ export const ProductInformation: React.FunctionComponent<TabComponentProps> = ({
       </CollapseButtonContainer>
       <DetailsContainer>
         <DetailContainer>
-          <DetailIcon src={pegiIcons[product.age_rating]} />
-          <DetailText>{`Age rating: ${product.age_rating}`}</DetailText>
+          <DetailIcon src={pegiIcons[productPlatform.product.age_rating]} />
+          <DetailText>{`Age rating: ${productPlatform.product.age_rating}`}</DetailText>
         </DetailContainer>
         <DetailContainer>
-          <DetailIcon src={platformIcons[product.platform]} />
-          <DetailText>{`Platform: ${product.platform}`}</DetailText>
+          <DetailIcon src={platformIcons[productPlatform.platform.name]} />
+          <DetailText>{`Platform: ${productPlatform.platform.name}`}</DetailText>
         </DetailContainer>
         <DetailContainer>
-          <DetailIcon src={developerIcons[product.developer]} />
-          <DetailText>{`Developer: ${product.developer}`}</DetailText>
+          <DetailIcon src={developerIcons[productPlatform.product.developer]} />
+          <DetailText>{`Developer: ${productPlatform.product.developer}`}</DetailText>
         </DetailContainer>
       </DetailsContainer>
     </>

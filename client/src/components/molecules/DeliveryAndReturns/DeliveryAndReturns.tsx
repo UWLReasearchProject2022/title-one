@@ -2,11 +2,11 @@ import React from "react";
 import { TabComponentProps } from "types";
 
 export const DeliveryAndReturns: React.FunctionComponent<TabComponentProps> = ({
-  product,
+  productPlatform,
 }) => {
   return (
     <>
-      <div>{product.name}</div>
+      <div>{productPlatform.product.name}</div>
     </>
   );
 };

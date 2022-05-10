@@ -121,6 +121,7 @@ def upload_product_platform():
                     "product_id": prod,
                     "platform_id": platform_ids[i],
                     "price": random.choice(PRICES),
+                    "is_featured": random.choice([True, False]),
                 },
             )
 

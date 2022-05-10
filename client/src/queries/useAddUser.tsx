@@ -6,8 +6,7 @@ export const useAddUser = () => {
   const queryClient = useQueryClient();
 
   return useMutation(
-    (user: User) =>
-      axios.post(`${process.env.REACT_APP_API_URL}/api/users`, user),
+    (user: User) => axios.post(`${process.env.REACT_APP_API_URL}/user/`, user),
     {
       onSuccess: () => {
         queryClient.invalidateQueries([]);

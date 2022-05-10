@@ -112,6 +112,7 @@ class ProductPlatformViewset(ModelViewSet):
                 product_id=product_platform_data["product_id"]),
             platform=Platform.objects.get(
                 platform_id=product_platform_data["platform_id"]),
+            is_featured=product_platform_data["is_featured"],
         )
 
         new_product_platform.save()
@@ -119,8 +120,9 @@ class ProductPlatformViewset(ModelViewSet):
         serializer = ProductPlatformSerializer(new_product_platform)
         return JsonResponse(serializer.data)
 
-    queryset = ProductPlatform.objects.all()
     serializer_class = ProductPlatformSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = ("is_featured",)
 
 
 class StockViewset(ModelViewSet):
@@ -222,6 +224,8 @@ class OrderViewset(ModelViewSet):
 class UserViewset(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = ("email", "password")
 
 
 def get_user(request):

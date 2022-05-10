@@ -41,8 +41,11 @@ export const ProductGrid: React.FunctionComponent<Props> = ({
       {isLoading && <Loading />}
       {error && <Error />}
       {products &&
-        searchSort()?.map((product) => (
-          <ProductCard key={product.id} product={product} />
+        searchSort()?.map((productPlatform) => (
+          <ProductCard
+            key={productPlatform.product_platform_id}
+            productPlatform={productPlatform}
+          />
         ))}
     </Container>
   );

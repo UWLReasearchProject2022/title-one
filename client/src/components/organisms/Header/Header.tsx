@@ -63,7 +63,7 @@ export const Header: React.FunctionComponent = () => {
       ))}
       <RightContainer>
         <UserText color="primary">
-          {user ? `${user.first_name} ${user.last_name}` : "Sign In"}
+          {user ? `${user.other_names} ${user.surname}` : "Sign In"}
         </UserText>
         <IconButton color="primary" onClick={() => onAccountClick()}>
           <AccountIcon />
