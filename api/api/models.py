@@ -14,6 +14,7 @@ class Product(models.Model):
         "Developer", related_name="developer", on_delete=models.CASCADE
     )
     image_url = models.CharField(max_length=2083)
+    
 
     def __str__(self):
         return self.name
@@ -32,13 +33,16 @@ class Platform(models.Model):
 
 class ProductPlatform(models.Model):
     product_platform_id = models.AutoField(primary_key=True)
-    product_id = models.ForeignKey(
-        "Product", on_delete=models.CASCADE, related_name="platforms"
+    product = models.ForeignKey(
+        "Product", on_delete=models.CASCADE, related_name="product1"
     )
-    platform_id = models.ForeignKey(
+    platform = models.ForeignKey(
         "Platform", on_delete=models.CASCADE, related_name="platform"
     )
     price = models.FloatField()
+    is_featured = models.BooleanField(default=False)
+
+    
 
 
 class Genre(models.Model):

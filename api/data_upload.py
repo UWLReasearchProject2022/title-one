@@ -201,41 +201,48 @@ def upload_order():
     url = "/order/"
     user_ids = requests.get(f"{BASE_URL}/user/").json()
     user_ids = [x["user_id"] for x in user_ids]
+
+    prod_platform_ids = requests.get(f"{BASE_URL}/product_platform/").json()
+    prod_platform_ids = [x["product_platform_id"] for x in prod_platform_ids]
+
     for _ in range(random.randint(1, 10)):
         requests.post(
             BASE_URL + url,
             json={
                 "user_id": random.choice(user_ids),
-                "date_ordered": "2020-01-01",
-                "date_shipped": "2020-01-01",
-                "date_delivered": "2020-01-01",
+                "order_details": [
+                    {
+                        "product_platform_id": random.choice(prod_platform_ids),
+                        "quantity": random.randint(2, 3),
+                    }
+                ],
             },
         )
     print("Orders uploaded")
 
 
-def upload_order_detail():
-    url = "/order_detail/"
-    order_ids = requests.get(BASE_URL + "/order/").json()
-    order_ids = [x["order_id"] for x in order_ids]
-    if not order_ids:
-        raise ValueError("No orders in the database")
+# def upload_order_detail():
+#     url = "/order_detail/"
+#     order_ids = requests.get(BASE_URL + "/order/").json()
+#     order_ids = [x["order_id"] for x in order_ids]
+#     if not order_ids:
+#         raise ValueError("No orders in the database")
 
-    stock_ids = requests.get(BASE_URL + "/stock/").json()
-    stock_ids = [x["stock_id"] for x in stock_ids]
-    if not stock_ids:
-        raise ValueError("No stocks in the database")
+#     stock_ids = requests.get(BASE_URL + "/stock/").json()
+#     stock_ids = [x["stock_id"] for x in stock_ids]
+#     if not stock_ids:
+#         raise ValueError("No stocks in the database")
 
-    for i in range(10):
-        r = requests.post(
-            BASE_URL + url,
-            json={
-                "order_id": random.choice(order_ids),
-                "stock_id": random.choice(stock_ids),
-            },
-        )
-        r.raise_for_status()
-    print("Uploaded order details")
+#     for i in range(10):
+#         r = requests.post(
+#             BASE_URL + url,
+#             json={
+#                 "order_id": random.choice(order_ids),
+#                 "stock_id": random.choice(stock_ids),
+#             },
+#         )
+#         r.raise_for_status()
+#     print("Uploaded order details")
 
 
 def upload_review():
@@ -285,5 +292,5 @@ if __name__ == "__main__":
     upload_stock()
     upload_user()
     upload_order()
-    upload_order_detail()
+    # upload_order_detail()
     upload_review()
