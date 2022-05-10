@@ -24,6 +24,7 @@ export const DropdownItem = styled(MenuItem)({
 
 export const PriceContainer = styled("div")({
   padding: "1.5rem",
+  paddingTop: "1rem",
   paddingBottom: "0rem",
   display: "flex",
   flexDirection: "column",
@@ -34,6 +35,7 @@ export const SubText = styled(Typography)({
   fontSize: "14px",
   maxWidth: "100%",
   overflowWrap: "break-word",
+  textAlign: "right",
 });
 
 export const AddToBasketButton = styled(Button)({
@@ -41,7 +43,8 @@ export const AddToBasketButton = styled(Button)({
   padding: "1rem",
   paddingTop: "0.25rem",
   paddingBottom: "0.25rem",
-  marginTop: "1.5rem",
+  marginTop: "1rem",
+  marginBottom: "1.5rem",
   textTransform: "none",
   fontWeight: "normal",
 });

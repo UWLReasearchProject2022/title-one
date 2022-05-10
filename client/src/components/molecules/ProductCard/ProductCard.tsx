@@ -16,7 +16,6 @@ import {
 } from "./ProductCard.styles";
 import { LikeButton } from "components";
 import { pegiIcons, platformIcons } from "utils/icons";
-import { addToBasket } from "utils/lib/addToBasket";
 import { Button } from "@mui/material";
 
 type Props = {
@@ -45,13 +44,6 @@ export const ProductCard: React.FunctionComponent<Props> = ({ product }) => {
         </IconStack>
         <Actions>
           <LikeButton />
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => addToBasket(product)}
-          >
-            Buy
-          </Button>
           <ButtonLink to={`/search/${product.id}`}>
             <ViewButton variant="contained" color="secondary">
               VIEW

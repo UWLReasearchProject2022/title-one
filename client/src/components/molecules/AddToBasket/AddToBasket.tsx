@@ -11,6 +11,7 @@ import {
 } from "./AddToBasket.styles";
 import { Divider } from "@mui/material";
 import { Product, Platform } from "types";
+import { addToBasket } from "utils/lib/addToBasket";
 
 type FormData = {
   platform: Platform;
@@ -32,6 +33,12 @@ export const AddToBasket: React.FunctionComponent<Props> = ({ product }) => {
   const [quantity, setQuantity] = useState<string>(
     `${initialFormData.quantity}`,
   );
+
+  const handleAdd = () => {
+    for (let iteration = 0; iteration < formData.quantity; iteration++) {
+      addToBasket(product);
+    }
+  };
 
   return (
     <Container>
@@ -130,7 +137,7 @@ export const AddToBasket: React.FunctionComponent<Props> = ({ product }) => {
           },
         )}`}</SubText>
         <AddToBasketButton
-          onClick={() => console.log("test")}
+          onClick={handleAdd}
           variant="contained"
           color="secondary"
         >

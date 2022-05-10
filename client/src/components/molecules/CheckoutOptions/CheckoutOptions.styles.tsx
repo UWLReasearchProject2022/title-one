@@ -24,6 +24,7 @@ export const DropdownItem = styled(MenuItem)({
 
 export const PriceContainer = styled("div")({
   padding: "1.5rem",
+  paddingTop: "1rem",
   paddingBottom: "0rem",
   display: "flex",
   flexDirection: "column",
@@ -32,6 +33,7 @@ export const PriceContainer = styled("div")({
 
 export const SubText = styled(Typography)({
   fontSize: "14px",
+  textAlign: "right",
 });
 
 export const PayNowButton = styled(Button)({
@@ -39,7 +41,8 @@ export const PayNowButton = styled(Button)({
   padding: "1rem",
   paddingTop: "0.25rem",
   paddingBottom: "0.25rem",
-  marginTop: "1.5rem",
+  marginTop: "1rem",
+  marginBottom: "1.5rem",
   textTransform: "none",
   fontWeight: "normal",
 });
