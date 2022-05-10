@@ -95,7 +95,7 @@ class ProductViewset(ModelViewSet):
         new_product.save()
 
         serializer = ProductSerializer(new_product)
-        return JsonResponse(serializer.data)         
+        return JsonResponse(serializer.data)
 
 
 class DeveloperViewset(ModelViewSet):
@@ -117,10 +117,6 @@ class ProductPlatformViewset(ModelViewSet):
     # def list(self, request):
     #     featured = request.query_params.get("featured")
     #     if featured:
-
-
-
-
 
     def create(self, request):
         product_platform_data = request.data
@@ -189,7 +185,7 @@ class OrderViewset(ModelViewSet):
         if user_id is not None:
             user_orders = Order.objects.filter(user_id=user_id).values_list("order_id")
             if not user_orders:
-                return JsonResponse([], safe = False)
+                return JsonResponse([], safe=False)
         else:
             user_orders = Order.objects.all().values_list("order_id")
 
@@ -231,15 +227,14 @@ class OrderViewset(ModelViewSet):
         # this is f horrible code, but it works
         for order in chain.from_iterable(order_data):
             del order["order_id"]
-            prod = ProductPlatform.objects.get(product_platform_id=order["product_platform_id"])
+            prod = ProductPlatform.objects.get(
+                product_platform_id=order["product_platform_id"]
+            )
             print(prod)
             del order["product_platform_id"]
-            
+
             data = ProductPlatformSerializer(prod).data
             order["product_platform"] = data
-            
-
-        
 
         return JsonResponse(order_data, safe=False)
 

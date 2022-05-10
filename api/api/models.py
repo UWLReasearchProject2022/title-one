@@ -10,9 +10,9 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     short_description = models.CharField(max_length=255)
     long_description = models.CharField(max_length=255)
-    developer = models.ForeignKey("Developer",
-                                  related_name="developer",
-                                  on_delete=models.CASCADE)
+    developer = models.ForeignKey(
+        "Developer", related_name="developer", on_delete=models.CASCADE
+    )
     image_url = models.CharField(max_length=2083)
 
     def __str__(self):
@@ -32,12 +32,12 @@ class Platform(models.Model):
 
 class ProductPlatform(models.Model):
     product_platform_id = models.AutoField(primary_key=True)
-    product = models.ForeignKey("Product",
-                                on_delete=models.CASCADE,
-                                related_name="product1")
-    platform = models.ForeignKey("Platform",
-                                 on_delete=models.CASCADE,
-                                 related_name="platform")
+    product = models.ForeignKey(
+        "Product", on_delete=models.CASCADE, related_name="product1"
+    )
+    platform = models.ForeignKey(
+        "Platform", on_delete=models.CASCADE, related_name="platform"
+    )
     price = models.FloatField()
 
 
@@ -49,27 +49,26 @@ class Genre(models.Model):
 
 class ProductGenre(models.Model):
 
-    product_id = models.ForeignKey("Product",
-                                   on_delete=models.CASCADE,
-                                   related_name="genres")
-    genre_id = models.ForeignKey("Genre",
-                                 on_delete=models.CASCADE,
-                                 related_name="genre")
+    product_id = models.ForeignKey(
+        "Product", on_delete=models.CASCADE, related_name="genres"
+    )
+    genre_id = models.ForeignKey(
+        "Genre", on_delete=models.CASCADE, related_name="genre"
+    )
 
 
 class Stock(models.Model):
     stock_id = models.AutoField(primary_key=True)
-    product_platform_id = models.ForeignKey("ProductPlatform",
-                                            on_delete=models.CASCADE)
+    product_platform_id = models.ForeignKey("ProductPlatform", on_delete=models.CASCADE)
     isSold = models.BooleanField(default=False)
 
 
 class OrderDetails(models.Model):
     order_details_id = models.AutoField(primary_key=True)
     stock_id = models.ForeignKey("Stock", on_delete=models.CASCADE)
-    order_id = models.ForeignKey("Order",
-                                 on_delete=models.CASCADE,
-                                 related_name="order_details")
+    order_id = models.ForeignKey(
+        "Order", on_delete=models.CASCADE, related_name="order_details"
+    )
 
 
 class Order(models.Model):
@@ -94,9 +93,9 @@ class User(models.Model):
 
 class Review(models.Model):
     review_id = models.AutoField(primary_key=True)
-    product_id = models.ForeignKey("Product",
-                                   on_delete=models.CASCADE,
-                                   related_name="reviews")
+    product_id = models.ForeignKey(
+        "Product", on_delete=models.CASCADE, related_name="reviews"
+    )
     user_id = models.ForeignKey("User", on_delete=models.CASCADE)
     text = models.CharField(max_length=255)
     rating = models.IntegerField()
