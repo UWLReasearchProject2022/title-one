@@ -29,30 +29,6 @@ class PlatformSerializer(serializers.ModelSerializer):
         fields = ["platform_id", "name"]
 
 
-<<<<<<< HEAD
-# class ProductPlatformSerializer(serializers.ModelSerializer):
-#     product = ProductSerializer(read_only=True)
-
-#     class Meta:
-#         model = ProductPlatform
-#         fields = "__all__"
-#        # fields = ["name", "platform_id"]
-
-
-class ProductPlatformSerializer(serializers.ModelSerializer):
-
-    product = ProductSerializer(read_only=True)
-
-    class Meta:
-        model = ProductPlatform
-        fields = [
-            "price", "platform", "product_platform_id", "product", "featured"
-        ]
-        depth = 1
-
-
-=======
->>>>>>> jh
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
