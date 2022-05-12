@@ -11,6 +11,7 @@ import { Container } from "./Checkout.styles";
 import { getToken, getOptions } from "utils/stripeConfig";
 import { useMakeOrder } from "mutations";
 import { useBasket } from "utils/lib/useBasket";
+import { useNavigate } from "react-router-dom";
 
 const stripePromise = loadStripe(
   "pk_test_51KvGbwCUMmacvvXbW7msn5BD98sj6P7L1rFMqijwnYuHGLaxBeaqiXGZbyJZdmCo2cqBl3LHEhxq0uTL0KohIkJs00UIP4j4lo",
@@ -18,6 +19,7 @@ const stripePromise = loadStripe(
 
 export const Checkout: React.FunctionComponent = () => {
   const [clientSecret, setClientSecret] = useState<string | undefined>();
+  const navigate = useNavigate();
   const makeOrderMutation = useMakeOrder();
   const { basket, total } = useBasket();
 
@@ -29,6 +31,7 @@ export const Checkout: React.FunctionComponent = () => {
         quantity: item.quantity,
       })),
     });
+    navigate("/order-placed");
   };
 
   useEffect(() => {
