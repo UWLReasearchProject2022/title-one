@@ -1,3 +1,5 @@
+import { DeliveryOption } from "types";
+
 export const parseDate = (dateString: string): Date => {
   if (dateString.length !== 10) return new Date();
   const [dd, mm, yyyy] = dateString.split("/");
@@ -14,4 +16,19 @@ export const validateEmail = (email: string) => {
 
 export const isBlank = (str: string) => {
   return str.replaceAll(" ", "") === "";
+};
+
+export const getDeliveryFromKey = (
+  key: string,
+  options: DeliveryOption[],
+): DeliveryOption | undefined => {
+  let deliveryOption;
+  options.some((option) => {
+    if (option.key === key) {
+      deliveryOption = option;
+      return true;
+    }
+    return false;
+  });
+  return deliveryOption;
 };

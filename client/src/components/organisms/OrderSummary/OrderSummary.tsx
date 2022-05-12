@@ -6,18 +6,23 @@ import {
   PayNowButton,
   PayWrapper,
   StyledDivider,
+  DeliveryContainer,
+  DeliveryName,
+  DeliveryPrice,
 } from "./OrderSummary.styles";
 import { SummaryProduct } from "components";
-import { BasketItem } from "types";
+import { BasketItem, DeliveryOption } from "types";
 
 type Props = {
   basket: BasketItem[];
   total: number;
+  deliveryOption: DeliveryOption;
 };
 
 export const OrderSummary: React.FunctionComponent<Props> = ({
   basket,
   total,
+  deliveryOption,
 }) => {
   return (
     <Container>
@@ -27,11 +32,20 @@ export const OrderSummary: React.FunctionComponent<Props> = ({
         basket.map((item) => (
           <SummaryProduct key={item.product.id} item={item} />
         ))}
+      <DeliveryContainer>
+        <DeliveryName>{deliveryOption.text}</DeliveryName>
+        <DeliveryPrice>
+          {deliveryOption.price.toLocaleString("en-GB", {
+            style: "currency",
+            currency: "GBP",
+          })}
+        </DeliveryPrice>
+      </DeliveryContainer>
       <StyledDivider />
       <TotalContainer>
         <Title style={{ marginBottom: "0px" }}>Total</Title>
         <TotalPrice>
-          {total.toLocaleString("en-GB", {
+          {(total + deliveryOption.price).toLocaleString("en-GB", {
             style: "currency",
             currency: "GBP",
           })}
@@ -40,6 +54,7 @@ export const OrderSummary: React.FunctionComponent<Props> = ({
       <StyledDivider />
       <PayWrapper>
         <PayNowButton
+          disabled={total === 0}
           variant="contained"
           type="submit"
           color="secondary"

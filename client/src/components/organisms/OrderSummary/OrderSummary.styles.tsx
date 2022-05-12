@@ -28,6 +28,23 @@ export const PayWrapper = styled("div")({
   marginTop: "1.5rem",
 });
 
+export const DeliveryContainer = styled("div")({
+  display: "flex",
+  alignItems: "start",
+  justifyContent: "space-between",
+  marginTop: "1rem",
+  marginBottom: "1rem",
+});
+
+export const DeliveryName = styled(Typography)({
+  fontSize: "16px",
+  marginRight: "1.5rem",
+});
+
+export const DeliveryPrice = styled(Typography)({
+  fontSize: "16px",
+});
+
 export const PayNowButton = styled(Button)({
   fontSize: "14px",
   padding: "1rem",

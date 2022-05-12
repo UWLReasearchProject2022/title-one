@@ -11,21 +11,10 @@ import {
   TextRow,
 } from "./CheckoutOptions.styles";
 import { Divider } from "@mui/material";
-import { deliveryOptions } from "./config";
+import deliveryOptions from "utils/deliveryOptions";
 import { DeliveryOption } from "types";
 import { useNavigate } from "react-router-dom";
-
-const getDeliveryFromKey = (key: string): DeliveryOption | undefined => {
-  let deliveryOption;
-  deliveryOptions.some((option) => {
-    if (option.key === key) {
-      deliveryOption = option;
-      return true;
-    }
-    return false;
-  });
-  return deliveryOption;
-};
+import { getDeliveryFromKey } from "utils/helpers";
 
 type Props = {
   basketTotal: number;
@@ -35,7 +24,7 @@ export const CheckoutOptions: React.FunctionComponent<Props> = ({
   basketTotal,
 }) => {
   const navigate = useNavigate();
-  const initialDelivery = getDeliveryFromKey("first_class");
+  const initialDelivery = getDeliveryFromKey("first_class", deliveryOptions);
   const [delivery, setDelivery] = useState<DeliveryOption>(
     initialDelivery ? initialDelivery : deliveryOptions[0],
   );
@@ -43,7 +32,7 @@ export const CheckoutOptions: React.FunctionComponent<Props> = ({
   const handleDeliveryChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    const newValue = getDeliveryFromKey(event.target.value);
+    const newValue = getDeliveryFromKey(event.target.value, deliveryOptions);
     newValue && setDelivery(newValue);
   };
 
