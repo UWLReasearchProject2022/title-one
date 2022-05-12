@@ -50,7 +50,7 @@ export const AddToBasket: React.FunctionComponent<Props> = ({ product }) => {
   };
 
   const inStock = (): boolean => {
-    return product.quantity > formData.quantity;
+    return product.quantity >= formData.quantity;
   };
 
   return (
@@ -167,7 +167,7 @@ export const AddToBasket: React.FunctionComponent<Props> = ({ product }) => {
             onClick={handleAdd}
             variant="contained"
             color="secondary"
-            disabled={product.quantity < formData.quantity}
+            disabled={!inStock()}
           >
             Add to basket
           </AddToBasketButton>
