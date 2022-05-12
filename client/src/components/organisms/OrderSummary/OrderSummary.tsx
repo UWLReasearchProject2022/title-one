@@ -3,8 +3,9 @@ import {
   Title,
   TotalContainer,
   TotalPrice,
-  PayButton,
+  PayNowButton,
   PayWrapper,
+  StyledDivider,
 } from "./OrderSummary.styles";
 import { SummaryProduct } from "components";
 import { BasketItem } from "types";
@@ -21,23 +22,31 @@ export const OrderSummary: React.FunctionComponent<Props> = ({
   return (
     <Container>
       <Title>Order Summary</Title>
+      <StyledDivider />
       {basket &&
         basket.map((item) => (
           <SummaryProduct key={item.product.id} item={item} />
         ))}
+      <StyledDivider />
       <TotalContainer>
-        <Title variant="h2">Total</Title>
-        <TotalPrice variant="h3">
+        <Title style={{ marginBottom: "0px" }}>Total</Title>
+        <TotalPrice>
           {total.toLocaleString("en-GB", {
             style: "currency",
             currency: "GBP",
           })}
         </TotalPrice>
       </TotalContainer>
+      <StyledDivider />
       <PayWrapper>
-        <PayButton variant="contained" type="submit" form="payment-form">
-          Pay
-        </PayButton>
+        <PayNowButton
+          variant="contained"
+          type="submit"
+          color="secondary"
+          form="payment-form"
+        >
+          Pay now
+        </PayNowButton>
       </PayWrapper>
     </Container>
   );

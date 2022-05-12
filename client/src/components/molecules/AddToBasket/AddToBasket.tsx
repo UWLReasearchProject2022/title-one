@@ -55,8 +55,8 @@ export const AddToBasket: React.FunctionComponent<Props> = ({ product }) => {
 
   return (
     <Container>
-      <Section style={{ justifyContent: "center" }}>
-        <Text>Add to basket</Text>
+      <Section>
+        <Text style={{ fontSize: "18px" }}>Add to basket</Text>
       </Section>
       <Divider />
       <Section>

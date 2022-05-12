@@ -1,28 +1,19 @@
 import { styled } from "@mui/system";
-import { Divider, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 
 export const Container = styled("div")({
   display: "flex",
-  flexWrap: "wrap",
-});
-
-export const DividerStyled = styled(Divider)({
-  width: "100%",
-  margin: "1rem 0",
+  alignItems: "start",
+  justifyContent: "space-between",
+  marginTop: "1rem",
+  marginBottom: "1rem",
 });
 
 export const Name = styled(Typography)({
-  fontSize: "1rem",
-  marginRight: "1rem",
-});
-
-export const Quantity = styled(Typography)({
-  fontSize: "1rem",
-  marginRight: "1rem",
-  color: "#999",
+  fontSize: "16px",
+  marginRight: "1.5rem",
 });
 
 export const Price = styled(Typography)({
-  fontSize: "1rem",
-  marginLeft: "auto",
+  fontSize: "16px",
 });

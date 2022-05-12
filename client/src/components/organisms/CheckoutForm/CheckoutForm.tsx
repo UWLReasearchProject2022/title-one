@@ -7,6 +7,7 @@ import {
   Payment,
   StyledDivider,
   SubText,
+  SplitInput,
 } from "./CheckoutForm.styles";
 import { AddressField } from "components";
 import { useForm } from "react-hook-form";
@@ -50,7 +51,7 @@ export const CheckoutForm: React.FunctionComponent<Props> = ({
           <StyledDivider />
           <SubText>Your name</SubText>
           <Row>
-            <TextInput
+            <SplitInput
               defaultValue={initialUser.first_name}
               size="small"
               label="First Name"
@@ -58,7 +59,7 @@ export const CheckoutForm: React.FunctionComponent<Props> = ({
               error={!!errors.other_names}
               helperText={errors.other_names?.message}
             />
-            <TextInput
+            <SplitInput
               defaultValue={initialUser.last_name}
               size="small"
               label="Last Name"
@@ -68,7 +69,7 @@ export const CheckoutForm: React.FunctionComponent<Props> = ({
               helperText={errors.surname?.message}
             />
           </Row>
-          <SubText>Billing address</SubText>
+          <SubText>Contact details</SubText>
           <Row>
             <TextInput
               defaultValue={initialUser.email}
@@ -81,6 +82,7 @@ export const CheckoutForm: React.FunctionComponent<Props> = ({
               helperText={errors.email?.message}
             />
           </Row>
+          <SubText>Billing address</SubText>
           <AddressField
             address={initialUser.address}
             onChange={(_) => {

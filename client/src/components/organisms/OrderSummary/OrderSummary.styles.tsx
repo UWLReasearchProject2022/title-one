@@ -1,5 +1,5 @@
 import { styled } from "@mui/system";
-import { Paper, Typography, Button } from "@mui/material";
+import { Paper, Typography, Button, Divider } from "@mui/material";
 
 export const Container = styled(Paper)({
   padding: "1.5rem",
@@ -8,7 +8,7 @@ export const Container = styled(Paper)({
 
 export const Title = styled(Typography)({
   marginBottom: "1rem",
-  fontSize: "16px",
+  fontSize: "18px",
 });
 
 export const TotalContainer = styled("div")({
@@ -18,17 +18,27 @@ export const TotalContainer = styled("div")({
 });
 
 export const TotalPrice = styled(Typography)({
-  marginBottom: "1rem",
-  fontSize: "1.2rem",
+  fontSize: "18px",
   marginLeft: "auto",
 });
 
 export const PayWrapper = styled("div")({
   display: "flex",
-  justifyContent: "center",
-  marginTop: "2rem",
+  justifyContent: "end",
+  marginTop: "1.5rem",
 });
 
-export const PayButton = styled(Button)({
-  width: "30%",
+export const PayNowButton = styled(Button)({
+  fontSize: "14px",
+  padding: "1rem",
+  paddingTop: "0.25rem",
+  paddingBottom: "0.25rem",
+  marginBottom: "1.5rem",
+  textTransform: "none",
+  fontWeight: "normal",
+});
+
+export const StyledDivider = styled(Divider)({
+  marginTop: "1.5rem",
+  marginBottom: "1.5rem",
 });

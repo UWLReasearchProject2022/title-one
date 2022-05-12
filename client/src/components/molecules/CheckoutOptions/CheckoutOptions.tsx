@@ -6,8 +6,9 @@ import {
   DropdownItem,
   Text,
   SubText,
-  PriceContainer,
+  SubContainer,
   PayNowButton,
+  TextRow,
 } from "./CheckoutOptions.styles";
 import { Divider } from "@mui/material";
 import { deliveryOptions } from "./config";
@@ -52,8 +53,8 @@ export const CheckoutOptions: React.FunctionComponent<Props> = ({
 
   return (
     <Container>
-      <Section style={{ justifyContent: "center" }}>
-        <Text>Checkout and pay</Text>
+      <Section>
+        <Text style={{ fontSize: "18px" }}>Checkout and pay</Text>
       </Section>
       <Divider />
       <Section>
@@ -97,26 +98,40 @@ export const CheckoutOptions: React.FunctionComponent<Props> = ({
         />
       </Section>
       <Divider />
-      <PriceContainer>
-        <SubText
-          style={{ marginBottom: "0.25rem" }}
-        >{`Basket: ${basketTotal.toLocaleString("en-GB", {
-          style: "currency",
-          currency: "GBP",
-        })}`}</SubText>
-        <SubText>{`Delivery: ${delivery.price.toLocaleString("en-GB", {
-          style: "currency",
-          currency: "GBP",
-        })}`}</SubText>
-      </PriceContainer>
-      <PriceContainer>
-        <SubText>{`Total: ${(delivery.price + basketTotal).toLocaleString(
-          "en-GB",
-          {
-            style: "currency",
-            currency: "GBP",
-          },
-        )}`}</SubText>
+      <SubContainer>
+        <TextRow>
+          <SubText>Basket total</SubText>
+          <SubText>
+            {basketTotal.toLocaleString("en-GB", {
+              style: "currency",
+              currency: "GBP",
+            })}
+          </SubText>
+        </TextRow>
+        <TextRow>
+          <SubText>Delivery cost</SubText>
+          <SubText>
+            {delivery.price.toLocaleString("en-GB", {
+              style: "currency",
+              currency: "GBP",
+            })}
+          </SubText>
+        </TextRow>
+      </SubContainer>
+      <Divider />
+      <SubContainer>
+        <TextRow>
+          <SubText style={{ fontSize: "18px" }}>Total</SubText>
+          <SubText style={{ fontSize: "18px" }}>
+            {(delivery.price + basketTotal).toLocaleString("en-GB", {
+              style: "currency",
+              currency: "GBP",
+            })}
+          </SubText>
+        </TextRow>
+      </SubContainer>
+      <Divider />
+      <SubContainer>
         <PayNowButton
           disabled={basketTotal === 0}
           onClick={onCheckoutAndPay}
@@ -125,7 +140,7 @@ export const CheckoutOptions: React.FunctionComponent<Props> = ({
         >
           Checkout and pay
         </PayNowButton>
-      </PriceContainer>
+      </SubContainer>
     </Container>
   );
 };

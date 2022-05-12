@@ -22,18 +22,27 @@ export const DropdownItem = styled(MenuItem)({
   fontSize: "14px",
 });
 
-export const PriceContainer = styled("div")({
+export const SubContainer = styled("div")({
   padding: "1.5rem",
+  paddingLeft: "0rem",
   paddingTop: "1rem",
-  paddingBottom: "0rem",
+  paddingBottom: "1rem",
   display: "flex",
   flexDirection: "column",
   alignItems: "end",
 });
 
 export const SubText = styled(Typography)({
-  fontSize: "14px",
-  textAlign: "right",
+  fontSize: "16px",
+  paddingLeft: "1.5rem",
+});
+
+export const TextRow = styled("div")({
+  width: "100%",
+  display: "flex",
+  justifyContent: "space-between",
+  marginTop: "0.5rem",
+  marginBottom: "0.5rem",
 });
 
 export const PayNowButton = styled(Button)({
@@ -41,8 +50,8 @@ export const PayNowButton = styled(Button)({
   padding: "1rem",
   paddingTop: "0.25rem",
   paddingBottom: "0.25rem",
-  marginTop: "1rem",
-  marginBottom: "1.5rem",
+  marginTop: "0.5rem",
+  marginBottom: "0.5rem",
   textTransform: "none",
   fontWeight: "normal",
 });

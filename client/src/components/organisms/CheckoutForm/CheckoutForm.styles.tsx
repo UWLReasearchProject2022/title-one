@@ -9,9 +9,14 @@ export const Container = styled(Paper)({
   marginRight: "1rem",
 });
 
+export const SplitInput = styled(TextField)({
+  marginRight: "1rem",
+  width: "10.5rem",
+});
+
 export const TextInput = styled(TextField)({
   marginRight: "1rem",
-  width: "50%",
+  width: "22rem",
 });
 
 export const StyledDivider = styled(Divider)({
