@@ -1,4 +1,4 @@
-import { Product } from "types";
+import { ProductPlatform } from "types";
 import {
   Container,
   Header,
@@ -18,32 +18,34 @@ import { LikeButton } from "components";
 import { pegiIcons, platformIcons } from "utils/icons";
 
 type Props = {
-  product: Product;
+  productPlatform: ProductPlatform;
 };
 
-export const ProductCard: React.FunctionComponent<Props> = ({ product }) => {
+export const ProductCard: React.FunctionComponent<Props> = ({
+  productPlatform,
+}) => {
   return (
     <Container>
       <Header>
-        <Title>{product.name}</Title>
+        <Title>{productPlatform.product.name}</Title>
         <Price>
-          {product.price.toLocaleString("en-GB", {
+          {productPlatform.price.toLocaleString("en-GB", {
             style: "currency",
             currency: "GBP",
           })}
         </Price>
       </Header>
-      <Developer>{product.developer}</Developer>
+      <Developer>{productPlatform.product.developer}</Developer>
       <Body>
-        <Image src={product.image} />
-        <Description>{product.short_description}</Description>
+        <Image src={productPlatform.product.image_url} />
+        <Description>{productPlatform.product.short_description}</Description>
         <IconStack>
-          <Icon src={platformIcons[product.platform]} />
-          <Icon src={pegiIcons[product.age_rating]} />
+          <Icon src={platformIcons[productPlatform.platform.name]} />
+          <Icon src={pegiIcons[productPlatform.product.age_rating]} />
         </IconStack>
         <Actions>
           <LikeButton />
-          <ButtonLink to={`/search/${product.id}`}>
+          <ButtonLink to={`/search/${productPlatform.product_platform_id}`}>
             <ViewButton variant="contained" color="secondary">
               VIEW
             </ViewButton>

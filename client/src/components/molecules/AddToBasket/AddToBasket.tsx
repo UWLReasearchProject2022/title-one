@@ -12,8 +12,8 @@ import {
   StockContainer,
 } from "./AddToBasket.styles";
 import { Divider } from "@mui/material";
-import { Product, Platform } from "types";
-import { addToBasket } from "utils/lib/addToBasket";
+import { Platform, ProductPlatform } from "types";
+import { useBasket } from "utils/lib/useBasket";
 import {
   CheckCircleOutline as TickIcon,
   HighlightOff as CrossIcon,
@@ -27,12 +27,14 @@ type FormData = {
 };
 
 type Props = {
-  product: Product;
+  productPlatform: ProductPlatform;
 };
 
-export const AddToBasket: React.FunctionComponent<Props> = ({ product }) => {
+export const AddToBasket: React.FunctionComponent<Props> = ({
+  productPlatform,
+}) => {
   const initialFormData: FormData = {
-    platform: product.platform,
+    platform: productPlatform.platform.name,
     edition: "Standard",
     quantity: 1,
   };
@@ -42,15 +44,17 @@ export const AddToBasket: React.FunctionComponent<Props> = ({ product }) => {
   );
   const { enqueueSnackbar } = useSnackbar();
 
+  const { addToBasket } = useBasket();
+
   const handleAdd = () => {
     for (let iteration = 0; iteration < formData.quantity; iteration++) {
-      addToBasket(product);
+      addToBasket(productPlatform);
     }
     enqueueSnackbar("Added to basket!", { variant: "success" });
   };
 
   const inStock = (): boolean => {
-    return product.quantity >= formData.quantity;
+    return productPlatform.quantity >= formData.quantity;
   };
 
   return (
@@ -78,8 +82,8 @@ export const AddToBasket: React.FunctionComponent<Props> = ({ product }) => {
             },
           }}
         >
-          <DropdownItem value={product.platform}>
-            {product.platform}
+          <DropdownItem value={productPlatform.platform.name}>
+            {productPlatform.platform.name}
           </DropdownItem>
         </Input>
       </Section>
@@ -138,17 +142,16 @@ export const AddToBasket: React.FunctionComponent<Props> = ({ product }) => {
       <Divider />
       <PriceContainer>
         <SubText>
-          {`${formData.quantity}x ${product.name} - ${formData.platform} - ${formData.edition}`}
+          {`${formData.quantity}x ${productPlatform.product.name} - ${formData.platform} - ${formData.edition}`}
         </SubText>
       </PriceContainer>
       <PriceContainer>
-        <SubText>{`Total: ${(formData.quantity * product.price).toLocaleString(
-          "en-GB",
-          {
-            style: "currency",
-            currency: "GBP",
-          },
-        )}`}</SubText>
+        <SubText>{`Total: ${(
+          formData.quantity * productPlatform.price
+        ).toLocaleString("en-GB", {
+          style: "currency",
+          currency: "GBP",
+        })}`}</SubText>
         <ButtonContainer>
           <StockContainer>
             {inStock() ? (

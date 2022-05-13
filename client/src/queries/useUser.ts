@@ -6,7 +6,7 @@ export const useUser = (email?: string, password?: string) => {
     `user_${email}`,
     () =>
       fetch(
-        `${process.env.REACT_APP_API_URL}/api/users?email=${email}&password=${password}`,
+        `${process.env.REACT_APP_API_URL}/user?email=${email}&password=${password}`,
       ).then((res) => res.json()),
     { enabled: !(email === undefined && password === undefined) },
   );

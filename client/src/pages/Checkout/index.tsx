@@ -38,7 +38,7 @@ export const Checkout: React.FunctionComponent = () => {
     makeOrderMutation.mutate({
       user_id: formUser?.id,
       order_details: basket.map((item) => ({
-        product_platform_id: item.product.id,
+        product_platform_id: item.productPlatform.product_platform_id,
         quantity: item.quantity,
       })),
       deliveryOption: deliveryOption,

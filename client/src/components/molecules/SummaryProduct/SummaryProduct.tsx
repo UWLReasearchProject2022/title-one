@@ -8,9 +8,9 @@ type Props = {
 export const SummaryProduct: React.FunctionComponent<Props> = ({ item }) => {
   return (
     <Container>
-      <Name>{`${item.quantity}x  ${item.product.name}`}</Name>
+      <Name>{`${item.quantity}x  ${item.productPlatform.product.name}`}</Name>
       <Price>
-        {item.product.price.toLocaleString("en-GB", {
+        {item.productPlatform.price.toLocaleString("en-GB", {
           style: "currency",
           currency: "GBP",
         })}

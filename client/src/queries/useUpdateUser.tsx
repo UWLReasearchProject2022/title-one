@@ -7,7 +7,7 @@ export const useUpdateUser = (id: number) => {
 
   return useMutation(
     (user: User) =>
-      axios.patch(`${process.env.REACT_APP_API_URL}/api/users/${id}`, user),
+      axios.patch(`${process.env.REACT_APP_API_URL}/api/user/${id}`, user),
     {
       onSuccess: () => {
         queryClient.invalidateQueries([]);

@@ -11,25 +11,20 @@ from rest_framework.renderers import JSONRenderer
 from django.http import HttpResponse, JsonResponse
 from .models import (
     Product,
-    Developer,
     Platform,
     ProductPlatform,
-    Genre,
-    ProductGenre,
     Review,
     Stock,
     OrderDetails,
     Order,
-    User,
+    Customer,
     Review,
 )
 from .serializers import (
+    ProductGetSerializer,
     ProductSerializer,
-    DeveloperSerializer,
     PlatformSerializer,
     ProductPlatformSerializer,
-    GenreSerializer,
-    ProductGenreSerializer,
     ReviewSerializer,
     StockSerializer,
     OrderDetailsSerializer,
@@ -61,16 +56,13 @@ def clear_database(request):
         return Response(status=405)
 
     Product.objects.all().delete()
-    Developer.objects.all().delete()
     Platform.objects.all().delete()
     ProductPlatform.objects.all().delete()
-    Genre.objects.all().delete()
-    ProductGenre.objects.all().delete()
     Review.objects.all().delete()
     Stock.objects.all().delete()
     OrderDetails.objects.all().delete()
     Order.objects.all().delete()
-    User.objects.all().delete()
+    Customer.objects.all().delete()
     Review.objects.all().delete()
 
     return HttpResponse("Database cleared")
@@ -81,27 +73,11 @@ class ProductViewset(ModelViewSet):
     serializer_class = ProductSerializer
 
     # allows for new product to be added into database, while still keeping a the nested JSON with developer table
-
-    def create(self, request):
-        product_data = request.data
-
-        new_product = Product.objects.create(
-            name=product_data["name"],
-            short_description=product_data["short_description"],
-            long_description=product_data["long_description"],
-            image_url=product_data["image_url"],
-            developer_id=product_data["developer_id"],
-        )
-
-        new_product.save()
-
-        serializer = ProductSerializer(new_product)
-        return JsonResponse(serializer.data)
-
-
-class DeveloperViewset(ModelViewSet):
-    queryset = Developer.objects.all()
-    serializer_class = DeveloperSerializer
+    def get_serializer_class(self):
+        if self.action in ["list", "retrieve"]:
+            return ProductGetSerializer
+        else:
+            return ProductSerializer
 
 
 class PlatformViewset(ModelViewSet):
@@ -111,14 +87,14 @@ class PlatformViewset(ModelViewSet):
 
 class ProductPlatformViewset(ModelViewSet):
     queryset = ProductPlatform.objects.all()
-    # product_queryset = Product.objects.all()
+    product_queryset = Product.objects.all()
 
     serializer_class = ProductPlatformSerializer
 
     def list(self, request):
         if featured := request.query_params.get("featured") or request.query_params.get("isFeatured") or request.query_params.get("is_featured") or request.query_params.get("Featured"):
             queryset = ProductPlatform.objects.filter(
-                 is_featured=bool(featured))
+                is_featured=bool(featured))
 
         else:
             queryset = ProductPlatform.objects.all()
@@ -126,18 +102,16 @@ class ProductPlatformViewset(ModelViewSet):
         serializer = ProductPlatformSerializer(queryset, many=True)
         return JsonResponse(serializer.data, safe=False)
 
-
-        
-
     def create(self, request):
         product_platform_data = request.data
 
         new_product_platform = ProductPlatform.objects.create(
             price=product_platform_data["price"],
-            product_id=self.product_queryset.get(
+            product=self.product_queryset.get(
                 product_id=product_platform_data["product_id"]),
-            platform_id=Platform.objects.get(
+            platform=Platform.objects.get(
                 platform_id=product_platform_data["platform_id"]),
+            is_featured=product_platform_data["is_featured"],
         )
 
         new_product_platform.save()
@@ -145,33 +119,9 @@ class ProductPlatformViewset(ModelViewSet):
         serializer = ProductPlatformSerializer(new_product_platform)
         return JsonResponse(serializer.data)
 
-    queryset = ProductPlatform.objects.all()
     serializer_class = ProductPlatformSerializer
-
-
-class GenreViewset(ModelViewSet):
-    queryset = Genre.objects.all()
-    serializer_class = GenreSerializer
-
-
-class ProductGenreViewset(ModelViewSet):
-    queryset = ProductGenre.objects.all()
-    serializer_class = ProductGenreSerializer
-
-    def create(self, request):
-        product_genre_data = request.data
-
-        new_product_genre = ProductGenre.objects.create(
-            product_id=Product.objects.get(
-                product_id=product_genre_data["product_id"]),
-            genre_id=Genre.objects.get(
-                genre_id=product_genre_data["genre_id"]),
-        )
-
-        new_product_genre.save()
-
-        serializer = ProductGenreSerializer(new_product_genre)
-        return JsonResponse(serializer.data)
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = ("is_featured",)
 
 
 class StockViewset(ModelViewSet):
@@ -191,22 +141,23 @@ class OrderViewset(ModelViewSet):
     def list(self, request):
         user_id = request.query_params.get("user_id")
 
-        # get all orders for user
+        # get all orders for Customer
 
         if user_id is not None:
-            user_orders = Order.objects.filter(user_id=user_id).values_list("order_id")
+            user_orders = Order.objects.filter(
+                user_id=user_id).values_list("order_id")
             if not user_orders:
                 return JsonResponse([], safe=False)
         else:
             user_orders = Order.objects.all().values_list("order_id")
 
-        # get all order details for user
+        # get all order details for Customer
         queryset = OrderDetails.objects.filter(order_id__in=user_orders)
         order_details = pd.DataFrame(queryset.values())
         order_details.rename(columns={"stock_id_id": "stock_id"}, inplace=True)
         # print(order_details)
 
-        # get all stock ids for user
+        # get all stock ids for Customer
         stock_ids = queryset.values_list("stock_id")
         stock_entries = Stock.objects.filter(stock_id__in=stock_ids)
         stocks = pd.DataFrame.from_records(list(stock_entries.values()))
@@ -252,7 +203,7 @@ class OrderViewset(ModelViewSet):
 
         user_id = order_data["user_id"]
         order_details = order_data["order_details"]
-        created = Order.objects.create(user_id=User.objects.get(
+        created = Order.objects.create(user_id=Customer.objects.get(
             user_id=user_id))
 
         for product in order_details:
@@ -270,16 +221,18 @@ class OrderViewset(ModelViewSet):
 
 
 class UserViewset(ModelViewSet):
-    queryset = User.objects.all()
+    queryset = Customer.objects.all()
     serializer_class = UserSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = ("email", "password")
 
 
 def get_user(request):
     email = request.GET.get("email")
     password = request.GET.get("password")
 
-    user = get_object_or_404(User, email=email, password=password)
-    serializer = UserSerializer(user)
+    Customer = get_object_or_404(Customer, email=email, password=password)
+    serializer = UserSerializer(Customer)
     return JsonResponse(serializer.data)
 
 
@@ -292,10 +245,17 @@ class ReviewViewset(ModelViewSet):
 
         new_review = Review.objects.create(
             product_id=Product.objects.get(
-                product_id=review_data["product_id"]),
-            user_id=User.objects.get(user_id=review_data["user_id"]),
-            rating=review_data["rating"],
-            text=review_data["text"],
+                product_id=review_data["product_id"]
+            ),
+            user_id=Customer.objects.get(user_id=review_data["user_id"]),
+            game_play=review_data["game_play"],
+            social=review_data["social"],
+            graphics=review_data["graphics"],
+            value=review_data["value"],
+            overall=review_data["overall"],
+            date_reviewed=review_data["date_reviewed"],
+            positive=review_data["positive"],
+            negative=review_data["negative"],
         )
 
         new_review.save()

@@ -24,8 +24,8 @@ type Props = {
 
 type FormErrors = {
   payment: boolean;
-  first_name: string;
-  last_name: string;
+  other_names: string;
+  surname: string;
   email: string;
   address: AddressErrors;
 };
@@ -37,8 +37,8 @@ export const CheckoutForm: React.FunctionComponent<Props> = ({
   const initialUser: User = user
     ? user
     : {
-        first_name: "",
-        last_name: "",
+        other_names: "",
+        surname: "",
         email: "",
         password: "",
         address: {
@@ -53,8 +53,8 @@ export const CheckoutForm: React.FunctionComponent<Props> = ({
 
   const initialErrors = {
     payment: false,
-    first_name: " ",
-    last_name: " ",
+    other_names: " ",
+    surname: " ",
     email: " ",
     address: {
       house_number: " ",
@@ -109,8 +109,8 @@ export const CheckoutForm: React.FunctionComponent<Props> = ({
 
     const newFormErrors = {
       payment: paymentComplete,
-      first_name: isBlank(formData.first_name) ? "Please complete" : " ",
-      last_name: isBlank(formData.last_name) ? "Please complete" : " ",
+      other_names: isBlank(formData.other_names) ? "Please complete" : " ",
+      surname: isBlank(formData.surname) ? "Please complete" : " ",
       email: !validateEmail(formData.email) ? "Invalid email" : " ",
       address: {
         house_number: isBlank(formData.address.house_number)
@@ -141,24 +141,24 @@ export const CheckoutForm: React.FunctionComponent<Props> = ({
           <SubText>Your name</SubText>
           <Row>
             <SplitInput
-              value={formData.first_name}
+              value={formData.other_names}
               onChange={(event) =>
-                updateValue("first_name", event.target.value)
+                updateValue("other_names", event.target.value)
               }
               size="small"
               label="First Name"
               variant="outlined"
-              error={formErrors.first_name !== " "}
-              helperText={formErrors.first_name}
+              error={formErrors.other_names !== " "}
+              helperText={formErrors.other_names}
             />
             <SplitInput
-              value={formData.last_name}
-              onChange={(event) => updateValue("last_name", event.target.value)}
+              value={formData.surname}
+              onChange={(event) => updateValue("surname", event.target.value)}
               size="small"
               label="Last Name"
               variant="outlined"
-              error={formErrors.last_name !== " "}
-              helperText={formErrors.last_name}
+              error={formErrors.surname !== " "}
+              helperText={formErrors.surname}
             />
           </Row>
           <SubText>Contact details</SubText>

@@ -8,22 +8,17 @@ from django.db import models
 class Product(models.Model):
     product_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
-    short_description = models.CharField(max_length=255)
-    long_description = models.CharField(max_length=255)
-    developer = models.ForeignKey(
-        "Developer", related_name="developer", on_delete=models.CASCADE
-    )
+    short_description = models.TextField(default="")
+    long_description = models.TextField(default="")
+    description = models.TextField(default="")
+    developer = models.CharField(max_length=255)
     image_url = models.CharField(max_length=2083)
-    
+    release_date = models.DateField(null=True)
+    age_rating = models.CharField(max_length=255, default="18+")
+    category = models.CharField(max_length=255, default="action")
 
     def __str__(self):
         return self.name
-
-
-class Developer(models.Model):
-    developer_id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
 
 
 class Platform(models.Model):
@@ -42,28 +37,11 @@ class ProductPlatform(models.Model):
     price = models.FloatField()
     is_featured = models.BooleanField(default=False)
 
-    
-
-
-class Genre(models.Model):
-    genre_id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
-
-
-class ProductGenre(models.Model):
-
-    product_id = models.ForeignKey(
-        "Product", on_delete=models.CASCADE, related_name="genres"
-    )
-    genre_id = models.ForeignKey(
-        "Genre", on_delete=models.CASCADE, related_name="genre"
-    )
-
 
 class Stock(models.Model):
     stock_id = models.AutoField(primary_key=True)
-    product_platform_id = models.ForeignKey("ProductPlatform", on_delete=models.CASCADE)
+    product_platform_id = models.ForeignKey(
+        "ProductPlatform", on_delete=models.CASCADE, related_name="stock")
     isSold = models.BooleanField(default=False)
 
 
@@ -80,10 +58,10 @@ class Order(models.Model):
     date_ordered = models.DateTimeField(auto_now_add=True)
     date_shipped = models.DateTimeField(auto_now_add=True, null=True)
     date_delivered = models.DateTimeField(auto_now_add=True, null=True)
-    user_id = models.ForeignKey("User", on_delete=models.CASCADE)
+    user_id = models.ForeignKey("Customer", on_delete=models.CASCADE)
 
 
-class User(models.Model):
+class Customer(models.Model):
     user_id = models.AutoField(primary_key=True)
     email = models.CharField(max_length=255)
     surname = models.CharField(max_length=255)
@@ -94,16 +72,24 @@ class User(models.Model):
     username = models.CharField(max_length=255)
     password = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.email
+
 
 class Review(models.Model):
     review_id = models.AutoField(primary_key=True)
     product_id = models.ForeignKey(
         "Product", on_delete=models.CASCADE, related_name="reviews"
     )
-    user_id = models.ForeignKey("User", on_delete=models.CASCADE)
-    text = models.CharField(max_length=255)
-    rating = models.IntegerField()
+    user_id = models.ForeignKey("Customer", on_delete=models.CASCADE)
+    game_play = models.IntegerField(null=True)
+    social = models.IntegerField(null=True)
+    graphics = models.IntegerField(null=True)
+    value = models.IntegerField(null=True)
+    overall = models.IntegerField(null=True)
     date_reviewed = models.DateTimeField(auto_now_add=True)
+    positive = models.TextField(default="")
+    negative = models.TextField(default="")
 
     def __str__(self):
         return self.name

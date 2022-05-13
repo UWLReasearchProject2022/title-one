@@ -30,7 +30,10 @@ export const OrderSummary: React.FunctionComponent<Props> = ({
       <StyledDivider />
       {basket &&
         basket.map((item) => (
-          <SummaryProduct key={item.product.id} item={item} />
+          <SummaryProduct
+            key={item.productPlatform.product_platform_id}
+            item={item}
+          />
         ))}
       <DeliveryContainer>
         <DeliveryName>{deliveryOption.text}</DeliveryName>

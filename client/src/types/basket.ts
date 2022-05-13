@@ -1,7 +1,7 @@
-import { Product } from "types";
+import { ProductPlatform } from "types";
 
 export type BasketItem = {
-  product: Product;
+  productPlatform: ProductPlatform;
   quantity: number;
 };
 

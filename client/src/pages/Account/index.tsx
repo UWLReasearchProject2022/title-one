@@ -38,7 +38,7 @@ export const Account: React.FunctionComponent = () => {
             <TabContainer
               style={{ paddingTop: "1.5rem", paddingBottom: "1.5rem" }}
             >
-              <HeaderText>{`${user.first_name} ${user.last_name}`}</HeaderText>
+              <HeaderText>{`${user.other_names} ${user.surname}`}</HeaderText>
               <SignOutButton
                 variant="contained"
                 color="secondary"

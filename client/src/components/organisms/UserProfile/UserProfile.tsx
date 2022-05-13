@@ -71,8 +71,8 @@ export const UserProfile: React.FunctionComponent<AccountPageProps> = ({
 
   const handleSubmit = async () => {
     const newErrors = initialErrors;
-    newErrors.first_name = isBlank(value.first_name) ? "Please complete" : " ";
-    newErrors.last_name = isBlank(value.last_name) ? "Please complete" : " ";
+    newErrors.first_name = isBlank(value.other_names) ? "Please complete" : " ";
+    newErrors.last_name = isBlank(value.surname) ? "Please complete" : " ";
     if (user.email !== value.email) {
       if (!validateEmail(value.email)) {
         newErrors.email = "Invalid email";
@@ -105,8 +105,8 @@ export const UserProfile: React.FunctionComponent<AccountPageProps> = ({
   const updateUser = (updatedValue: FormValue) => {
     const updatedUser: User = {
       id: updatedValue.id,
-      first_name: updatedValue.first_name,
-      last_name: updatedValue.last_name,
+      other_names: updatedValue.other_names,
+      surname: updatedValue.surname,
       email: updatedValue.email,
       password:
         updatedValue.new_password === ""

@@ -9,33 +9,33 @@ import {
   ViewButton,
   TextContainer,
 } from "./SmallProductCard.styles";
-import { Product } from "types";
+import { ProductPlatform } from "types";
 import { Link } from "react-router-dom";
 
 type Props = {
-  product: Product;
+  productPlatform: ProductPlatform;
   style: React.CSSProperties;
 };
 
 export const SmallProductCard: React.FunctionComponent<Props> = ({
-  product,
+  productPlatform,
   style,
 }) => {
   return (
     <Container style={style}>
       <TextContainer>
-        <HeaderText>{product.name}</HeaderText>
-        <SubHeaderText>{product.developer}</SubHeaderText>
+        <HeaderText>{productPlatform.product.name}</HeaderText>
+        <SubHeaderText>{productPlatform.product.developer}</SubHeaderText>
       </TextContainer>
-      <Image src={product.image} />
+      <Image src={productPlatform.product.image_url} />
       <ActionContainer>
         <PriceText>
-          {product.price.toLocaleString("en-GB", {
+          {productPlatform.price.toLocaleString("en-GB", {
             style: "currency",
             currency: "GBP",
           })}
         </PriceText>
-        <Link to={`/search/${product.id}`}>
+        <Link to={`/search/${productPlatform.product_platform_id}`}>
           <ViewButton variant="contained" color="secondary">
             VIEW
           </ViewButton>
