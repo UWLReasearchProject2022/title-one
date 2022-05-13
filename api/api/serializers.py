@@ -20,10 +20,25 @@ class PlatformSerializer(serializers.ModelSerializer):
         fields = ["platform_id", "name"]
 
 
-class UserSerializer(serializers.ModelSerializer):
+class AddressSerializer(serializers.ModelSerializer):
+    house_number = serializers.CharField(allow_blank=True)
+    road_name = serializers.CharField(allow_blank=True)
+    city = serializers.CharField(allow_blank=True)
+    county = serializers.CharField(allow_blank=True)
+    postcode = serializers.CharField(allow_blank=True)
+
     class Meta:
         model = Customer
-        fields = "__all__"
+        fields = ["house_number", "road_name", "city", "county", "postcode"]
+
+
+class CustomerSerializer(serializers.ModelSerializer):
+    address = AddressSerializer(source="*")
+
+    class Meta:
+        model = Customer
+        fields = ["user_id", "email", "surname",
+                  "other_names", "address", "password"]
 
 
 class CommentsSerializer(serializers.ModelSerializer):
@@ -39,14 +54,14 @@ class RatingsSerializer(serializers.ModelSerializer):
 
 
 class ReviewGetSerializer(serializers.ModelSerializer):
-    Customer = UserSerializer(many=False, read_only=True, source="user_id")
+    user = CustomerSerializer(many=False, read_only=True, source="user_id")
     ratings = RatingsSerializer(source="*")
     comments = CommentsSerializer(source="*")
 
     class Meta:
         model = Review
         fields = ["review_id", "ratings",
-                  "Customer", "date_reviewed", "comments"]
+                  "user", "date_reviewed", "comments"]
 
 
 class ReviewSerializer(serializers.ModelSerializer):

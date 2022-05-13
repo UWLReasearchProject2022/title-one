@@ -29,7 +29,7 @@ from .serializers import (
     StockSerializer,
     OrderDetailsSerializer,
     OrderSerializer,
-    UserSerializer,
+    CustomerSerializer,
     ReviewSerializer,
 )
 from rest_framework.viewsets import ModelViewSet
@@ -220,9 +220,9 @@ class OrderViewset(ModelViewSet):
         return JsonResponse({"order_id": created.order_id})
 
 
-class UserViewset(ModelViewSet):
+class CustomerViewset(ModelViewSet):
     queryset = Customer.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = CustomerSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_fields = ("email", "password")
 

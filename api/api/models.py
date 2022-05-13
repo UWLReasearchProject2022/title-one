@@ -66,10 +66,11 @@ class Customer(models.Model):
     email = models.CharField(max_length=255)
     surname = models.CharField(max_length=255)
     other_names = models.CharField(max_length=255)
-    phone_number = models.CharField(max_length=255)
-    address = models.CharField(max_length=255)
-    city = models.CharField(max_length=255)
-    username = models.CharField(max_length=255)
+    house_number = models.CharField(max_length=255, null=True)
+    road_name = models.CharField(max_length=255, null=True)
+    city = models.CharField(max_length=255, null=True)
+    county = models.CharField(max_length=255, null=True)
+    postcode = models.CharField(max_length=255, null=True)
     password = models.CharField(max_length=255)
 
     def __str__(self):
