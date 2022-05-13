@@ -50,6 +50,18 @@ export const useBasket = () => {
     }
   };
 
+  const clearBasket = () => {
+    try {
+      const newBasket: BasketItem[] = [];
+      setBasket(newBasket);
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem("basket", "[]");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const setQuantity = (productId: number, quantity: number) => {
     try {
       const newBasket = basket.map((item) => {
@@ -71,5 +83,12 @@ export const useBasket = () => {
     return total + item.product.price * item.quantity;
   }, 0);
 
-  return { basket, total, addToBasket, removeFromBasket, setQuantity };
+  return {
+    basket,
+    total,
+    addToBasket,
+    removeFromBasket,
+    setQuantity,
+    clearBasket,
+  };
 };

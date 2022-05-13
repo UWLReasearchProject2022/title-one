@@ -14,6 +14,7 @@ import { useBasket } from "utils/lib/useBasket";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { getDeliveryFromKey } from "utils/helpers";
 import deliveryOptions from "utils/deliveryOptions";
+import { User } from "types";
 
 const stripePromise = loadStripe(
   "pk_test_51KvGbwCUMmacvvXbW7msn5BD98sj6P7L1rFMqijwnYuHGLaxBeaqiXGZbyJZdmCo2cqBl3LHEhxq0uTL0KohIkJs00UIP4j4lo",
@@ -31,16 +32,18 @@ export const Checkout: React.FunctionComponent = () => {
   const [clientSecret, setClientSecret] = useState<string | undefined>();
   const navigate = useNavigate();
   const makeOrderMutation = useMakeOrder();
-  const { basket, total } = useBasket();
+  const { basket, total, clearBasket } = useBasket();
 
-  const submitForm = () => {
+  const submitForm = (formUser: User) => {
     makeOrderMutation.mutate({
-      user_id: 1,
+      user_id: formUser?.id,
       order_details: basket.map((item) => ({
         product_platform_id: item.product.id,
         quantity: item.quantity,
       })),
+      deliveryOption: deliveryOption,
     });
+    clearBasket();
     navigate("/order-placed");
   };
 

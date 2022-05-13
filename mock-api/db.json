@@ -7,11 +7,11 @@
       "last_name": "Fisk",
       "password": "password",
       "address": {
-        "house_number": "",
-        "road_name": "",
-        "city": "",
-        "county": "",
-        "postcode": ""
+        "house_number": "23r",
+        "road_name": "23r",
+        "city": "23r",
+        "county": "23rt",
+        "postcode": "23r32r"
       }
     }
   ],

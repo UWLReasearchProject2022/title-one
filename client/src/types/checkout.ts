@@ -1,3 +1,5 @@
+import { DeliveryOption } from "types";
+
 export type CheckoutInputs = {
   surname: string;
   other_names: string;
@@ -13,6 +15,7 @@ export type OrderDetails = {
 };
 
 export type MakeOrder = {
-  user_id: number;
+  user_id?: number;
   order_details: OrderDetails[];
+  deliveryOption: DeliveryOption;
 };
