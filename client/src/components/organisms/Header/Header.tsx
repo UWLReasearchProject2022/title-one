@@ -51,7 +51,7 @@ export const Header: React.FunctionComponent = () => {
       />
       <Link to="/">
         <Logo
-          src={`${BASE_URL}logos/title-one-full-logo.svg`}
+          src={`${BASE_URL}/logos/title-one-full-logo.svg`}
           alt="title-one-full-logo"
         />
       </Link>
