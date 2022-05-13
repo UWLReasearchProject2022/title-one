@@ -17,12 +17,12 @@ export default [
     title: "About you",
     config: [
       {
-        key: "first_name",
+        key: "other_names",
         label: "First name",
         component: SplitInputFC,
       },
       {
-        key: "last_name",
+        key: "surname",
         label: "Last name",
         component: SplitInputFC,
       },

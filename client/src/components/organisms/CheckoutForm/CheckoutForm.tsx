@@ -72,7 +72,7 @@ export const CheckoutForm: React.FunctionComponent<Props> = ({
   }, [user]);
 
   const updateValue = (key: keyof User, data: string | Address) => {
-    if (key !== "id") {
+    if (key !== "user_id") {
       const newValue = { ...formData };
       if (key === "address") {
         newValue.address = data as Address;
