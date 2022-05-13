@@ -21,7 +21,7 @@ export const ProductGrid: React.FunctionComponent<Props> = ({
   const { products, isLoading, error } = useProducts();
 
   const options = {
-    keys: ["name", "description"],
+    keys: ["product.name", "product.description", "product.developer"],
   };
 
   const fuse = products && new Fuse(products, options);
