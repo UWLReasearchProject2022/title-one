@@ -54,13 +54,13 @@ export const AddToBasket: React.FunctionComponent<Props> = ({
   };
 
   const inStock = (): boolean => {
-    return productPlatform.quantity > formData.quantity;
+    return productPlatform.quantity >= formData.quantity;
   };
 
   return (
     <Container>
-      <Section style={{ justifyContent: "center" }}>
-        <Text>Add to basket</Text>
+      <Section>
+        <Text style={{ fontSize: "18px" }}>Add to basket</Text>
       </Section>
       <Divider />
       <Section>
@@ -170,7 +170,7 @@ export const AddToBasket: React.FunctionComponent<Props> = ({
             onClick={handleAdd}
             variant="contained"
             color="secondary"
-            disabled={productPlatform.quantity < formData.quantity}
+            disabled={!inStock()}
           >
             Add to basket
           </AddToBasketButton>

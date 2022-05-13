@@ -6,25 +6,15 @@ import {
   DropdownItem,
   Text,
   SubText,
-  PriceContainer,
+  SubContainer,
   PayNowButton,
+  TextRow,
 } from "./CheckoutOptions.styles";
 import { Divider } from "@mui/material";
-import { deliveryOptions } from "./config";
+import deliveryOptions from "utils/deliveryOptions";
 import { DeliveryOption } from "types";
 import { useNavigate } from "react-router-dom";
-
-const getDeliveryFromKey = (key: string): DeliveryOption | undefined => {
-  let deliveryOption;
-  deliveryOptions.some((option) => {
-    if (option.key === key) {
-      deliveryOption = option;
-      return true;
-    }
-    return false;
-  });
-  return deliveryOption;
-};
+import { getDeliveryFromKey } from "utils/helpers";
 
 type Props = {
   basketTotal: number;
@@ -34,7 +24,7 @@ export const CheckoutOptions: React.FunctionComponent<Props> = ({
   basketTotal,
 }) => {
   const navigate = useNavigate();
-  const initialDelivery = getDeliveryFromKey("first_class");
+  const initialDelivery = getDeliveryFromKey("first_class", deliveryOptions);
   const [delivery, setDelivery] = useState<DeliveryOption>(
     initialDelivery ? initialDelivery : deliveryOptions[0],
   );
@@ -42,7 +32,7 @@ export const CheckoutOptions: React.FunctionComponent<Props> = ({
   const handleDeliveryChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    const newValue = getDeliveryFromKey(event.target.value);
+    const newValue = getDeliveryFromKey(event.target.value, deliveryOptions);
     newValue && setDelivery(newValue);
   };
 
@@ -52,8 +42,8 @@ export const CheckoutOptions: React.FunctionComponent<Props> = ({
 
   return (
     <Container>
-      <Section style={{ justifyContent: "center" }}>
-        <Text>Checkout and pay</Text>
+      <Section>
+        <Text style={{ fontSize: "18px" }}>Checkout and pay</Text>
       </Section>
       <Divider />
       <Section>
@@ -97,26 +87,40 @@ export const CheckoutOptions: React.FunctionComponent<Props> = ({
         />
       </Section>
       <Divider />
-      <PriceContainer>
-        <SubText
-          style={{ marginBottom: "0.25rem" }}
-        >{`Basket: ${basketTotal.toLocaleString("en-GB", {
-          style: "currency",
-          currency: "GBP",
-        })}`}</SubText>
-        <SubText>{`Delivery: ${delivery.price.toLocaleString("en-GB", {
-          style: "currency",
-          currency: "GBP",
-        })}`}</SubText>
-      </PriceContainer>
-      <PriceContainer>
-        <SubText>{`Total: ${(delivery.price + basketTotal).toLocaleString(
-          "en-GB",
-          {
-            style: "currency",
-            currency: "GBP",
-          },
-        )}`}</SubText>
+      <SubContainer>
+        <TextRow>
+          <SubText>Basket total</SubText>
+          <SubText>
+            {basketTotal.toLocaleString("en-GB", {
+              style: "currency",
+              currency: "GBP",
+            })}
+          </SubText>
+        </TextRow>
+        <TextRow>
+          <SubText>Delivery cost</SubText>
+          <SubText>
+            {delivery.price.toLocaleString("en-GB", {
+              style: "currency",
+              currency: "GBP",
+            })}
+          </SubText>
+        </TextRow>
+      </SubContainer>
+      <Divider />
+      <SubContainer>
+        <TextRow>
+          <SubText style={{ fontSize: "18px" }}>Total</SubText>
+          <SubText style={{ fontSize: "18px" }}>
+            {(delivery.price + basketTotal).toLocaleString("en-GB", {
+              style: "currency",
+              currency: "GBP",
+            })}
+          </SubText>
+        </TextRow>
+      </SubContainer>
+      <Divider />
+      <SubContainer>
         <PayNowButton
           disabled={basketTotal === 0}
           onClick={onCheckoutAndPay}
@@ -125,7 +129,7 @@ export const CheckoutOptions: React.FunctionComponent<Props> = ({
         >
           Checkout and pay
         </PayNowButton>
-      </PriceContainer>
+      </SubContainer>
     </Container>
   );
 };

@@ -1,6 +1,6 @@
 import { DeliveryOption } from "types";
 
-export const deliveryOptions: DeliveryOption[] = [
+const deliveryOptions: DeliveryOption[] = [
   { key: "next_day", text: "Next day (DPD)", price: 5.25, dayOfSet: 1 },
   {
     key: "first_class",
@@ -15,3 +15,5 @@ export const deliveryOptions: DeliveryOption[] = [
     dayOfSet: 5,
   },
 ];
+
+export default deliveryOptions;
