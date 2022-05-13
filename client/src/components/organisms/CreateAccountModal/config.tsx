@@ -13,13 +13,13 @@ const InputFC: React.FunctionComponent<TextFieldProps> = (props) => (
 
 export default [
   {
-    name: "first_name",
+    name: "other_names",
     label: "First name",
     style: { paddingRight: "1rem" },
     component: SplitInputFC,
   },
   {
-    name: "last_name",
+    name: "surname",
     label: "Last name",
     component: SplitInputFC,
   },
