@@ -174,7 +174,8 @@ def upload_stock():
 
 def upload_user():
     url = "/user/"
-    for i in range(random.randint(1, 10)):
+    for i in range(0, 20):
+        print(i)
         r = requests.post(
             BASE_URL + url,
             json={

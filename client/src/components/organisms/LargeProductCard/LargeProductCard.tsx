@@ -31,9 +31,9 @@ export const LargeProductCard: React.FunctionComponent<Props> = ({
           <ProductRating
             readOnly
             precision={0.5}
-            value={productPlatform.product.rating}
+            value={productPlatform.rating}
           />
-          <Description>{`(${productPlatform.product.review_count})`}</Description>
+          <Description>{`(${productPlatform.review_count})`}</Description>
         </RatingContainer>
       </Header>
       <Body>

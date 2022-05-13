@@ -13,8 +13,6 @@ export type Product = {
   age_rating: AgeRating;
   release_date: string;
   reviews: Review[];
-  rating: number;
-  review_count: number;
 };
 
 export type APIPlatform = {
@@ -29,4 +27,6 @@ export type ProductPlatform = {
   platform: APIPlatform;
   product: Product;
   quantity: number;
+  rating: number;
+  review_count: number;
 };

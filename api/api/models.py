@@ -41,7 +41,7 @@ class ProductPlatform(models.Model):
 class Stock(models.Model):
     stock_id = models.AutoField(primary_key=True)
     product_platform_id = models.ForeignKey(
-        "ProductPlatform", on_delete=models.CASCADE)
+        "ProductPlatform", on_delete=models.CASCADE, related_name="stock")
     isSold = models.BooleanField(default=False)
 
 
@@ -58,10 +58,10 @@ class Order(models.Model):
     date_ordered = models.DateTimeField(auto_now_add=True)
     date_shipped = models.DateTimeField(auto_now_add=True, null=True)
     date_delivered = models.DateTimeField(auto_now_add=True, null=True)
-    user_id = models.ForeignKey("User", on_delete=models.CASCADE)
+    user_id = models.ForeignKey("Customer", on_delete=models.CASCADE)
 
 
-class User(models.Model):
+class Customer(models.Model):
     user_id = models.AutoField(primary_key=True)
     email = models.CharField(max_length=255)
     surname = models.CharField(max_length=255)
@@ -72,13 +72,16 @@ class User(models.Model):
     username = models.CharField(max_length=255)
     password = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.email
+
 
 class Review(models.Model):
     review_id = models.AutoField(primary_key=True)
     product_id = models.ForeignKey(
         "Product", on_delete=models.CASCADE, related_name="reviews"
     )
-    user_id = models.ForeignKey("User", on_delete=models.CASCADE)
+    user_id = models.ForeignKey("Customer", on_delete=models.CASCADE)
     game_play = models.IntegerField(null=True)
     social = models.IntegerField(null=True)
     graphics = models.IntegerField(null=True)
