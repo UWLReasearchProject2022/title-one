@@ -8,98 +8,153 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Customer',
+            name="Customer",
             fields=[
-                ('user_id', models.AutoField(primary_key=True, serialize=False)),
-                ('email', models.CharField(max_length=255)),
-                ('surname', models.CharField(max_length=255)),
-                ('other_names', models.CharField(max_length=255)),
-                ('house_number', models.CharField(max_length=255, null=True)),
-                ('road_name', models.CharField(max_length=255, null=True)),
-                ('city', models.CharField(max_length=255, null=True)),
-                ('county', models.CharField(max_length=255, null=True)),
-                ('postcode', models.CharField(max_length=255, null=True)),
-                ('password', models.CharField(max_length=255)),
+                ("user_id", models.AutoField(primary_key=True, serialize=False)),
+                ("email", models.CharField(max_length=255)),
+                ("surname", models.CharField(max_length=255)),
+                ("other_names", models.CharField(max_length=255)),
+                ("house_number", models.CharField(max_length=255, null=True)),
+                ("road_name", models.CharField(max_length=255, null=True)),
+                ("city", models.CharField(max_length=255, null=True)),
+                ("county", models.CharField(max_length=255, null=True)),
+                ("postcode", models.CharField(max_length=255, null=True)),
+                ("password", models.CharField(max_length=255)),
             ],
         ),
         migrations.CreateModel(
-            name='Order',
+            name="Order",
             fields=[
-                ('order_id', models.AutoField(primary_key=True, serialize=False)),
-                ('date_ordered', models.DateTimeField(auto_now_add=True)),
-                ('date_shipped', models.DateTimeField(auto_now_add=True, null=True)),
-                ('date_delivered', models.DateTimeField(auto_now_add=True, null=True)),
-                ('user_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.customer')),
+                ("order_id", models.AutoField(primary_key=True, serialize=False)),
+                ("date_ordered", models.DateTimeField(auto_now_add=True)),
+                ("date_shipped", models.DateTimeField(auto_now_add=True, null=True)),
+                ("date_delivered", models.DateTimeField(auto_now_add=True, null=True)),
+                (
+                    "user_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="api.customer"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Platform',
+            name="Platform",
             fields=[
-                ('platform_id', models.AutoField(primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=255)),
+                ("platform_id", models.AutoField(primary_key=True, serialize=False)),
+                ("name", models.CharField(max_length=255)),
             ],
         ),
         migrations.CreateModel(
-            name='Product',
+            name="Product",
             fields=[
-                ('product_id', models.AutoField(primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=255)),
-                ('short_description', models.TextField(default='')),
-                ('long_description', models.TextField(default='')),
-                ('description', models.TextField(default='')),
-                ('developer', models.CharField(max_length=255)),
-                ('developer_logo_url', models.CharField(default='', max_length=2083)),
-                ('image_url', models.CharField(max_length=2083)),
-                ('release_date', models.DateField(null=True)),
-                ('age_rating', models.CharField(default='18+', max_length=255)),
-                ('category', models.CharField(default='action', max_length=255)),
+                ("product_id", models.AutoField(primary_key=True, serialize=False)),
+                ("name", models.CharField(max_length=255)),
+                ("short_description", models.TextField(default="")),
+                ("long_description", models.TextField(default="")),
+                ("description", models.TextField(default="")),
+                ("developer", models.CharField(max_length=255)),
+                ("developer_logo_url", models.CharField(default="", max_length=2083)),
+                ("image_url", models.CharField(max_length=2083)),
+                ("release_date", models.DateField(null=True)),
+                ("age_rating", models.CharField(default="18+", max_length=255)),
+                ("category", models.CharField(default="action", max_length=255)),
             ],
         ),
         migrations.CreateModel(
-            name='ProductPlatform',
+            name="ProductPlatform",
             fields=[
-                ('product_platform_id', models.AutoField(primary_key=True, serialize=False)),
-                ('price', models.FloatField()),
-                ('is_featured', models.BooleanField(default=False)),
-                ('platform', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='platform', to='api.platform')),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='product1', to='api.product')),
+                (
+                    "product_platform_id",
+                    models.AutoField(primary_key=True, serialize=False),
+                ),
+                ("price", models.FloatField()),
+                ("is_featured", models.BooleanField(default=False)),
+                (
+                    "platform",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="platform",
+                        to="api.platform",
+                    ),
+                ),
+                (
+                    "product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="product1",
+                        to="api.product",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Stock',
+            name="Stock",
             fields=[
-                ('stock_id', models.AutoField(primary_key=True, serialize=False)),
-                ('isSold', models.BooleanField(default=False)),
-                ('product_platform_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='stock', to='api.productplatform')),
+                ("stock_id", models.AutoField(primary_key=True, serialize=False)),
+                ("isSold", models.BooleanField(default=False)),
+                (
+                    "product_platform_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="stock",
+                        to="api.productplatform",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Review',
+            name="Review",
             fields=[
-                ('review_id', models.AutoField(primary_key=True, serialize=False)),
-                ('game_play', models.IntegerField(null=True)),
-                ('social', models.IntegerField(null=True)),
-                ('graphics', models.IntegerField(null=True)),
-                ('value', models.IntegerField(null=True)),
-                ('overall', models.IntegerField(null=True)),
-                ('date_reviewed', models.DateTimeField(auto_now_add=True)),
-                ('positive', models.TextField(default='')),
-                ('negative', models.TextField(default='')),
-                ('product_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='reviews', to='api.product')),
-                ('user_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.customer')),
+                ("review_id", models.AutoField(primary_key=True, serialize=False)),
+                ("game_play", models.IntegerField(null=True)),
+                ("social", models.IntegerField(null=True)),
+                ("graphics", models.IntegerField(null=True)),
+                ("value", models.IntegerField(null=True)),
+                ("overall", models.IntegerField(null=True)),
+                ("date_reviewed", models.DateTimeField(auto_now_add=True)),
+                ("positive", models.TextField(default="")),
+                ("negative", models.TextField(default="")),
+                (
+                    "product_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="reviews",
+                        to="api.product",
+                    ),
+                ),
+                (
+                    "user_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="api.customer"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='OrderDetails',
+            name="OrderDetails",
             fields=[
-                ('order_details_id', models.AutoField(primary_key=True, serialize=False)),
-                ('order_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='order_details', to='api.order')),
-                ('stock_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.stock')),
+                (
+                    "order_details_id",
+                    models.AutoField(primary_key=True, serialize=False),
+                ),
+                (
+                    "order_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="order_details",
+                        to="api.order",
+                    ),
+                ),
+                (
+                    "stock_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="api.stock"
+                    ),
+                ),
             ],
         ),
     ]

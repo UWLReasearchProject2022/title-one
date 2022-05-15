@@ -40,8 +40,7 @@ router.register(r"product", views.ProductViewset, basename="product")
 router.register(r"platform", views.PlatformViewset, basename="platform")
 router.register(r"order", views.OrderViewset, basename="order")
 router.register(r"stock", views.StockViewset, basename="stock")
-router.register(r"order_detail", views.OrderDetailsViewset,
-                basename="order_detail")
+router.register(r"order_detail", views.OrderDetailsViewset, basename="order_detail")
 router.register(
     r"product_platform", views.ProductPlatformViewset, basename="product_platform"
 )

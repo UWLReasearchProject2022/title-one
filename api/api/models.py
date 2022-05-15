@@ -18,7 +18,6 @@ class Product(models.Model):
     age_rating = models.CharField(max_length=255, default="18+")
     category = models.CharField(max_length=255, default="action")
 
-
     def __str__(self):
         return self.name
 
@@ -43,7 +42,8 @@ class ProductPlatform(models.Model):
 class Stock(models.Model):
     stock_id = models.AutoField(primary_key=True)
     product_platform_id = models.ForeignKey(
-        "ProductPlatform", on_delete=models.CASCADE, related_name="stock")
+        "ProductPlatform", on_delete=models.CASCADE, related_name="stock"
+    )
     isSold = models.BooleanField(default=False)
 
 

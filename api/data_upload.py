@@ -14,8 +14,6 @@ import pandas as pd
 import json
 
 
-
-
 DATABASE_DELETION_KEY = "Production.. am I right?"
 
 import names
@@ -80,23 +78,22 @@ def upload_product():
 
     for record in data:
         record["release_date"] = datetime.now().strftime("%Y-%m-%d")
-       
-        r = requests.post(
-            BASE_URL + url,
-            data= record
-        )
+
+        r = requests.post(BASE_URL + url, data=record)
         try:
             r.raise_for_status()
         except requests.exceptions.HTTPError as e:
             print(record)
-            #save the record as json file using json library
-            
-            
+            # save the record as json file using json library
+
             # record looks fine to me but returns 400.
 
             raise e
+
+
 ##########################
 #########################
+
 
 def upload_platform():
     url = "/platform/"
@@ -105,7 +102,6 @@ def upload_platform():
         r = requests.post(BASE_URL + url, json={"name": name})
         r.raise_for_status()
     print("Uploaded platforms")
-
 
 
 def upload_product_platform():
@@ -128,8 +124,7 @@ def upload_product_platform():
                 "product_id": prod,
                 "platform_id": plat,
                 "price": random.choice(PRICES),
-                "is_featured" : i % 50 == 0, # 1 in 50 chance of being featured
-                
+                "is_featured": i % 50 == 0,  # 1 in 50 chance of being featured
             },
         )
 
@@ -244,10 +239,10 @@ def upload_review():
     users = [x["user_id"] for x in users]
 
     for product, _ in itertools.product(products, range(5)):
-        game_play = random.randint(1, 10),
-        social = random.randint(1, 10),
-        graphics = random.randint(1, 10),
-        value = random.randint(1, 10),
+        game_play = (random.randint(1, 10),)
+        social = (random.randint(1, 10),)
+        graphics = (random.randint(1, 10),)
+        value = (random.randint(1, 10),)
         body = {
             "product_id": product,
             "user_id": random.choice(users),
@@ -256,9 +251,7 @@ def upload_review():
             "social": social[0],
             "graphics": graphics[0],
             "value": value[0],
-            "overall": (
-                (game_play[0] + social[0] + graphics[0] + value[0]) / 4
-            ),
+            "overall": ((game_play[0] + social[0] + graphics[0] + value[0]) / 4),
             "positive": random.choice(POSITIVE),
             "negative": random.choice(NEGATIVE),
         }
@@ -277,8 +270,9 @@ def upload_review():
 
 def clear_db():
     url = "/clear"
-    r = requests.get(BASE_URL + url, params = {"key": DATABASE_DELETION_KEY })
+    r = requests.get(BASE_URL + url, params={"key": DATABASE_DELETION_KEY})
     r.raise_for_status()
+
 
 if __name__ == "__main__":
     clear_db()

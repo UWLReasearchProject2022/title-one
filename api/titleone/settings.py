@@ -26,7 +26,7 @@ DATABASE_DELETION_KEY = "Production.. am I right?"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # os.environ["ENVIRONMENT"] = "development"
-#TODO fix 
+# TODO fix
 
 DEBUG = True if os.environ["ENVIRONMENT"] == "development" else False
 

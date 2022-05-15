@@ -95,9 +95,13 @@ class ProductPlatformViewset(ModelViewSet):
     serializer_class = ProductPlatformSerializer
 
     def list(self, request):
-        if featured := request.query_params.get("featured") or request.query_params.get("isFeatured") or request.query_params.get("is_featured") or request.query_params.get("Featured"):
-            queryset = ProductPlatform.objects.filter(
-                is_featured=bool(featured))
+        if (
+            featured := request.query_params.get("featured")
+            or request.query_params.get("isFeatured")
+            or request.query_params.get("is_featured")
+            or request.query_params.get("Featured")
+        ):
+            queryset = ProductPlatform.objects.filter(is_featured=bool(featured))
 
         else:
             queryset = ProductPlatform.objects.all()
@@ -111,9 +115,11 @@ class ProductPlatformViewset(ModelViewSet):
         new_product_platform = ProductPlatform.objects.create(
             price=product_platform_data["price"],
             product=self.product_queryset.get(
-                product_id=product_platform_data["product_id"]),
+                product_id=product_platform_data["product_id"]
+            ),
             platform=Platform.objects.get(
-                platform_id=product_platform_data["platform_id"]),
+                platform_id=product_platform_data["platform_id"]
+            ),
             is_featured=product_platform_data["is_featured"],
         )
 
@@ -147,8 +153,7 @@ class OrderViewset(ModelViewSet):
         # get all orders for Customer
 
         if user_id is not None:
-            user_orders = Order.objects.filter(
-                user_id=user_id).values_list("order_id")
+            user_orders = Order.objects.filter(user_id=user_id).values_list("order_id")
             if not user_orders:
                 return JsonResponse([], safe=False)
         else:
@@ -178,13 +183,15 @@ class OrderViewset(ModelViewSet):
             },
             inplace=True,
         )
-        product_count_by_order = (order.groupby(
-            ["order_id",
-             "product_platform_id"]).size().to_frame("quantity").reset_index())
+        product_count_by_order = (
+            order.groupby(["order_id", "product_platform_id"])
+            .size()
+            .to_frame("quantity")
+            .reset_index()
+        )
         order_data = product_count_by_order.to_dict("records")
         order_data = [
-            list(v)
-            for k, v in groupby(order_data, key=lambda x: x["order_id"])
+            list(v) for k, v in groupby(order_data, key=lambda x: x["order_id"])
         ]
 
         # this is f horrible code, but it works
@@ -206,15 +213,13 @@ class OrderViewset(ModelViewSet):
 
         user_id = order_data["user_id"]
         order_details = order_data["order_details"]
-        created = Order.objects.create(user_id=Customer.objects.get(
-            user_id=user_id))
+        created = Order.objects.create(user_id=Customer.objects.get(user_id=user_id))
 
         for product in order_details:
             prod_id = product["product_platform_id"]
             quantity = product["quantity"]
 
-            stocks = Stock.objects.filter(
-                product_platform_id=prod_id)[:quantity]
+            stocks = Stock.objects.filter(product_platform_id=prod_id)[:quantity]
 
             for stock in stocks:
                 OrderDetails.objects.create(order_id=created, stock_id=stock)
@@ -247,9 +252,7 @@ class ReviewViewset(ModelViewSet):
         review_data = request.data
 
         new_review = Review.objects.create(
-            product_id=Product.objects.get(
-                product_id=review_data["product_id"]
-            ),
+            product_id=Product.objects.get(product_id=review_data["product_id"]),
             user_id=Customer.objects.get(user_id=review_data["user_id"]),
             game_play=review_data["game_play"],
             social=review_data["social"],
