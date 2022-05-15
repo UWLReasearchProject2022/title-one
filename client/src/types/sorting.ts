@@ -1,6 +1,9 @@
-import { Product, Review } from "types";
+import { ProductPlatform, Review } from "types";
 
-export type ProductSortAlgorithm = (_: Product, __: Product) => number;
+export type ProductSortAlgorithm = (
+  _: ProductPlatform,
+  __: ProductPlatform,
+) => number;
 
 export type ReviewSortAlgorithm = (_: Review, __: Review) => number;
 

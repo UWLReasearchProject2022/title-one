@@ -1,8 +1,8 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { Product } from "types";
+import { ProductPlatform } from "types";
 
 export type TabComponentProps = {
-  product: Product;
+  productPlatform: ProductPlatform;
   reviewsSortBy: string;
   reviewsSetSortBy: Dispatch<SetStateAction<string>>;
   textExpanded: boolean;

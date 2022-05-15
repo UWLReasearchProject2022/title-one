@@ -1,4 +1,4 @@
-import { Product, Review, Sort } from "types";
+import { ProductPlatform, Review, Sort } from "types";
 import { parseDate } from "utils/helpers";
 
 export const getSortAlgorithm = (sorts: Sort[], key: string) => {
@@ -12,17 +12,18 @@ export const productSort: Sort[] = [
   {
     key: "price-asc",
     name: "Price (Low to High)",
-    algorithm: (a: Product, b: Product) => a.price - b.price,
+    algorithm: (a: ProductPlatform, b: ProductPlatform) => a.price - b.price,
   },
   {
     key: "price-desc",
     name: "Price (High to Low)",
-    algorithm: (a: Product, b: Product) => b.price - a.price,
+    algorithm: (a: ProductPlatform, b: ProductPlatform) => b.price - a.price,
   },
   {
     key: "name-asc",
     name: "Name (A to Z)",
-    algorithm: (a: Product, b: Product) => a.name.localeCompare(b.name),
+    algorithm: (a: ProductPlatform, b: ProductPlatform) =>
+      a.product.name.localeCompare(b.product.name),
   },
 ];
 
@@ -41,12 +42,14 @@ export const reviewSort: Sort[] = [
     key: "date-asc",
     name: "Date (Old to New)",
     algorithm: (a: Review, b: Review) =>
-      parseDate(a.date).getTime() - parseDate(b.date).getTime(),
+      parseDate(a.date_reviewed).getTime() -
+      parseDate(b.date_reviewed).getTime(),
   },
   {
     key: "date-desc",
     name: "Date (New to Old)",
     algorithm: (a: Review, b: Review) =>
-      parseDate(b.date).getTime() - parseDate(a.date).getTime(),
+      parseDate(b.date_reviewed).getTime() -
+      parseDate(a.date_reviewed).getTime(),
   },
 ];

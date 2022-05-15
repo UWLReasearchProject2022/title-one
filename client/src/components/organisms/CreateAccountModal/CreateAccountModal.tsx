@@ -17,8 +17,8 @@ import { useUserData } from "hooks";
 import { useSnackbar } from "notistack";
 
 type Errors = {
-  first_name: string;
-  last_name: string;
+  other_names: string;
+  surname: string;
   email: string;
   password: string;
 };
@@ -28,8 +28,8 @@ export const CreateAccountModal: React.FunctionComponent<ModalProps> = ({
   setOpen,
 }) => {
   const initialErrors = {
-    first_name: " ",
-    last_name: " ",
+    other_names: " ",
+    surname: " ",
     email: " ",
     password: " ",
   };
@@ -58,21 +58,21 @@ export const CreateAccountModal: React.FunctionComponent<ModalProps> = ({
     event.preventDefault();
 
     const newErrors: Errors = {
-      first_name: " ",
-      last_name: " ",
+      other_names: " ",
+      surname: " ",
       email: " ",
       password: " ",
     };
 
     const formData = new FormData(event.currentTarget);
-    const first_name = formData.get("first_name") as string;
-    const last_name = formData.get("last_name") as string;
+    const other_names = formData.get("other_names") as string;
+    const surname = formData.get("surname") as string;
     const email = formData.get("email") as string;
 
-    newErrors.first_name = isBlank(first_name) ? "Please complete" : " ";
-    newErrors.last_name = isBlank(last_name) ? "Please complete" : " ";
+    newErrors.other_names = isBlank(other_names) ? "Please complete" : " ";
+    newErrors.surname = isBlank(surname) ? "Please complete" : " ";
 
-    if (newErrors.first_name === " " && newErrors.last_name === " ") {
+    if (newErrors.other_names === " " && newErrors.surname === " ") {
       if (!validateEmail(email)) {
         newErrors.email = "Invalid email";
       } else {
@@ -81,8 +81,8 @@ export const CreateAccountModal: React.FunctionComponent<ModalProps> = ({
           newErrors.email = "Email already registered";
         } else {
           addUser({
-            first_name: first_name,
-            last_name: last_name,
+            other_names: other_names,
+            surname: surname,
             email: email,
             password: formData.get("password") as string,
             address: {

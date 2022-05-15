@@ -5,6 +5,8 @@ export * from "./Filters";
 export * from "./BasketTable";
 export * from "./DetailTabs";
 export * from "./LargeProductCard";
+export * from "./CheckoutForm";
+export * from "./OrderSummary";
 export * from "./SignInModal";
 export * from "./Footer";
 export * from "./FeaturedGames";

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BasketItem, Product } from "types";
+import { BasketItem, ProductPlatform } from "types";
 
 export const useBasket = () => {
   const [basket, setBasket] = useState<BasketItem[]>(() => {
@@ -18,14 +18,18 @@ export const useBasket = () => {
     }
   });
 
-  const addToBasket = (product: Product) => {
+  const addToBasket = (productPlatform: ProductPlatform) => {
     try {
       const newBasket = [...basket];
-      const item = newBasket.find((item) => item.product.id === product.id);
+      const item = newBasket.find(
+        (item) =>
+          item.productPlatform.product_platform_id ===
+          productPlatform.product_platform_id,
+      );
       if (item) {
         item.quantity++;
       } else {
-        newBasket.push({ product, quantity: 1 });
+        newBasket.push({ productPlatform, quantity: 1 });
       }
       // Save state
       setBasket(newBasket);
@@ -40,7 +44,9 @@ export const useBasket = () => {
 
   const removeFromBasket = (productId: number) => {
     try {
-      const newBasket = basket.filter((item) => item.product.id !== productId);
+      const newBasket = basket.filter(
+        (item) => item.productPlatform.product_platform_id !== productId,
+      );
       setBasket(newBasket);
       if (typeof window !== "undefined") {
         window.localStorage.setItem("basket", JSON.stringify(newBasket));
@@ -50,10 +56,22 @@ export const useBasket = () => {
     }
   };
 
+  const clearBasket = () => {
+    try {
+      const newBasket: BasketItem[] = [];
+      setBasket(newBasket);
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem("basket", "[]");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const setQuantity = (productId: number, quantity: number) => {
     try {
       const newBasket = basket.map((item) => {
-        if (item.product.id === productId) {
+        if (item.productPlatform.product_platform_id === productId) {
           item.quantity = quantity;
         }
         return item;
@@ -68,8 +86,15 @@ export const useBasket = () => {
   };
 
   const total = basket.reduce((total, item) => {
-    return total + item.product.price * item.quantity;
+    return total + item.productPlatform.price * item.quantity;
   }, 0);
 
-  return { basket, total, addToBasket, removeFromBasket, setQuantity };
+  return {
+    basket,
+    total,
+    addToBasket,
+    removeFromBasket,
+    setQuantity,
+    clearBasket,
+  };
 };

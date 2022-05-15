@@ -1,7 +1,6 @@
 import React from "react";
 import { TabComponentProps, ReviewSortAlgorithm } from "types";
-import { useReviews } from "queries";
-import { Loading, Error, RatingBreakdown, SortBy } from "components";
+import { Error, RatingBreakdown, SortBy } from "components";
 import {
   Container,
   ReviewsContainer,
@@ -27,12 +26,11 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { reviewSort, getSortAlgorithm } from "utils/sorting";
 
 export const CustomerReviews: React.FunctionComponent<TabComponentProps> = ({
-  product,
+  productPlatform,
   reviewsSortBy,
   reviewsSetSortBy,
 }) => {
-  const { reviews, isLoading, error } = useReviews(product.id);
-
+  const reviews = productPlatform.product.reviews;
   const sortReviews = () => {
     return reviews?.sort(
       getSortAlgorithm(reviewSort, reviewsSortBy) as ReviewSortAlgorithm,
@@ -41,9 +39,7 @@ export const CustomerReviews: React.FunctionComponent<TabComponentProps> = ({
 
   return (
     <>
-      {isLoading ? (
-        <Loading />
-      ) : reviews && !error && reviews?.length !== 0 ? (
+      {reviews && reviews?.length !== 0 ? (
         <Container>
           <Header>
             <Text>
@@ -63,7 +59,7 @@ export const CustomerReviews: React.FunctionComponent<TabComponentProps> = ({
                 <OverviewContainer>
                   <UserDetails>
                     <AccountIcon fontSize="large" />
-                    <UserText>{review.name}</UserText>
+                    <UserText>{review.user.other_names}</UserText>
                   </UserDetails>
                   <RatingContainer>
                     <OverallRating
@@ -88,10 +84,12 @@ export const CustomerReviews: React.FunctionComponent<TabComponentProps> = ({
                   </CommentContainer>
                 </CommentsContainer>
                 <DatesContainer>
-                  <DateText
-                    style={{ padding: 0 }}
-                  >{`Date of review: ${review.date}`}</DateText>
-                  <DateText>{`Date of purchase: ${review.date}`}</DateText>
+                  <DateText style={{ padding: 0 }}>{`Date of review: ${new Date(
+                    review.date_reviewed,
+                  ).toLocaleDateString("en-GB")}`}</DateText>
+                  <DateText>{`Date of purchase: ${new Date(
+                    review.date_reviewed,
+                  ).toLocaleDateString("en-GB")}`}</DateText>
                 </DatesContainer>
               </ReviewsContainer>
             </div>

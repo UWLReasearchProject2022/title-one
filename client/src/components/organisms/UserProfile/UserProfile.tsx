@@ -26,8 +26,8 @@ type FormValue = User & {
 };
 
 type Errors = {
-  first_name: string;
-  last_name: string;
+  other_names: string;
+  surname: string;
   email: string;
   password: string;
   new_password: string;
@@ -36,7 +36,7 @@ type Errors = {
 export const UserProfile: React.FunctionComponent<AccountPageProps> = ({
   user,
 }) => {
-  if (!user.id) return null;
+  if (!user.user_id) return null;
 
   const initialValue: FormValue = {
     ...user,
@@ -45,20 +45,20 @@ export const UserProfile: React.FunctionComponent<AccountPageProps> = ({
   };
 
   const initialErrors: Errors = {
-    first_name: " ",
-    last_name: " ",
+    other_names: " ",
+    surname: " ",
     email: " ",
     password: " ",
     new_password: " ",
   };
   const { enqueueSnackbar } = useSnackbar();
-  const { mutate } = useUpdateUser(user.id);
+  const { mutate } = useUpdateUser(user.user_id);
   const { dispatchUserData } = useUserData();
   const [value, setValue] = useState<FormValue>(initialValue);
   const [errors, setErrors] = useState<Errors>(initialErrors);
 
   const updateValue = (key: keyof FormValue, data: string | Address) => {
-    if (key !== "id") {
+    if (key !== "user_id") {
       const newValue = { ...value };
       if (key === "address") {
         newValue.address = data as Address;
@@ -71,8 +71,10 @@ export const UserProfile: React.FunctionComponent<AccountPageProps> = ({
 
   const handleSubmit = async () => {
     const newErrors = initialErrors;
-    newErrors.first_name = isBlank(value.first_name) ? "Please complete" : " ";
-    newErrors.last_name = isBlank(value.last_name) ? "Please complete" : " ";
+    newErrors.other_names = isBlank(value.other_names)
+      ? "Please complete"
+      : " ";
+    newErrors.surname = isBlank(value.surname) ? "Please complete" : " ";
     if (user.email !== value.email) {
       if (!validateEmail(value.email)) {
         newErrors.email = "Invalid email";
@@ -104,9 +106,9 @@ export const UserProfile: React.FunctionComponent<AccountPageProps> = ({
 
   const updateUser = (updatedValue: FormValue) => {
     const updatedUser: User = {
-      id: updatedValue.id,
-      first_name: updatedValue.first_name,
-      last_name: updatedValue.last_name,
+      user_id: updatedValue.user_id,
+      other_names: updatedValue.other_names,
+      surname: updatedValue.surname,
       email: updatedValue.email,
       password:
         updatedValue.new_password === ""
@@ -177,7 +179,7 @@ export const UserProfile: React.FunctionComponent<AccountPageProps> = ({
                         name={input.key}
                         label={input.label}
                         style={
-                          input.key === "first_name"
+                          input.key === "other_names"
                             ? { marginRight: "1rem" }
                             : {}
                         }

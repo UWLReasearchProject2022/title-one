@@ -1,13 +1,13 @@
 import { useQuery } from "react-query";
-import { Product } from "types";
+import { ProductPlatform } from "types";
 
 export const useFeatured = () => {
-  const { data, isLoading, error } = useQuery<Product[], Error>(
+  const { data, isLoading, error } = useQuery<ProductPlatform[], Error>(
     "featured",
     () =>
-      fetch(`${process.env.REACT_APP_API_URL}/products?featured=true`).then(
-        (res) => res.json(),
-      ),
+      fetch(
+        `${process.env.REACT_APP_API_URL}/product_platform?is_featured=True`,
+      ).then((res) => res.json()),
   );
   return {
     products: data,

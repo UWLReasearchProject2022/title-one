@@ -49,10 +49,10 @@ export const Item: React.FunctionComponent = () => {
       ) : product && Object.keys(product).length !== 0 && !error ? (
         <>
           <Container>
-            <LargeProductCard product={product} />
-            <AddToBasket product={product} />
+            <LargeProductCard productPlatform={product} />
+            <AddToBasket productPlatform={product} />
           </Container>
-          <DetailTabs product={product} tabs={detailsTabs} />
+          <DetailTabs productPlatform={product} tabs={detailsTabs} />
         </>
       ) : (
         <Error message="Item not found" />

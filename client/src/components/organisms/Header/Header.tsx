@@ -51,7 +51,7 @@ export const Header: React.FunctionComponent = () => {
       />
       <Link to="/">
         <Logo
-          src={`${BASE_URL}logos/title-one-full-logo.svg`}
+          src={`${BASE_URL}/logos/title-one-full-logo.svg`}
           alt="title-one-full-logo"
         />
       </Link>
@@ -63,7 +63,7 @@ export const Header: React.FunctionComponent = () => {
       ))}
       <RightContainer>
         <UserText color="primary">
-          {user ? `${user.first_name} ${user.last_name}` : "Sign In"}
+          {user ? `${user.other_names} ${user.surname}` : "Sign In"}
         </UserText>
         <IconButton color="primary" onClick={() => onAccountClick()}>
           <AccountIcon />

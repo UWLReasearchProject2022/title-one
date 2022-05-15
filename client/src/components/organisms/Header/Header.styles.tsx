@@ -20,6 +20,7 @@ export const Logo = styled("img")({
 
 export const StyledLink = styled(Link)({
   marginLeft: "4%",
+  textDecoration: "none",
 });
 
 export const ConsoleButton = styled(Button)({

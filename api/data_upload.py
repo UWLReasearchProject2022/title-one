@@ -4,6 +4,8 @@
 import itertools
 from operator import index
 
+from sre_constants import NEGATE
+from sre_parse import CATEGORIES
 from turtle import clear
 import requests
 import random
@@ -16,6 +18,7 @@ import pandas as pd
 
 DATABASE_DELETION_KEY = "Production.. am I right?"
 
+import names
 
 BASE_URL = "http://localhost:4000"
 PRICES = [34.99, 39.99, 44.99, 49.99]
@@ -62,6 +65,27 @@ AGE_RATINGS = ["3+", "7+", "12+", "16+", "18+"]
 
 
 data = pd.read_csv("api/api/data/games.csv").to_dict("records")
+# create an static string array of positive reviews to say about a game using context from the PRODS list
+POSITIVE = [
+    "Great game!",
+    "This game is amazing!",
+    "This game is a must have!",
+    "This game is so good!",
+    "This game is so fun!",
+    "This game is so cool!",
+    "This game is so awesome!",
+    "This game is so unique!",
+]
+
+NEGATIVE = [
+    "This game sucks!",
+    "This game is terrible!",
+    "This game is awful!",
+    "I hate this game!",
+    "This game is boring!",
+    "This game is bad!",
+]
+
 
 ##############################
 ################################
@@ -110,6 +134,18 @@ def upload_product_platform():
 
     print(prod_ids)
 
+    for prod in prod_ids:
+        random.shuffle(platform_ids)
+        for i in range(random.randint(1, 3)):
+            response = requests.post(
+                BASE_URL + url,
+                json={
+                    "product_id": prod,
+                    "platform_id": platform_ids[i],
+                    "price": random.choice(PRICES),
+                    "is_featured": random.choice([True, False]),
+                },
+            )
 
 
     for i, (prod, plat) in itertools.product(prod_ids, platform_ids):
@@ -126,28 +162,6 @@ def upload_product_platform():
 
         response.raise_for_status()
     print("Uploaded product platforms")
-
-
-def upload_product_genre():
-    url = "/product_genre/"
-
-    prod_ids = requests.get(f"{BASE_URL}/product/").json()
-    prod_ids = [x["product_id"] for x in prod_ids]
-
-    genre_ids = requests.get(f"{BASE_URL}/genre/").json()
-    genre_ids = [x["genre_id"] for x in genre_ids]
-
-    for prod in prod_ids:
-        random.shuffle(genre_ids)
-        for i in range(random.randint(1, 2)):
-
-            body = {"product_id": prod, "genre_id": genre_ids[i]}
-
-            r = requests.post(
-                BASE_URL + url, json=body, headers={"Content-Type": "application/json"}
-            )
-            r.raise_for_status()
-    print("Uploaded product genres")
 
 
 def upload_stock():
@@ -173,22 +187,29 @@ def upload_stock():
 
 def upload_user():
     url = "/user/"
-    for i in range(random.randint(1, 10)):
+    for i in range(0, 20):
+        print(i)
+        first_name = names.get_first_name()
+        last_name = names.get_last_name()
+        email = f"{first_name.lower()}.{last_name.lower()}@gmail.com"
         r = requests.post(
             BASE_URL + url,
             json={
-                "surname": f"User {str(i)}",
-                "email": f"user{str(i)}@gmail.com",
+                "surname": last_name,
+                "email": email,
                 "password": "password",
-                "address": "address",
-                "phone_number": "phone",
-                "city": "LONDON",
-                "other_names": "James",
-                "username": f"user{str(i)}",
+                "address": {
+                    "house_number": str(random.randint(1, 100)),
+                    "road_name": random.choice(["Test Road", "Test Street", ""]),
+                    "city": random.choice(["Test City", "Test Town", ""]),
+                    "postcode": "TE1 1ST",
+                    "county": random.choice(["Test County", "Test Province", ""]),
+                },
+                "other_names": first_name,
             },
         )
-
         r.raise_for_status()
+
     print("Uploaded users")
 
 
@@ -250,18 +271,23 @@ def upload_review():
     users = [x["user_id"] for x in users]
 
     for product, _ in itertools.product(products, range(5)):
-
+        game_play = random.randint(1, 5),
+        social = random.randint(1, 5),
+        graphics = random.randint(1, 5),
+        value = random.randint(1, 5),
         body = {
             "product_id": product,
             "user_id": random.choice(users),
             "date_reviewed": datetime.now().strftime("%Y-%m-%d"),
-            "game_play": random.randint(1, 5),
-            "social": random.randint(1, 5),
-            "graphics": random.randint(1, 5),
-            "value": random.randint(1, 5),
-            "overall": random.randint(1, 5),
-            "positive": "These are the positive things",
-            "negative": "These are the negative things",
+            "game_play": game_play[0],
+            "social": social[0],
+            "graphics": graphics[0],
+            "value": value[0],
+            "overall": (
+                (game_play[0] + social[0] + graphics[0] + value[0]) / 4
+            ),
+            "positive": random.choice(POSITIVE),
+            "negative": random.choice(NEGATIVE),
         }
         r = requests.post(
             BASE_URL + url,
@@ -289,5 +315,4 @@ if __name__ == "__main__":
     upload_stock()
     upload_user()
     upload_order()
-    # upload_order_detail()
     upload_review()

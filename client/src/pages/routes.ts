@@ -6,6 +6,7 @@ import { Basket } from "./Basket";
 import { Checkout } from "./Checkout";
 import { Account } from "./Account";
 import { AdminPortal } from "./AdminPortal";
+import { OrderPlaced } from "./OrderPlaced";
 
 export type AppRoute = {
   name: string;
@@ -48,5 +49,10 @@ export const routes: AppRoute[] = [
     name: "Admin portal",
     path: "/admin-portal",
     element: AdminPortal,
+  },
+  {
+    name: "Order placed",
+    path: "/order-placed",
+    element: OrderPlaced,
   },
 ];

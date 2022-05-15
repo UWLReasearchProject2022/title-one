@@ -45,7 +45,7 @@ router.register(r"order_detail", views.OrderDetailsViewset,
 router.register(
     r"product_platform", views.ProductPlatformViewset, basename="product_platform"
 )
-router.register(r"user", views.UserViewset, basename="user")
+router.register(r"user", views.CustomerViewset, basename="user")
 router.register(r"review", views.ReviewViewset, basename="review")
 
 # nested product endpoint with developer

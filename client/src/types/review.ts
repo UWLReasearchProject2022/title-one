@@ -1,5 +1,7 @@
+import { User } from "./user";
+
 export type Ratings = {
-  gameplay: number;
+  game_play: number;
   social: number;
   graphics: number;
   value: number;
@@ -7,10 +9,10 @@ export type Ratings = {
 };
 
 export type Review = {
-  id: number;
+  review_id: number;
   product_id: number;
-  name: string;
-  date: string;
+  user: User;
+  date_reviewed: string;
   ratings: Ratings;
   comments: {
     positive: string;

@@ -4,6 +4,7 @@ export * from "./filters";
 export * from "./basket";
 export * from "./tab";
 export * from "./review";
+export * from "./checkout";
 export * from "./basket";
 export * from "./user";
 export * from "./modal";

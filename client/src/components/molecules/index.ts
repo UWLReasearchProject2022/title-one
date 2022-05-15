@@ -6,6 +6,8 @@ export * from "./ProductInformation";
 export * from "./CustomerReviews";
 export * from "./DeliveryAndReturns";
 export * from "./RatingBreakdown";
+export * from "./BasketActions";
+export * from "./SummaryProduct";
 export * from "./Platforms";
 export * from "./Categories";
 export * from "./SmallProductCard";

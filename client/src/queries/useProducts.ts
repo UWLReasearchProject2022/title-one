@@ -1,11 +1,11 @@
 import { useQuery } from "react-query";
-import { Product } from "types";
+import { ProductPlatform } from "types";
 
 export const useProducts = () => {
-  const { data, isLoading, error } = useQuery<Product[], Error>(
+  const { data, isLoading, error } = useQuery<ProductPlatform[], Error>(
     "products",
     () =>
-      fetch(`${process.env.REACT_APP_API_URL}/products`).then((res) =>
+      fetch(`${process.env.REACT_APP_API_URL}/product_platform`).then((res) =>
         res.json(),
       ),
   );

@@ -17,7 +17,7 @@ from .models import (
     Stock,
     OrderDetails,
     Order,
-    User,
+    Customer,
     Review,
 )
 from .serializers import (
@@ -29,7 +29,7 @@ from .serializers import (
     StockSerializer,
     OrderDetailsSerializer,
     OrderSerializer,
-    UserSerializer,
+    CustomerSerializer,
     ReviewSerializer,
 )
 from rest_framework.viewsets import ModelViewSet
@@ -65,7 +65,7 @@ def clear_database(request):
     Stock.objects.all().delete()
     OrderDetails.objects.all().delete()
     Order.objects.all().delete()
-    User.objects.all().delete()
+    Customer.objects.all().delete()
     Review.objects.all().delete()
 
     return HttpResponse("Database cleared")
@@ -114,6 +114,7 @@ class ProductPlatformViewset(ModelViewSet):
                 product_id=product_platform_data["product_id"]),
             platform=Platform.objects.get(
                 platform_id=product_platform_data["platform_id"]),
+            is_featured=product_platform_data["is_featured"],
         )
 
         new_product_platform.save()
@@ -121,8 +122,9 @@ class ProductPlatformViewset(ModelViewSet):
         serializer = ProductPlatformSerializer(new_product_platform)
         return JsonResponse(serializer.data)
 
-    queryset = ProductPlatform.objects.all()
     serializer_class = ProductPlatformSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = ("is_featured",)
 
 
 class StockViewset(ModelViewSet):
@@ -142,7 +144,7 @@ class OrderViewset(ModelViewSet):
     def list(self, request):
         user_id = request.query_params.get("user_id")
 
-        # get all orders for user
+        # get all orders for Customer
 
         if user_id is not None:
             user_orders = Order.objects.filter(
@@ -152,13 +154,13 @@ class OrderViewset(ModelViewSet):
         else:
             user_orders = Order.objects.all().values_list("order_id")
 
-        # get all order details for user
+        # get all order details for Customer
         queryset = OrderDetails.objects.filter(order_id__in=user_orders)
         order_details = pd.DataFrame(queryset.values())
         order_details.rename(columns={"stock_id_id": "stock_id"}, inplace=True)
         # print(order_details)
 
-        # get all stock ids for user
+        # get all stock ids for Customer
         stock_ids = queryset.values_list("stock_id")
         stock_entries = Stock.objects.filter(stock_id__in=stock_ids)
         stocks = pd.DataFrame.from_records(list(stock_entries.values()))
@@ -204,7 +206,7 @@ class OrderViewset(ModelViewSet):
 
         user_id = order_data["user_id"]
         order_details = order_data["order_details"]
-        created = Order.objects.create(user_id=User.objects.get(
+        created = Order.objects.create(user_id=Customer.objects.get(
             user_id=user_id))
 
         for product in order_details:
@@ -221,17 +223,19 @@ class OrderViewset(ModelViewSet):
         return JsonResponse({"order_id": created.order_id})
 
 
-class UserViewset(ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+class CustomerViewset(ModelViewSet):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = ("email", "password")
 
 
 def get_user(request):
     email = request.GET.get("email")
     password = request.GET.get("password")
 
-    user = get_object_or_404(User, email=email, password=password)
-    serializer = UserSerializer(user)
+    Customer = get_object_or_404(Customer, email=email, password=password)
+    serializer = UserSerializer(Customer)
     return JsonResponse(serializer.data)
 
 
@@ -246,7 +250,7 @@ class ReviewViewset(ModelViewSet):
             product_id=Product.objects.get(
                 product_id=review_data["product_id"]
             ),
-            user_id=User.objects.get(user_id=review_data["user_id"]),
+            user_id=Customer.objects.get(user_id=review_data["user_id"]),
             game_play=review_data["game_play"],
             social=review_data["social"],
             graphics=review_data["graphics"],
