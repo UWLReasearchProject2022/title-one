@@ -22,7 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-#*^33k-&2wr8&8oz#6s_km=20q3e32$j4!8&i3szkm=hqa*!i2"
 
+DATABASE_DELETION_KEY = "Production.. am I right?"
+
 # SECURITY WARNING: don't run with debug turned on in production!
+# os.environ["ENVIRONMENT"] = "development"
+# TODO fix
+
 DEBUG = True if os.environ["ENVIRONMENT"] == "development" else False
 
 ALLOWED_HOSTS = ["titleone.azurewebsites.net", "localhost"]

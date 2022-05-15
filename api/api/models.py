@@ -12,6 +12,7 @@ class Product(models.Model):
     long_description = models.TextField(default="")
     description = models.TextField(default="")
     developer = models.CharField(max_length=255)
+    developer_logo_url = models.CharField(max_length=2083, default="a")
     image_url = models.CharField(max_length=2083)
     release_date = models.DateField(null=True)
     age_rating = models.CharField(max_length=255, default="18+")
@@ -41,7 +42,8 @@ class ProductPlatform(models.Model):
 class Stock(models.Model):
     stock_id = models.AutoField(primary_key=True)
     product_platform_id = models.ForeignKey(
-        "ProductPlatform", on_delete=models.CASCADE, related_name="stock")
+        "ProductPlatform", on_delete=models.CASCADE, related_name="stock"
+    )
     isSold = models.BooleanField(default=False)
 
 

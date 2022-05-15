@@ -37,8 +37,7 @@ class CustomerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Customer
-        fields = ["user_id", "email", "surname",
-                  "other_names", "address", "password"]
+        fields = ["user_id", "email", "surname", "other_names", "address", "password"]
 
 
 class CommentsSerializer(serializers.ModelSerializer):
@@ -60,8 +59,7 @@ class ReviewGetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = ["review_id", "ratings",
-                  "user", "date_reviewed", "comments"]
+        fields = ["review_id", "ratings", "user", "date_reviewed", "comments"]
 
 
 class ReviewSerializer(serializers.ModelSerializer):
@@ -88,38 +86,14 @@ class ProductGetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = [
-            "product_id",
-            "name",
-            "short_description",
-            "long_description",
-            "description",
-            "image_url",
-            "developer",
-            "reviews",
-            "category",
-            "age_rating",
-            "release_date",
-        ]
+        fields = "__all__"
         depth = 1
 
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = [
-            "product_id",
-            "name",
-            "short_description",
-            "long_description",
-            "description",
-            "image_url",
-            "developer",
-            "reviews",
-            "category",
-            "age_rating",
-            "release_date",
-        ]
+        fields = "__all__"
         depth = 1
 
 
@@ -135,12 +109,18 @@ class ProductPlatformSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductPlatform
-        fields = "product_platform_id", "platform", "price", "is_featured", "product", "stock",
+        fields = (
+            "product_platform_id",
+            "platform",
+            "price",
+            "is_featured",
+            "product",
+            "stock",
+        )
         depth = 1
 
     def to_representation(self, instance):
-        data = super(ProductPlatformSerializer,
-                     self).to_representation(instance)
+        data = super(ProductPlatformSerializer, self).to_representation(instance)
         data["quantity"] = instance.stock.all().count()
 
         overall_array = []
