@@ -11,7 +11,7 @@ import requests
 import random
 from datetime import datetime
 import pandas as pd
-
+import json
 
 
 
@@ -93,7 +93,7 @@ def upload_product():
     url = "/product/"
 
     for record in data:
-        record["release_date"] = datetime.now()
+        record["release_date"] = datetime.now().strftime("%Y-%m-%d")
        
         r = requests.post(
             BASE_URL + url,
@@ -103,6 +103,9 @@ def upload_product():
             r.raise_for_status()
         except requests.exceptions.HTTPError as e:
             print(record)
+            #save the record as json file using json library
+            
+            
             # record looks fine to me but returns 400.
 
             raise e
@@ -132,23 +135,7 @@ def upload_product_platform():
     platform_ids = requests.get(BASE_URL + "/platform/").json()
     platform_ids = [x["platform_id"] for x in platform_ids]
 
-    print(prod_ids)
-
-    for prod in prod_ids:
-        random.shuffle(platform_ids)
-        for i in range(random.randint(1, 3)):
-            response = requests.post(
-                BASE_URL + url,
-                json={
-                    "product_id": prod,
-                    "platform_id": platform_ids[i],
-                    "price": random.choice(PRICES),
-                    "is_featured": random.choice([True, False]),
-                },
-            )
-
-
-    for i, (prod, plat) in itertools.product(prod_ids, platform_ids):
+    for i, (prod, plat) in enumerate(itertools.product(prod_ids, platform_ids)):
         response = requests.post(
             BASE_URL + url,
             json={
@@ -174,7 +161,7 @@ def upload_stock():
     if not platform_ids:
         raise ValueError("No platform prod in the database")
 
-    for plat, _ in itertools.product(platform_ids, range(10)):
+    for plat, _ in itertools.product(platform_ids, range(1)):
         r = requests.post(
             BASE_URL + url,
             json={
@@ -304,8 +291,8 @@ def upload_review():
 
 def clear_db():
     url = "/clear"
-    requests.get(BASE_URL + url, params = {"key": DATABASE_DELETION_KEY })
-
+    r = requests.get(BASE_URL + url, params = {"key": DATABASE_DELETION_KEY })
+    r.raise_for_status()
 
 if __name__ == "__main__":
     clear_db()
