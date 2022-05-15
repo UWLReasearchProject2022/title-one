@@ -1,30 +1,30 @@
 export default [
   {
-    name: "Action",
+    name: "Racing",
     description:
-      "Focus on physical challenges that require hand-eye coordination and quick reflexes",
-    imageName: "action_cover.jpg",
-    redirectLink: "/search?category=action",
+      "Encounter exhilarating high-speed racing in stunning environments",
+    imageName: "racing_cover.jpg",
+    redirectLink: "/search?category=Racing",
   },
   {
     name: "Shooter",
     description:
       "Focus on defeating the character's enemies using the weapons given to the player",
     imageName: "shooter_cover.jpg",
-    redirectLink: "/search?category=shooter",
+    redirectLink: "/search?category=Shooter",
   },
   {
-    name: "Sport",
+    name: "Simulator",
     description:
-      "Play traditional sports with friends, such as athletics, extreme sports and many more",
-    imageName: "sport_cover.jpg",
-    redirectLink: "/search?category=sport",
+      "Imerse yourself into the world of the game, with realistic simulations",
+    imageName: "simulator_cover.jpg",
+    redirectLink: "/search?category=Simulator",
   },
   {
     name: "Role-playing",
     description:
       "Control the actions of your character immersed in a virtual world to develop new skills and complete quests",
     imageName: "rpg_cover.jpg",
-    redirectLink: "/search/category=role-playing",
+    redirectLink: "/search?category=Role-playing (RPG)",
   },
 ];

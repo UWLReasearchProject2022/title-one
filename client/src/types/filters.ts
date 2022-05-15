@@ -7,7 +7,15 @@ export type Platform = "Playstation" | "Xbox" | "Nintendo" | "PC";
 
 export type AgeRating = "3+" | "7+" | "12+" | "16+" | "18+";
 
-export type Category = "action" | "shooter" | "sport" | "rpg";
+export type Category =
+  | "Shooter"
+  | "Racing"
+  | "Role-playing (RPG)"
+  | "Simulator"
+  | "Platform"
+  | "Real Time Strategy (RTS)"
+  | "Puzzle"
+  | "Fighting";
 
 export type Filter = {
   platform: Platform[];

@@ -6,7 +6,8 @@ export type Product = {
   short_description: string;
   description: string;
   long_description: string;
-  developer: "Ubisoft" | "Rockstar Games";
+  developer: string;
+  developer_logo_url: string;
   category: Category;
   image_url: string;
   platform: Platform;

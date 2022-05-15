@@ -23,7 +23,16 @@ export const Filters: React.FunctionComponent<Props> = ({
 }) => {
   const platforms: Platform[] = ["Playstation", "Xbox", "Nintendo", "PC"];
   const ageRatings: AgeRating[] = ["3+", "7+", "12+", "16+", "18+"];
-  const categories: Category[] = ["action", "shooter", "sport", "rpg"];
+  const categories: Category[] = [
+    "Shooter",
+    "Racing",
+    "Role-playing (RPG)",
+    "Simulator",
+    "Platform",
+    "Real Time Strategy (RTS)",
+    "Puzzle",
+    "Fighting",
+  ];
   return (
     <Container>
       <TopBar>

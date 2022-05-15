@@ -11,7 +11,7 @@ import {
   CollapseButton,
   CollapseButtonContainer,
 } from "./ProductInformation.styles";
-import { pegiIcons, developerIcons, platformIcons } from "utils/icons";
+import { pegiIcons, platformIcons } from "utils/icons";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
@@ -45,7 +45,7 @@ export const ProductInformation: React.FunctionComponent<TabComponentProps> = ({
           <DetailText>{`Platform: ${productPlatform.platform.name}`}</DetailText>
         </DetailContainer>
         <DetailContainer>
-          <DetailIcon src={developerIcons[productPlatform.product.developer]} />
+          <DetailIcon src={productPlatform.product.developer_logo_url} />
           <DetailText>{`Developer: ${productPlatform.product.developer}`}</DetailText>
         </DetailContainer>
       </DetailsContainer>
