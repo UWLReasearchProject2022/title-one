@@ -93,4 +93,4 @@ class Review(models.Model):
     negative = models.TextField(default="")
 
     def __str__(self):
-        return self.name
+        return str(self.review_id) + " " + self.product_id.name
