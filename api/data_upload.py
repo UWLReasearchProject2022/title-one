@@ -25,23 +25,6 @@ PRICES = [34.99, 39.99, 44.99, 49.99]
 
 PLATFORMS = ["PC", "Playstation", "Xbox", "Nintendo"]
 
-PRODS = [
-    "Far Cry Primal",
-    "FAR: Lone Sails",
-    "Farm Together",
-    "Farming Simulator 17",
-    "Farming Simulator 19",
-    "Fear The Wolves",
-    "FIA European Truck ",
-    "Fimbul",
-    "Firewatch",
-    "Five Nights at Freddy's",
-    "Five Nights at Freddy's 2",
-    "Football Manager 2018",
-    "Football Manager 2019",
-    "Football Manager Touch 2018",
-]
-
 CATEGORIES = [
     "Action",
     "Adventure",
@@ -67,25 +50,28 @@ AGE_RATINGS = ["3+", "7+", "12+", "16+", "18+"]
 data = pd.read_csv("api/api/data/games.csv").to_dict("records")
 # create an static string array of positive reviews to say about a game using context from the PRODS list
 POSITIVE = [
-    "Great game!",
-    "This game is amazing!",
-    "This game is a must have!",
-    "This game is so good!",
-    "This game is so fun!",
-    "This game is so cool!",
-    "This game is so awesome!",
-    "This game is so unique!",
+    "I like the graphics",
+    "I like the gameplay",
+    "I like the soundtrack",
+    "I like the story",
+    "I liked the characters",
+    "Interesting gameplay",
+    "Cool plot",
+    "Great soundtrack",
+    "Great story",
+    "Great characters",
 ]
-
 NEGATIVE = [
-    "This game sucks!",
-    "This game is terrible!",
-    "This game is awful!",
-    "I hate this game!",
-    "This game is boring!",
-    "This game is bad!",
+    "I hated the graphics",
+    "I hated the gameplay",
+    "I hated the soundtrack",
+    "I wasn't a fan of the story",
+    "I didn't like the characters",
+    "I didn't like the plot",
+    "I would have preferred a different soundtrack",
+    "I would have preferred a different story",
+    "I would have preferred different characters",
 ]
-
 
 ##############################
 ################################
@@ -258,10 +244,10 @@ def upload_review():
     users = [x["user_id"] for x in users]
 
     for product, _ in itertools.product(products, range(5)):
-        game_play = random.randint(1, 5),
-        social = random.randint(1, 5),
-        graphics = random.randint(1, 5),
-        value = random.randint(1, 5),
+        game_play = random.randint(1, 10),
+        social = random.randint(1, 10),
+        graphics = random.randint(1, 10),
+        value = random.randint(1, 10),
         body = {
             "product_id": product,
             "user_id": random.choice(users),
