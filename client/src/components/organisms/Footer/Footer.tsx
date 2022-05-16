@@ -20,7 +20,7 @@ export const Footer: React.FunctionComponent = () => {
       <Container>
         <LogoContainer>
           <Logo
-            src={`${BASE_URL}logos/title-one-full-logo.svg`}
+            src={`${BASE_URL}/logos/title-one-full-logo.svg`}
             alt="title-one-full-logo"
           />
           <BodyText color="primary">Find your next game.</BodyText>
