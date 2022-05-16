@@ -95,7 +95,7 @@ export const BasketTable: React.FunctionComponent<Props> = ({
       headerName: "",
       width: 60,
       renderCell: (params: GridRenderCellParams) => (
-        <IconButton onClick={() => removeFromBasket(params.row.product.id)}>
+        <IconButton onClick={() => removeFromBasket(params.id as number)}>
           <Delete />
         </IconButton>
       ),

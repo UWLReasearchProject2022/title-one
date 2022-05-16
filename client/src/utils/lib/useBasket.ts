@@ -44,13 +44,15 @@ export const useBasket = () => {
 
   const removeFromBasket = (productId: number) => {
     try {
-      const newBasket = basket.filter(
-        (item) => item.productPlatform.product_platform_id !== productId,
-      );
-      setBasket(newBasket);
-      if (typeof window !== "undefined") {
-        window.localStorage.setItem("basket", JSON.stringify(newBasket));
-      }
+      setTimeout(() => {
+        const newBasket = basket.filter(
+          (item) => item.productPlatform.product_platform_id !== productId,
+        );
+        setBasket(newBasket);
+        if (typeof window !== "undefined") {
+          window.localStorage.setItem("basket", JSON.stringify(newBasket));
+        }
+      });
     } catch (error) {
       console.log(error);
     }
