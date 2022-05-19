@@ -35,7 +35,10 @@ export const SmallProductCard: React.FunctionComponent<Props> = ({
             currency: "GBP",
           })}
         </PriceText>
-        <Link to={`/search/${productPlatform.product_platform_id}`}>
+        <Link
+          to={`/search/${productPlatform.product_platform_id}`}
+          style={{ textDecoration: "none" }}
+        >
           <ViewButton variant="contained" color="secondary">
             VIEW
           </ViewButton>
